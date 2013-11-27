@@ -27,67 +27,24 @@ arrays 		- this is for the name="foo[]"
 
 	$last_name		= (isset($_POST['last-name'])) ? trim($_POST['last-name']) : "";//$_POST['last-name']
 	$first_name		= (isset($_POST['first-name'])) ? trim($_POST['first-name']) : "";//$_POST['first-name']
-	$brith_date		= (isset($_POST['dbo'])) ? trim($_POST['dbo']) : "";//$_POST['first-name']
+	$brith_date		= (isset($_POST['dob'])) ? trim($_POST['dob']) : "";//$_POST['first-name']
 	$address		= (isset($_POST['address'])) ? trim($_POST['address']) : "";//$_POST['address']
+	$city           = (isset($_POST['city'])) ? trim($_POST['city']) : "";//$_POST['city']
+	$zip            = (isset($_POST['zip'])) ? trim($_POST['zip']) : "";//$_POST['zip']
 
-
-
-
-
-if(!empty($last_name) && !empty($first_name) && !empty($brith_date) && !empty($address) ){
-
-
-//string json_encode ( mixed $value [, int $options = 0 [, int $depth = 512 ]] )
-	echo "form was filled out";
-	
-	/* this is the basics not ideals
-	-----------------------------
-	|         table:formdata    |
-	-----------------------------
-	| id int(11) Primary key not null auto increment
-	| uh_id var(8)			|
-	| last_name  var(255)		|
-	| first_name var(255)		|
-	| brith_date var(255) 		|
-	| address var(255)			|
-	| form_object text not null	|
-	| creation_date timestamp	|	
-	-----------------------------
-	
-	
-	*/
-	$jsonObj = json_encode ($_POST); // this is all of the form POST data serialized
-	// we are matching now for example
-	// also setting up the vars
-	$uh_id			= (isset($_POST['uh-id'])) ? $_POST['uh-id'] : "";//$_POST['uh-id']
-
-	$creation_date 	= strtotime("now");
-	$form_object	= $jsonObj;
-	//make your db connection then
-	//insert your row
-	//then close db connect
-	echo "<h1>Thank you for filling the form out bra</h1>";
-	
-	
-	/*
-	For the output stage, a simple example
-	this is an example of when we read from db adn 
-	then we take the data and prep it to output
-	
-	echo $jsonObj;
-	$jsonExpandedObj = json_decode ($jsonObj);
-	var_dump($jsonExpandedObj);
-	//example single call
-	$jsonExpandedObj['uh-id'];
-	
-	//an example of iterating over the json array
-	foreach($jsonExpandedObj as $k=>$v){
-		if(is_array($v))$v = implode(",",$v); // check to see if it's an array and handle
-		echo $k . " :: " . $v ."\n";
-	}
-	
-	
-	*/
+if(!empty($last_name) 
+	&& !empty($first_name) 
+	&& !empty($brith_date) 
+	&& !empty($address) 
+	&& !empty($city) 
+	&& !empty($zip) ){
+		//require_once is equal to "open file" and put the
+		//code here as if i wrote it here
+		//include -- ""
+		//require -- ""
+		//include_once -- ""
+		
+		require_once('form-action-controller.php');
 }else{
 
 ?>
@@ -309,11 +266,13 @@ if(count($_POST)>0){
 	   
 
     <span> 
-	   <label>Race<br/>Select all that apply</label>
+	   <label>Race<br/>Select all that apply</label><br/>
 	   <?php
 	    $raceArray = array("American Indian","Alaskan Native","Native Hawaiian or Pacific Islander","Asian","Hispanic","African American or Black","Caucasian or White");
 	    foreach($raceArray as $k =>$v){
-		 echo "<br/><input type='checkbox' name='race' ". ((isset($_POST['race']) && $_POST['race']==$v)?"checked":"")." value='".$v."' />".$v.""; 
+		 echo "<input type='checkbox' name='race[]' ".
+		 ((isset($_POST['race']) && in_array($v,$_POST['race']))?"checked":"").
+		 " value='".$v."' />".$v."<br/>"; 
 		}
 	    ?> 
 	   <br/>
@@ -564,7 +523,9 @@ if(count($_POST)>0){
 	   <?php
 	    $englishArray = array("Yes","No");
 	    foreach($englishArray as $k =>$v){
-		 echo "<input type='radio' name='english' ". ((isset($_POST['english']) && $_POST['english']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		 echo "<input type='radio' name='english' ".
+			((isset($_POST['english']) && $_POST['english']==$v)?"checked":"").
+			" value='".$v."' /> ".$v."";
 		}
 	    ?> <br/>  
      </span>
@@ -583,15 +544,18 @@ if(count($_POST)>0){
 		                       "Pregnant or Parenting","Requires Additional Assistance","Homeless",
 							   "Deficient Basic Literacy Skills","School Drop out","Foster Child",
 							   "Serious Barrier-Board Defined");
-	    foreach($barriersArray as $k =>$v){
-		 echo "<br/><input type='checkbox' name='barriers' ". ((isset($_POST['barriers']) && $_POST['barriers']==$v)?"checked":"")." value='".$v."' />".$v.""; 
+		
+	    foreach($barriersArray as $k=>$v){
+			echo "<input type='checkbox' name='barriers[]' ".
+					( (isset($_POST['barriers']) && in_array($v,$_POST['barriers']))?"checked":"" ).
+					" value='".$v."'/>".$v."<br/>";
 		}
 	    ?> 
-		<input type='text' name='barriers_other' id='barriers_other' value='<?php echo (isset($_POST['barriers_other']))?$_POST['barriers_other']:""; ?>'/><br/>	   
+		<input type='text' name='barriers_other' id='barriers_other' 
+		value='<?php echo (isset($_POST['barriers_other']))?$_POST['barriers_other']:""; ?>'/><br/>	   
 	</span>
 </div>
-<!--	What is that barrier?<input type=”text” name='barriers[]' id='barriers[]'  value=''/><br/> -->
-	    
+
 		<br/>
 	
 		
@@ -599,6 +563,9 @@ if(count($_POST)>0){
 		<label>this is just for jumping to another location</label>
 			<input type='text' name='jump' id='jump' value=''/><br/>
 	</span>	
+	
+	
+	
 		
  <!--  </fieldset> -->
 	   
