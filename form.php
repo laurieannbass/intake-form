@@ -27,14 +27,14 @@ arrays 		- this is for the name="foo[]"
 
 	$last_name		= (isset($_POST['last-name'])) ? trim($_POST['last-name']) : "";//$_POST['last-name']
 	$first_name		= (isset($_POST['first-name'])) ? trim($_POST['first-name']) : "";//$_POST['first-name']
-	$brith_date		= (isset($_POST['dob'])) ? trim($_POST['dob']) : "";//$_POST['first-name']
+	$birth_date		= (isset($_POST['dob'])) ? trim($_POST['dob']) : "";//$_POST['first-name']
 	$address		= (isset($_POST['address'])) ? trim($_POST['address']) : "";//$_POST['address']
 	$city           = (isset($_POST['city'])) ? trim($_POST['city']) : "";//$_POST['city']
 	$zip            = (isset($_POST['zip'])) ? trim($_POST['zip']) : "";//$_POST['zip']
 
 if(!empty($last_name) 
 	&& !empty($first_name) 
-	&& !empty($brith_date) 
+	&& !empty($birth_date) 
 	&& !empty($address) 
 	&& !empty($city) 
 	&& !empty($zip) ){
@@ -174,7 +174,7 @@ if(count($_POST)>0){
 						  "Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain ","Sri Lanka",
 						  "Sudan","Suriname","Swaziland ","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania",
 						  "Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan",
-						  "Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","Uruguay","Uzbekistan","Vanuatu",
+						  "Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu",
 						  "Venezuela","Vietnam","Yemen","Zambia","Zimbabwe");
 	       foreach($countryArray as $k=>$value){
 				echo'<option '.((isset($_POST['country'])&& $_POST['country']==$value)?"selected":"").'>'.$value.'</option>';
