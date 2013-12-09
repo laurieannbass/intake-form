@@ -1,0 +1,91 @@
+<div>
+	<span>
+	   <label for='island'>Island</label>
+	   <select name='island' id='island'>
+	   <option <?php echo (isset($_POST['island']))?"":"selected"; ?> value=''>Select an Island Please</option>
+	   <?php
+	    $islandArray = array("Hawai`i","Maui","O`ahu","Kaua`i","Moloka`i","Lana`i");
+		foreach($islandArray as $k=>$value){
+			echo '<option '. ((isset($_POST['island']) && $_POST['island']==$value)?"selected":"") .'>'.$value.'</option>';
+		}
+	   ?>
+
+	   </select>
+	</span>
+<br/>
+	  
+
+<br/>
+    <span>
+	  <label>Are you a resident of the state of Hawaii?</label>
+	    <?php
+	    $residentArray = array("Yes","No");
+	    foreach($residentArray as $k =>$v){
+		 echo "<br/><input type='radio' name='resident' ". ((isset($_POST['resident']) && $_POST['resident']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		}
+	   ?> <br/>
+	</span> 
+
+	   
+</div>	   
+	   
+
+<div>	   
+	   
+	</span>
+<div>   
+    <span>
+       <input type='email' name='email-address' id='email-address' placeholder='name@domain.com' 
+	      class="field text long" maxlength="255" tabindex="2" onkeyup=""
+		  value ='<?php echo (isset($_POST['email-address'])) ?$_POST['email-address']:"";?>'>
+	   <label for='email-address'>E-mail address<span class="req">*</label>
+	</span>  
+
+         <li id="foli102" class="notranslate      ">
+            <fieldset>
+              <![if !IE | (gte IE 8)]>
+              <legend id="title102" class="desc">
+                Select a Choice
+              </legend>
+              <![endif]>
+              <!--[if lt IE 8]>
+<label id="title102" class="desc">
+Select a Choice
+</label>
+<![endif]-->
+              <div>
+                <input id="radioDefault_102" name="Field102" type="hidden" value="" />
+                <span>
+                  <input id="Field102_0" name="Field102" type="radio" class="field radio" value="First Choice" tabindex="21" checked="checked" />
+                  <label class="choice" for="Field102_0" >
+                    First Choice
+                  </label>
+                </span>
+                <span>
+                  <input id="Field102_1" name="Field102" type="radio" class="field radio" value="Second Choice" tabindex="22" />
+                  <label class="choice" for="Field102_1" >
+                    Second Choice
+                  </label>
+                </span>
+                <span>
+                  <input id="Field102_2" name="Field102" type="radio" class="field radio" value="Third Choice" tabindex="23" />
+                  <label class="choice" for="Field102_2" >
+                    Third Choice
+                  </label>
+                </span>
+              </div>
+            </fieldset>
+          </li>
+          
+
+	<span>
+	      
+	   <?php
+	    $notificationArray = array("E-mail","Postal Mail ","Telephone");
+		foreach($notificationArray as $k=>$v){
+         echo "<input type='radio' name='notification' ". ((isset($_POST['notification']) && $_POST['notification']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		}
+	   ?>
+        <label id="title102" class="desc">Preferred Method of Notification</label>	   
+	</span> 
+</div>	

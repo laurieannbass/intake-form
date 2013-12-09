@@ -156,14 +156,14 @@ if(count($_POST)>0){
               <span class="full addr1">
                 <input id="address" name="address" type="text" class="field text addr" 
 				     value='<?php echo (isset($_POST['address'])) ?$_POST['address']:"";?>'
-					 tabindex="6" required />
+					 tabindex="5" required />
 				<label for="address">Street Address<span class="req">*</span>
                 </label>
               </span>
               <span class="left city">
                 <input id="city" name="city" type="text" class="field text addr" 
 				value='<?php echo (isset($_POST['city'])) ?$_POST['city']:"";?>'
-				tabindex="7" required />
+				tabindex="6" required />
                 <label for="City">
                   City
                 </label>
@@ -171,7 +171,7 @@ if(count($_POST)>0){
               <span class="right state">
                 <input id="state" name="state" type="text" class="field text addr" 
 				value= '<?php echo (isset($_POST['state'])) ?$_POST['state']:"";?>'
-				tabindex="8" required />
+				tabindex="7" required />
                 <label for="state">
                   State / Province / Region
                 </label>
@@ -179,18 +179,17 @@ if(count($_POST)>0){
               <span class="left zip">
                 <input id="zip" name="zip" type="text" class="field text addr" 
 				value='<?php echo (isset($_POST['zip'])) ?$_POST['zip']:"";?>' 
-				maxlength="15" tabindex="9" required />
+				maxlength="15" tabindex="8" required />
                 <label for="zip">
                   Postal / Zip Code
                 </label>
               </span>
-			  
 			  <span class="right country">   
 		      <select name='country' id='country' 
-			        class="field select addr" tabindex="10">
-	              <option <?php echo (isset($_POST['country']))?"":"selected";?> 
+			        class="field select addr" tabindex="9">
+	            <option <?php echo (isset($_POST['country']))?"":"selected";?> 
 	                value="" selected="selected">
-	              </option>
+	            </option>
 				<?php $countryArray = array("Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
                           "Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus",
 						  "Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei",
@@ -238,14 +237,14 @@ if(count($_POST)>0){
               <span class="full addr1">
                 <input id="mailaddress" name="mailaddress" type="text" class="field text addr" 
 				     value='<?php echo (isset($_POST['mailaddress'])) ?$_POST['mailaddress']:"";?>'
-					 tabindex="11" required />
+					 tabindex="10" required />
 				<label for="mailaddress">Street Address<span class="req">*</span>
                 </label>
               </span>
               <span class="left city">
                 <input id="mailcity" name="mailcity" type="text" class="field text addr" 
 				value='<?php echo (isset($_POST['mailcity'])) ?$_POST['mailcity']:"";?>'
-				tabindex="12" required />
+				tabindex="11" required />
                 <label for="mailCity">
                   City
                 </label>
@@ -253,7 +252,7 @@ if(count($_POST)>0){
               <span class="right state">
                 <input id="mailstate" name="mailstate" type="text" class="field text addr" 
 				value= '<?php echo (isset($_POST['mailstate'])) ?$_POST['mailstate']:"";?>'
-				tabindex="13" required />
+				tabindex="12" required />
                 <label for="mailstate">
                   State / Province / Region
                 </label>
@@ -261,14 +260,14 @@ if(count($_POST)>0){
               <span class="left zip">
                 <input id="mailzip" name="mailzip" type="text" class="field text addr" 
 				value='<?php echo (isset($_POST['mailzip'])) ?$_POST['mailzip']:"";?>' 
-				maxlength="15" tabindex="14" required />
+				maxlength="15" tabindex="13" required />
                 <label for="zip">
                   Postal / Zip Code
                 </label>
               </span>
 			  <span class="right country">   
 		      <select name='mailcountry' id='mailcountry' 
-			        class="field select addr" tabindex="15">
+			        class="field select addr" tabindex="14">
 	            <option <?php echo (isset($_POST['mailcountry']))?"":"selected";?> 
 	                value="" selected="selected">
 	            </option>
@@ -314,99 +313,50 @@ if(count($_POST)>0){
             </label>
 		  <div>
 		       <!--text field-->
-			<span class="radio field">
+			<span>
                 <input type='email' name='email-address' id='email-address' placeholder='name@domain.com' 
-	               class="field select addr" maxlength="255" tabindex="16" onkeyup=""
-		            value ='<?php echo (isset($_POST['email-address'])) ?$_POST['email-address']:"";?>' />
+	               class="field select addr" maxlength="255" tabindex="15" onkeyup=""
+		            value ='<?php echo (isset($_POST['email-address'])) ?$_POST['email-address']:"";?>'>
 	         <label for='email-address'>E-mail address<span class="req">*</span></label>
 	        </span>
         
 		<!--   THREE CHOICE ARRAY choose one-->
 			
-			<span > 
-				<label for="notification"> Preferred Method of Notification. choose one<span class="req">*</span></label>
+			<span class="center radio field"> <label for="notification"> Preferred Method of Notification. choose one<span class="req">*</span></label>
+	           
+	         <input type= 'radio' name='notification' id='notification' 
+			        maxlength="255" tabindex="16" onkeyup=""
+	                value ='<?php $notificationArray = array("E-mail","Postal Mail ","Telephone");
+		              foreach($notificationArray as $k=>$v){
+                    echo "<input type='radio' name='notification' ". 
+					((isset($_POST['notification']) && $_POST['notification']==$v)?"checked":"").
+					" value='".$v."' /> ".$v."";			
+		        }
+				?>'
 
-				<?php $notificationArray = array("E-mail","Postal Mail ","Telephone");
-		            foreach($notificationArray as $k=>$v){
-						$is_checked =((isset($_POST['notification']) && $_POST['notification']==$v)?"checked":"");
-						echo "<input type='radio' name='notification'  value='".$v."' /> ".$v."";	
-					}
-				?>
 	        </span>
-			
 		</div>	
 		</li>
-		
-	<h3>Demographics</h3>
-        <li id="foli109" class="complex notranslate">  
+		<h3>Demographics</h3>
+        <li>  
 		<div>
-	       <span class="radio field"> <!-- fields with in the block-->
-	           <input type='text' name='age' id='age' class="field text medium" 
-				    maxlength="255" tabindex="18" onkeyup=""
-					  value='<?php echo (isset($_POST['age'])) ?$_POST['age']:"";?>'/>
-	            <label for='age'>Age</label>   
-	        </span>       
-	   
-	        <span class="radio field">
-              <input type='text' name='dob' id='dob' class="field text long"
-			         placeholder='MM-DD-YYYY' tabindex="19" onkeyup=""
-					 value='<?php echo (isset($_POST['dob'])) ?$_POST['dob']:"";?>'/>
- 
-	          <label for='dob'>Birth Date</label>
-	         </span>  
-			 
-		     <span class="radio field">
-				<!-- this is the by hand that you see the data pattern from -->
-	           <!-- <input type='radio' name='gender' checked value='Male' /> Male -->
-			   <!-- <input type='radio' name='gender'  value='Female' /> Female -->
-
-			   
-			   <!-- what they share in common and what is devoid of data 
-			   <input type='radio' name='gender' {$is_checked} value='{$somevalue}' /> {$somevalue_lable}
-			   -->
-			   
-			   
-			   <!-- this is the logic that iterates of the data -->
-				<?php $genderArray = array("Male","1"=>"Female");
-	               foreach($genderArray as $v){
-				   //we are now appliing value to vars from data (but note we have wasted memory doing this 
-				   //in this way were we visually make the vars) but we have var with data
-				   $somevalue=$v;
-				   $somevalue_lable=$v;
-				   $is_checked=((isset($_POST['gender']) && $_POST['gender']==$v)?"checked":"");
-				   //we now replace the template with the vars holding the data
-				   $thePattern_aka_template =
-					"<input type='radio' name='gender' {$is_checked} value='{$somevalue}' /> {$somevalue_lable}";
-					echo $thePattern_aka_template;
-
-		        }
-	         ?>
-				  
-				  
-				  
-               <label for='gender'>Gender</label>
-	         </span>   			 
-        </div>	 
-	    </li>
-		 
-	    <li id="foli101" class="complex notranslate"> 
-	     <div>
-		    <!--TWO RADIO BUTTON-->
+		<!--TWO RADIO BUTTON-->
 			<span class="radio field"> 
 			<label for="resident">Are you a resident of the state of Hawaii?</label>
-
-					<?php $residentArray = array("Yes","No");
-	                foreach($residentArray as $v){
-						echo "<input type='radio' name='resident' ". 
+	           <input type='radio' name='resident' id=`resident` 
+			          maxlength="255" tabindex="18" onkeyup=""
+	                  value='<?php $residentArray = array("Yes","No");
+	                  foreach($residentArray as $k =>$v){
+		             echo "<input type='radio' name='resident' ". 
 					((isset($_POST['resident']) && $_POST['resident']==$v)?"checked":"")." 
 					value='".$v."' /> ".$v."";
-					}
-				 ?>
+		         }
+				 ?>'
            <!--    <label for="resident">Are you a resident of the state of Hawaii?</label> -->
 			</span>
-		      <!--short dropdown select -->
+		<!--short dropdown select -->
 			<span><!--<label for='island'>Island</label>-->
-	           <select name='island' id='island' class="field select addr" tabindex="22">
+	           <select name='island' id='island' class="field select addr" tabindex="17 ">
 	            <option <?php echo (isset($_POST['island']))?"":"selected"; ?> 
 			     value="" selected="selected">
 	            </option>
@@ -419,63 +369,40 @@ if(count($_POST)>0){
 	          </select>
 			 <label for='island'>Island</label> 
 	        </span>
+			<!--TWO RADIO BUTTON-->
+			<span class="center radio field"> 
+			<label for="resident">Are you a resident of the state of Hawaii?</label>
+	           <input type='radio' name='resident' id=`resident` 
+			          maxlength="255" tabindex="18" onkeyup=""
+	                  value='<?php $residentArray = array("Yes","No");
+	                  foreach($residentArray as $k =>$v){
+		             echo "<input type='radio' name='resident' ". 
+					((isset($_POST['resident']) && $_POST['resident']==$v)?"checked":"")." 
+					value='".$v."' /> ".$v."";
+		         }
+				 ?>'
+           <!--    <label for="resident">Are you a resident of the state of Hawaii?</label> -->
+			</span>
 
-          </div>
-		  <div>
+		
 		    <span class= "radio field"> 
 				<label for="citizen">Are you a U.S. Citizenship? choose one</label><br/> 
-
-				<?php $citizenArray = array("U.S. Citizen","Non-Citizen Allowed to Work ","Non-Citizen NOT Allowed to Work");
-					foreach($citizenArray as $k=>$v){
+	            <input type="radio" name="citizen" id="citizen"
+				       maxlenght="255" tabindex="19" onkeyup=""
+					   value=`<?php $citizenArray = array("U.S. Citizen","Non-Citizen Allowed to Work ","Non-Citizen NOT Allowed to Work");
+		               foreach($citizenArray as $k=>$v){
 			           echo "<input type='radio' name='citizen' ". 
 				     ((isset($_POST['citizen']) && $_POST['citizen']==$v)?"checked":"")."value='".$v."' /> ".$v."";
-					}
-				 ?>	   
+		         }
+				 ?>`
 			</span>	
-		</div>
 		</li>
+	    </div>
 		
-	    <li id="foli107" class="complex notranslate"> 
-	    <div>
-		      <span class="radio field">
-                 <label for="hispanic">Hispanic or Latino</label><br/>
-	             <input type="radio" name="hispanic" id="hispanic"
-			     maxlength="255" tabindex="24" onkeyup="" value=''/>
-				 <?php
-	             $hispanicArray = array("Yes","No");
-	              foreach($hispanicArray as $k =>$v){
-		           echo "<input type='radio' name='hispanic' ". ((isset($_POST['hispanic']) && $_POST['hispanic']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		        }
-	          ?>
-	         </span>
-
-             <span class="radio field">
-	             <label for="nativehaw">Native Hawaiian Ancestry</label><br/>
-	             <input type="radio" name="nativehaw" id="nativehaw"
-			        maxlength="255" tabindex="25" onkeyup="" value='<?php
-	                 $nativehawArray = array("Yes","No");
-	                 foreach($nativehawArray as $k =>$v){
-		             echo "<input type='radio' name='nativehaw' ". ((isset($_POST['nativehaw']) && $_POST['nativehaw']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		           }
-	             ?>' 
-	        </span>
-			 
-	        <span class="radio field"> 
-	           <label for="race">Race      Select all that apply</label>
-
-				<?php $raceArray = array("American Indian","Alaskan Native","Native Hawaiian or Pacific Islander","Asian","Hispanic","African American or Black","Caucasian or White");
-	               foreach($raceArray as $k =>$v){
-		            echo "<input type='checkbox' name='race[]' ".
-		          ((isset($_POST['race']) && in_array($v,$_POST['race']))?"checked":"").
-		        " value='".$v."' />".$v.""; 
-					}
-				 ?>
-	         </span>
-		</div>
-		</li>
+		
 		
 	
-      
+
 	   
 	</ul>
 
@@ -490,7 +417,65 @@ if(count($_POST)>0){
 	   
 
 <div>
-	
+	<span>
+       <label>Hispanic or Latino</label>
+	    <?php
+	    $hispanicArray = array("Yes","No");
+	    foreach($hispanicArray as $k =>$v){
+		 echo "<input type='radio' name='hispanic' ". ((isset($_POST['hispanic']) && $_POST['hispanic']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		}
+	    ?> <br/>
+	</span>
+
+    <span>	 
+	   <label>Native Hawaiian Ancestry</label>
+	    <?php
+	    $nativehawArray = array("Yes","No");
+	    foreach($nativehawArray as $k =>$v){
+		 echo "<input type='radio' name='nativehaw' ". ((isset($_POST['nativehaw']) && $_POST['nativehaw']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		}
+	    ?> 
+	   <br/>
+	</span>
+	 
+	   
+
+    <span> 
+	   <label>Race<br/>Select all that apply</label><br/>
+	   <?php
+	    $raceArray = array("American Indian","Alaskan Native","Native Hawaiian or Pacific Islander","Asian","Hispanic","African American or Black","Caucasian or White");
+	    foreach($raceArray as $k =>$v){
+		 echo "<input type='checkbox' name='race[]' ".
+		 ((isset($_POST['race']) && in_array($v,$_POST['race']))?"checked":"").
+		 " value='".$v."' />".$v."<br/>"; 
+		}
+	    ?> 
+	   <br/>
+	</span>
+       
+	   
+	<span>
+       <label>Gender</label><br/>
+<!--	   <input type='radio' name='gender' value='male'>Male<br/>
+       <input type='radio' name='gender' value='female'>Female<br/> -->
+	   <?php
+	    $genderArray = array("Male","Female");
+	    foreach($genderArray as $k =>$v){
+		 echo "<input type='radio' name='gender' ". ((isset($_POST['gender']) && $_POST['gender']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		}
+	    ?> <br/>
+	 </span>       
+	   
+	<span>
+	   <label for='age'>Age</label>
+	   <input type='text' name='age' id='age' value='<?php echo (isset($_POST['age'])) ?$_POST['age']:"";?>'/><br/>
+	</span>       
+	   
+	<span>
+       <label for='dob'>Birth Date</label><br/> <!--ask if there is format for date-->
+	   <input type='text' name='dob' id='dob' placeholder='MM-DD-YYYY' value='<?php echo (isset($_POST['dob'])) ?$_POST['dob']:"";?>'/><br/>
+	</span>      
+	  
 </div>
 	 
   <!-- <fieldset>

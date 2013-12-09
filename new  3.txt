@@ -1,0 +1,76 @@
+<div>
+  <input id="radioDefault_102" name="Field102" type="hidden" value="" />
+  <span>
+    <input id="Field102_0" name="Field102" type="radio" class="field radio" value="First Choice check one" tabindex="6" checked="checked" />
+    <label class="choice" for="Field102_0" >
+      First Choice check one
+    </label>
+  </span>
+  <span>
+    <input id="Field102_1" name="Field102" type="radio" class="field radio" value="Second Choice check one" tabindex="7" />
+    <label class="choice" for="Field102_1" >
+      Second Choice check one
+    </label>
+  </span>
+  <span>
+    <input id="Field102_2" name="Field102" type="radio" class="field radio" value="Third Choice check one" tabindex="8" />
+    <label class="choice" for="Field102_2" >
+      Third Choice check one
+    </label>
+  </span>
+</div>
+</fieldset>
+</li>
+----_________-------------------------------------------
+
+
+
+
+
+WORKING RADIO BUTTONS     
+<span class="radio field">
+	           
+	         <input type= 'radio' name='notification' id='notification' class="raido field" 
+			        maxlength="255" tabindex="16" onkeyup=""
+	                value ='<?php $notificationArray = array("E-mail","Postal Mail ","Telephone");
+		              foreach($notificationArray as $k=>$v){
+                    echo "<input type='radio' name='notification' ". 
+					((isset($_POST['notification']) && $_POST['notification']==$v)?"checked":"").
+					" value='".$v."' /> ".$v."";			
+		        }
+				?>
+             <label for="notification"> Preferred Method of Notification.  choose one</label>
+</span>
+----------------------------------------------------------------------------------------
+<div>
+    <span>
+	  <label>Are you a resident of the state of Hawaii?</label>
+	    <?php
+	    $residentArray = array("Yes","No");
+	    foreach($residentArray as $k =>$v){
+		 echo "<br/><input type='radio' name='resident' ". ((isset($_POST['resident']) && $_POST['resident']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		}
+	   ?> <br/>
+	</span> 
+	
+<!--	<span>
+	   <label>Did you answer yes to the last questions?</label>
+	    <br/>
+	   <input type='radio' name='answer'  value='yes'>Yes
+	   <input type='radio' name='answer' value='no'>No<br/> -->
+	
+	<!-- this is where If answer is yes keep going if answer is no go to last questions-->
+<!--	</span> -->
+	 
+	<span>
+	   <label>Are you a U.S. Citizenship? choose one</label>     
+	   <?php
+	    $citizenArray = array("U.S. Citizen","Non-Citizen Allowed to Work ","Non-Citizen NOT Allowed to Work");
+		foreach($citizenArray as $k=>$v){
+			//echo "<input type='radio' name='citizen' checked value='US Citizen' /> US Citizen";
+			echo "<br/><input type='radio' name='citizen' ". ((isset($_POST['citizen']) && $_POST['citizen']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+			
+		}
+	   ?>	   <br/>
+	   
+</div>	
