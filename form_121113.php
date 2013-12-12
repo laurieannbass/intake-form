@@ -83,7 +83,7 @@ if(count($_POST)>0){
     <!-- http://www.w3schools.com/html/html_forms.asp -->
 
 
-<form name='input' action='http://local.general.dev/intake-form/form.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
+<form name='input' action='http://local.general.dev/intake-form/form.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidat>
 
         <!-- slskdhlsk -->	                                                
   <!-- <fieldset><legend><b>Contact Information</b></legend> -->
@@ -122,9 +122,9 @@ if(count($_POST)>0){
 			</span>
 
 		</li>
-	</ul>
+		</ul>
 		
-	<ul>
+		<ul>
 		<li id="foli103" class="notranslate ">
 			<label class="desc" id="title103" for="homephone"> <!--header for the block-->
                Phone Numbers
@@ -144,91 +144,95 @@ if(count($_POST)>0){
 	        </span>		
 
 		</li>
-	</ul>
-	<ul>
+		</ul>
+
 		<!-- put the address row-block here -->
-		<li id="foli104" class="complex notranslate">
+		<li id="foli104" class="complex notranslate      ">
             <label class="desc" id="title107" for="address">
               Residence Address
-              <span id="req_110" class="req">
+              <span id="req_107" class="req">
                 *
               </span>
             </label>
-			<div>
-				<span class="full addr1">
-					<input id="address" name="address" type="text" class="field text addr" 
-						 value='<?php echo (isset($_POST['address'])) ?$_POST['address']:"";?>'
-						 tabindex="6" required />
-					<label for="address">Street Address<span class="req">*</span>
-					</label>
-				</span>
-				<span class="left city">
-					<input id="city" name="city" type="text" class="field text addr" 
-					value='<?php echo (isset($_POST['city'])) ?$_POST['city']:"";?>'
-					tabindex="7" required />
-					<label for="City">
-					  City
-					</label>
-				  </span>
-				<span class="right state">
-					<input id="state" name="state" type="text" class="field text addr" 
-					value= '<?php echo (isset($_POST['state'])) ?$_POST['state']:"";?>'
-					tabindex="8" required />
-					<label for="state">
-					  State / Province / Region
-					</label>
-				</span>
-				<span class="left zip">
-					<input id="zip" name="zip" type="text" class="field text addr" 
-					value='<?php echo (isset($_POST['zip'])) ?$_POST['zip']:"";?>' 
-					maxlength="15" tabindex="9" required />
-					<label for="zip">
-					  Postal / Zip Code
-					</label>
-				</span>
-				<span class="right country">   
-					<label for="country">Country</label>
-					<select name='country' id='country' class="field select addr" tabindex="10">
-						<option value="">Choose a country</option>
-						<?php $countryArray = array("Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
-							  "Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus",
-							  "Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei",
-							  "Bulgaria","Burkina Faso","Burma","Burundi","Cambodia","Cameroon","Canada","Cape Verde",
-							  "Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica",
-							  "Cote d'Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica",
-							  "Dominican Republic","East Timor (see Timor-Leste)","Ecuador","Egypt","El Salvador","Equatorial Guinea",
-							  "Eritrea","Estonia","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany",
-							  "Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana",	"Haiti","Holy See","Honduras",
-							  "Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica",
-							  "Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea, North","Korea, South","Kosovo","Kuwait",
-							  "Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania",
-							  "Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta",
-							  "Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia",
-							  "Montenegro","Morocco","Mozambique","Namibia","Nauru","Nepal","Netherlands","Netherlands Antilles",
-							  "New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau",
-							  "Palestinian Territories","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland",
-							  "Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia",
-							  "Saint Vincent and the Grenadines","Samoa ","San Marino","Sao Tome and Principe","Saudi Arabia",
-							  "Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Sint Maarten","Slovakia","Slovenia",
-							  "Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain ","Sri Lanka",
-							  "Sudan","Suriname","Swaziland ","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania",
-							  "Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan",
-							  "Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu",
-							  "Venezuela","Vietnam","Yemen","Zambia","Zimbabwe");
-							  foreach($countryArray as $k=>$value){
-							  echo'<option '.((isset($_POST['country'])&& $_POST['country']==$value)?"selected":"").'>'.$value.'</option>';
-							}
-							?>	
-					</select>	
-				</span> 
-			</div>
+        <div>
+              <span class="full addr1">
+                <input id="address" name="address" type="text" class="field text addr" 
+				     value='<?php echo (isset($_POST['address'])) ?$_POST['address']:"";?>'
+					 tabindex="6" required />
+				<label for="address">Street Address<span class="req">*</span>
+                </label>
+              </span>
+              <span class="left city">
+                <input id="city" name="city" type="text" class="field text addr" 
+				value='<?php echo (isset($_POST['city'])) ?$_POST['city']:"";?>'
+				tabindex="7" required />
+                <label for="City">
+                  City
+                </label>
+              </span>
+              <span class="right state">
+                <input id="state" name="state" type="text" class="field text addr" 
+				value= '<?php echo (isset($_POST['state'])) ?$_POST['state']:"";?>'
+				tabindex="8" required />
+                <label for="state">
+                  State / Province / Region
+                </label>
+              </span>
+              <span class="left zip">
+                <input id="zip" name="zip" type="text" class="field text addr" 
+				value='<?php echo (isset($_POST['zip'])) ?$_POST['zip']:"";?>' 
+				maxlength="15" tabindex="9" required />
+                <label for="zip">
+                  Postal / Zip Code
+                </label>
+              </span>
+			  
+			  <span class="right country">   
+		      <select name='country' id='country' 
+			        class="field select addr" tabindex="10">
+	              <option <?php echo (isset($_POST['country']))?"":"selected";?> 
+	                value="" selected="selected">
+	              </option>
+				<?php $countryArray = array("Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
+                          "Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus",
+						  "Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei",
+						  "Bulgaria","Burkina Faso","Burma","Burundi","Cambodia","Cameroon","Canada","Cape Verde",
+						  "Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica",
+						  "Cote d'Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica",
+						  "Dominican Republic","East Timor (see Timor-Leste)","Ecuador","Egypt","El Salvador","Equatorial Guinea",
+						  "Eritrea","Estonia","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany",
+						  "Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana",	"Haiti","Holy See","Honduras",
+						  "Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica",
+						  "Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea, North","Korea, South","Kosovo","Kuwait",
+						  "Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania",
+						  "Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta",
+						  "Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia",
+                          "Montenegro","Morocco","Mozambique","Namibia","Nauru","Nepal","Netherlands","Netherlands Antilles",
+						  "New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau",
+						  "Palestinian Territories","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland",
+						  "Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia",
+						  "Saint Vincent and the Grenadines","Samoa ","San Marino","Sao Tome and Principe","Saudi Arabia",
+						  "Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Sint Maarten","Slovakia","Slovenia",
+						  "Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain ","Sri Lanka",
+						  "Sudan","Suriname","Swaziland ","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania",
+						  "Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan",
+						  "Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu",
+						  "Venezuela","Vietnam","Yemen","Zambia","Zimbabwe");
+	                      foreach($countryArray as $k=>$value){
+				          echo'<option '.((isset($_POST['country'])&& $_POST['country']==$value)?"selected":"").'>'.$value.'</option>';
+				}
+	            ?>	
+                </select>	
+                     <label for="country">Country</label>	
+              </span> 
+        </div>
         </li>		
 		
 		<!-- put the Mailing address row-block here -->
-		<li id="foli105" class="complex notranslate">
+		<li id="foli105" class="complex notranslate      ">
             <label class="desc" id="title109" for="address">
               Mailing Address if different from residence address
-              <span id="req_108" class="req">
+              <span id="req_107" class="req">
                 *
               </span>
             </label>
@@ -308,7 +312,7 @@ if(count($_POST)>0){
         <li id="foli106" class="notranslate">	
 		    <label class="desc" id="title110" for="address">
                 Email Address And Preferred Method of contact
-            <span id="req_109" class="req">*</span>
+            <span id="req_107" class="req">*</span>
             </label>
 		 <div>
 		       <!--text field-->
@@ -334,9 +338,8 @@ if(count($_POST)>0){
 			
 		</div>	
 		</li>
-	</ul>
+		
 	<h3>Demographics</h3>
-	<ul>
         <li id="foli109" class="complex notranslate">  
 		<div>
 	       <span class="radio field"> <!-- fields with in the block-->
@@ -356,7 +359,7 @@ if(count($_POST)>0){
 	     </div>	 
 	    </li>
 		 
-	    <li id="foli110" class="complex notranslate"> 
+	    <li id="foli101" class="complex notranslate"> 
 	     <div>		 
 		    <span class="radio field" style="margin-right:25px;">
 			 <label for='gender'>Gender</label>
@@ -411,7 +414,7 @@ if(count($_POST)>0){
          </div>	 
 	    </li>
 		 
-	    <li id="foli111" class="complex notranslate"> 
+	    <li id="foli101" class="complex notranslate"> 
 	     <div>
 		    <!--TWO RADIO BUTTON-->
 			<span class="radio field" style="margin-right:25px"> 
@@ -456,7 +459,7 @@ if(count($_POST)>0){
 		</div>
 		</li>
 		
-	    <li id="foli112" class="complex notranslate"> 
+	    <li id="foli107" class="complex notranslate"> 
 	    <div>
 		      <span class="radio field">
                  <label for="hispanic">Hispanic or Latino</label>
@@ -494,7 +497,7 @@ if(count($_POST)>0){
 
 	<h3>Military and Veteran Status</h3>
 	<ul>
-        <li id="foli115" class="complex notranslate">  
+        <li id="foli107" class="complex notranslate">  
 	     <div>
 	        <span class="radio field">  	   
 	         <label>Active or prior member of the Military?</label>
@@ -518,7 +521,7 @@ if(count($_POST)>0){
 		</div>
 		</li>
 		  
-		 <li id="foli113" class="complex notranslate">
+		 <li id="foli107" class="complex notranslate">
 		 <div>
 
 		   
@@ -545,7 +548,7 @@ if(count($_POST)>0){
 		  
 	   
 		
-		<li id="foli114" class="complex notranslate">
+		<li id="foli107" class="complex notranslate">
 		 <div>
          <span class="radio field"> 	 
 	       <label>Recently Separated Veteran</label>
@@ -570,148 +573,148 @@ if(count($_POST)>0){
 		</li>
 		</ul>
 		
-	<h3>Education</h3>
-	<ul>
-	<li id="foli116" class="complex notranslate">  
-	 <div>
-	  <span class="radio field">
-		<label>What is your current educational Status?</label>
-		<?php
-		$ed_statusArray = array("In school,High School or less","In School, Alternative School","In school,Post-High School","Not attending school, High School Drop-out","Not attending school, High School Graduate");
-		foreach($ed_statusArray as $k =>$v){
-		echo "<br/><input type='radio' name='ed_status' ". ((isset($_POST['ed_status']) && $_POST['ed_status']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	  }
-	  ?>	   
-	 </span>
-
-	 <span class="radio field">
-	   <label>Highest grade completed:</label>
-	   <?php
-		$highestgradeArray = array("No School Grades Completed","GED or Equivalent","High School Diploma","Certificate of Attendance/Completion","Associate Diploma or Degree","Bachelor's Degree or Equivalent","Other Post-Secondary Degree or Certificate","Education beyond Bachelor's Degree");
-		foreach($highestgradeArray as $k =>$v){
-		echo "<br/><input type='radio' name='highestgrade' ". ((isset($_POST['highestgrade']) && $_POST['highestgrade']==$v)?"checked":"")." value=\"".$v."\" /> ".$v."";
-	   }
-	   ?>	  	   
-	 </span>
-	 
-	 <span style="margin-left :25px" class="radio field">
-	   <label>Pell Grant Recipient</label>
-	   <?php
-		$pellArray = array("Yes","No");
-		foreach($pellArray as $k =>$v){
-		echo "<br/><input type='radio' name='pell' ". ((isset($_POST['pell']) && $_POST['pell']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	   }
-	  ?>   
-	 </span>
-	 </div>
-	</li>
-	</ul>
-	
-	
-   <h3>Economics</h3>	
-	<ul>
-	<li id="foli117" class="complex notranslate">  
-	 <div>
-	  <span class="radio field">
-	   <label>Low Income</label>	   
-		<?php
-		 $lowincomeArray = array("Yes","No");
-		 foreach($lowincomeArray as $k =>$v){
-		 echo "<input type='radio' name='lowincome' ". ((isset($_POST['lowincome']) && $_POST['lowincome']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		}
-	   ?>   	   
-	  </span>
-	 
-	  <span style="margin-left :45px" class="center radio field">
-	   <label>Food Stamp Recipient</label>
-		<?php
-		$foodstampsArray = array("Yes","No");
-		 foreach($foodstampsArray as $k =>$v){
-		 echo "<input type='radio' name='foodstamps' ". ((isset($_POST['foodstamps']) && $_POST['foodstamps']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		}
-	   ?>	   
-	  </span>
-	
-	  <span style="margin-left :125px" class="radio field">
-	   <label>Foster Child</label>
-		<?php
-		$fosterchildArray = array("Yes","No");
-		foreach($fosterchildArray as $k =>$v){
-		echo "<input type='radio' name='fosterchild' ". ((isset($_POST['fosterchild']) && $_POST['fosterchild']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	   }
-	  ?> 	   	   
-	  </span>		 
-	 </div>
-	</li>
-	
-	<li id="foli118" class="complex notranslate">  
-	 <div>
-	   <span class="radio field">
-		 <label for='familysize'>Family Size</label>
-		 <select name='familysize' id='familysize'>
-		  <option <?php echo (isset($_POST['familysize']))?"":"selected"; ?> value="" selected="selected">
-		  </option>
-		  <?php
-		 $familysizeArray = array("1","2","3","4","5","6","7","8","9","10 or More");
-		 foreach($familysizeArray as $k=>$value){
-		 echo '<option '. ((isset($_POST['familysize']) && $_POST['familysize']==$value)?"selected":"") .'>'.$value.'</option>';
-		 }
-		 ?>
-		</select>
-	   </span>
-	  
-	   <span class="right radio field">	 
-		 <label for='income'>Annual Family Income</label>
-		   <select name='income' id='income'>
-		   <option <?php echo (isset($_POST['income']))?"":"selected"; ?> value="" selected="selected">
-		   </option>
-			<?php
-			$incomeArray = array("$0 to $20,000","$21,000 to $35,000","$36,000 to $50,000","$50,000 to $70,000","$71,000 to $150,000");
-			foreach($incomeArray as $k=>$value){
-			echo '<option '. ((isset($_POST['income']) && $_POST['income']==$value)?"selected":"") .'>'.$value.'</option>';
-		   }
-		  ?>	
-		  </select>
-		</span>
-	 </div>
-	 </li>
-	 
-	<li id="foli119" class="complex notranslagte">
-	<div>
-	  <span class="radio field">	 
-		<label for='laborstatus'>Labor Force Status</label>
-		  <select name='laborstatus' id='laborstatus'>
-		   <option <?php echo (isset($_POST['laborstatus']))?"":"selected"; ?> value="" selected="selected">
-			   </option>
-				<?php
-				 $laborstatusArray = array("Employed","Not Employed","Employed, but Received Notice of Termination or Military Separation");
-				 foreach($laborstatusArray as $k=>$value){
-				 echo '<option '. ((isset($_POST['laborstatus']) && $_POST['laborstatus']==$value)?"selected":"") .'>'.$value.'</option>';
-			   }
-			   ?>
-		  </select>
-	   </span>	
-	   
-	   <span="class="radio field">	 
-		<label for='unemp-comp'>Unemployment Compensation</label>
-		  <select name='unemp-comp' id='unemp-comp'>
-		   <option <?php echo (isset($_POST['unemp_comp']))?"":"selected"; ?> value="" selected="selected">
-		   </option>
-		   <?php
-			$unemp_compArray = array("Claimant","Exhaustee","None");
-			foreach($unemp_compArray as $k=>$value){
-			echo '<option '. ((isset($_POST['unemp_comp']) && $_POST['unemp_comp']==$value)?"selected":"") .'>'.$value.'</option>';
+		<h3>Education</h3>
+		<ul>
+        <li id="foli107" class="complex notranslate">  
+	     <div>
+      	  <span class="radio field">
+	        <label>What is your current educational Status?</label>
+	        <?php
+	        $ed_statusArray = array("In school,High School or less","In School, Alternative School","In school,Post-High School","Not attending school, High School Drop-out","Not attending school, High School Graduate");
+	        foreach($ed_statusArray as $k =>$v){
+		    echo "<br/><input type='radio' name='ed_status' ". ((isset($_POST['ed_status']) && $_POST['ed_status']==$v)?"checked":"")." value='".$v."' /> ".$v."";
 		  }
-		  ?>
-		 </select>
-		</span>	
-	</div>
-	</li> 		
-	</ul>
-	
-	<h3>Barriers to Employment and College</h3> 
-	<ul>			
-         <li id="foli120" class="complex notranslate">  
+	      ?>	   
+         </span>
+
+   		 <span class="radio field">
+	       <label>Highest grade completed:</label>
+	       <?php
+	        $highestgradeArray = array("No School Grades Completed","GED or Equivalent","High School Diploma","Certificate of Attendance/Completion","Associate Diploma or Degree","Bachelor's Degree or Equivalent","Other Post-Secondary Degree or Certificate","Education beyond Bachelor's Degree");
+	        foreach($highestgradeArray as $k =>$v){
+		    echo "<br/><input type='radio' name='highestgrade' ". ((isset($_POST['highestgrade']) && $_POST['highestgrade']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		   }
+	       ?>	  	   
+         </span>
+		 
+	     <span style="margin-left :25px" class="radio field">
+	       <label>Pell Grant Recipient</label>
+	       <?php
+	        $pellArray = array("Yes","No");
+	        foreach($pellArray as $k =>$v){
+		    echo "<br/><input type='radio' name='pell' ". ((isset($_POST['pell']) && $_POST['pell']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		   }
+	      ?>   
+	     </span>
+         </div>
+		</li>
+		</ul>
+		
+		
+       <h3>Economics</h3>	
+        <ul>
+        <li id="foli107" class="complex notranslate">  
+	     <div>
+		  <span class="radio field">
+	       <label>Low Income</label>	   
+	        <?php
+	         $lowincomeArray = array("Yes","No");
+	         foreach($lowincomeArray as $k =>$v){
+		     echo "<input type='radio' name='lowincome' ". ((isset($_POST['lowincome']) && $_POST['lowincome']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+	    	}
+	       ?>   	   
+	      </span>
+		 
+	      <span style="margin-left :45px" class="center radio field">
+	       <label>Food Stamp Recipient</label>
+	        <?php
+	        $foodstampsArray = array("Yes","No");
+	         foreach($foodstampsArray as $k =>$v){
+		     echo "<input type='radio' name='foodstamps' ". ((isset($_POST['foodstamps']) && $_POST['foodstamps']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		    }
+	       ?>	   
+          </span>
+		
+	      <span style="margin-left :125px" class="radio field">
+	       <label>Foster Child</label>
+	        <?php
+	        $fosterchildArray = array("Yes","No");
+	        foreach($fosterchildArray as $k =>$v){
+		    echo "<input type='radio' name='fosterchild' ". ((isset($_POST['fosterchild']) && $_POST['fosterchild']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+		   }
+	      ?> 	   	   
+          </span>		 
+		 </div>
+		</li>
+		
+	    <li id="foli107" class="complex notranslate">  
+	     <div>
+	       <span class="radio field">
+	         <label for='familysize'>Family Size</label>
+	         <select name='familysize' id='familysize'>
+              <option <?php echo (isset($_POST['familysize']))?"":"selected"; ?> value="" selected="selected">
+			  </option>
+	          <?php
+	         $familysizeArray = array("1","2","3","4","5","6","7","8","9","10 or More");
+		     foreach($familysizeArray as $k=>$value){
+			 echo '<option '. ((isset($_POST['familysize']) && $_POST['familysize']==$value)?"selected":"") .'>'.$value.'</option>';
+		     }
+	         ?>
+	        </select>
+	       </span>
+		  
+           <span class="right radio field">	 
+	         <label for='income'>Annual Family Income</label>
+	           <select name='income' id='income'>
+               <option <?php echo (isset($_POST['income']))?"":"selected"; ?> value="" selected="selected">
+			   </option>
+	            <?php
+	            $incomeArray = array("$0 to $20,000","$21,000 to $35,000","$36,000 to $50,000","$50,000 to $70,000","$71,000 to $150,000");
+	            foreach($incomeArray as $k=>$value){
+			    echo '<option '. ((isset($_POST['income']) && $_POST['income']==$value)?"selected":"") .'>'.$value.'</option>';
+	           }
+	          ?>	
+	          </select>
+	        </span>
+		 </div>
+		 </li>
+		 
+		<li id="foli107" class="complex notranslagte">
+        <div>
+          <span class="radio field">	 
+	        <label for='laborstatus'>Labor Force Status</label>
+		      <select name='laborstatus' id='laborstatus'>
+		       <option <?php echo (isset($_POST['laborstatus']))?"":"selected"; ?> value="" selected="selected">
+			       </option>
+	                <?php
+	                 $laborstatusArray = array("Employed","Not Employed","Employed, but Received Notice of Termination or Military Separation");
+	                 foreach($laborstatusArray as $k=>$value){
+			         echo '<option '. ((isset($_POST['laborstatus']) && $_POST['laborstatus']==$value)?"selected":"") .'>'.$value.'</option>';
+	               }
+	               ?>
+              </select>
+	       </span>	
+		   
+           <span="class="radio field">	 
+	        <label for='unemp-comp'>Unemployment Compensation</label>
+		      <select name='unemp-comp' id='unemp-comp'>
+	 	       <option <?php echo (isset($_POST['unemp_comp']))?"":"selected"; ?> value="" selected="selected">
+			   </option>
+	           <?php
+	            $unemp_compArray = array("Claimant","Exhaustee","None");
+	            foreach($unemp_compArray as $k=>$value){
+			    echo '<option '. ((isset($_POST['unemp_comp']) && $_POST['unemp_comp']==$value)?"selected":"") .'>'.$value.'</option>';
+		      }
+	          ?>
+             </select>
+	        </span>	
+		</div>
+        </li> 		
+		</ul>
+		
+		<h3>Barriers to Employment and College</h3> 
+		<ul>			
+         <li id="foli107" class="complex notranslate">  
 	      <div>
            <span class="radio field">	 
 	 	    <label for='barriers'>Select all that apply</label>
@@ -733,6 +736,12 @@ if(count($_POST)>0){
 		  </div>
 		  </li>
 		 </ul> 
+</div>
+
+	</ul>
+
+</div>
+
 	
 	
 	
