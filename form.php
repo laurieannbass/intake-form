@@ -150,7 +150,7 @@ if(count($_POST)>0){
 		<li id="foli104" class="complex notranslate">
             <label class="desc" id="title107" for="address">
               Residence Address
-              <span id="req_110" class="req">
+             <span id="req_110" class="req">
                 *
               </span>
             </label>
@@ -185,7 +185,7 @@ if(count($_POST)>0){
 					</label>
 				</span>
 				<span class="right country">   
-					<label for="country">Country</label>
+					
 					<select name='country' id='country' class="field select addr" tabindex="16">
 						<option value="">Choose a country</option>
 						<?php $countryArray = array("Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
@@ -218,6 +218,7 @@ if(count($_POST)>0){
 							}
 							?>	
 					</select>	
+					<label for="country">Country</label>
 				</span> 
 			</div>
         </li>		
@@ -226,25 +227,25 @@ if(count($_POST)>0){
 		<li id="foli105" class="complex notranslate">
             <label class="desc" id="title109" for="address">
               Mailing Address if different from residence address
-              <span id="req_108" class="req">
+            <span id="req_108" class="req">
                 *
               </span>
             </label>
         <div>
-              <span class="full addr1">
+            <span class="full addr1">
                 <input id="mailaddress" name="mailaddress" type="text" class="field text addr" 
 				     value='<?php echo (isset($_POST['mailaddress'])) ?$_POST['mailaddress']:"";?>'
 					 tabindex="11" required />
 				<label for="mailaddress">Street Address<span class="req">*</span>
                 </label>
-              </span>
-              <span class="left city">
+            </span>
+            <span class="left city">
                 <input id="mailcity" name="mailcity" type="text" class="field text addr" 
 				value='<?php echo (isset($_POST['mailcity'])) ?$_POST['mailcity']:"";?>'
 				tabindex="12" required />
                 <label>City</label>
               </span>
-              <span class="right state">
+            <span class="right state">
                 <input id="mailstate" name="mailstate" type="text" class="field text addr" 
 				value= '<?php echo (isset($_POST['mailstate'])) ?$_POST['mailstate']:"";?>'
 				tabindex="13" required />
@@ -252,7 +253,7 @@ if(count($_POST)>0){
                   State / Province / Region
                 </label>
               </span>
-              <span class="left zip">
+            <span class="left zip">
                 <input id="mailzip" name="mailzip" type="text" class="field text addr" 
 				value='<?php echo (isset($_POST['mailzip'])) ?$_POST['mailzip']:"";?>' 
 				maxlength="15" tabindex="14" required />
@@ -260,14 +261,12 @@ if(count($_POST)>0){
                   Postal / Zip Code
                 </label>
               </span>
-			  <span class="right country">   
+			<span class="right country">   
 			  
-		      <select name='mailcountry' id='mailcountry' 
+		       <select name='mailcountry' id='mailcountry' 
 			        class="field select addr" tabindex="15">
-	            <option value="">Choose a country</option> <?php echo (isset($_POST['mailcountry']))?"":"selected";?> 
-	                value="" selected="selected">
-	            </option>
-				<?php $mailcountryArray = array("Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
+	                <option value="">Choose a country</option>
+				          <?php $mailcountryArray = array("Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
                           "Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus",
 						  "Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei",
 						  "Bulgaria","Burkina Faso","Burma","Burundi","Cambodia","Cameroon","Canada","Cape Verde",
@@ -298,8 +297,8 @@ if(count($_POST)>0){
 	            ?>	
                 </select>	
                      <label for="mailcountry">Country</label>	
-              </span> 
-        </div>
+            </span> 
+         </div>
         </li>	
 <!--new sub section of contact -->
         <li id="foli106" class="notranslate">	
@@ -318,7 +317,7 @@ if(count($_POST)>0){
         
 		<!--   THREE CHOICE ARRAY choose one-->
 			
-			<span > 
+			<span> 
 				<label>Preferred Method of Notification. choose one<span class="req">*</span></label>
 
 				<?php $notificationArray = array("E-mail","Postal Mail ","Telephone");
@@ -336,7 +335,7 @@ if(count($_POST)>0){
 	<ul>
         <li id="foli109" class="complex notranslate">  
 		<div>
-	       <span class="radio field"> <!-- fields with in the block-->
+	        <span class="radio field"> <!-- fields with in the block-->
 	           <input type='text' name='age' id='age' class="field text medium" 
 				    maxlength="255" tabindex="18" onkeyup=""
 					  value='<?php echo (isset($_POST['age'])) ?$_POST['age']:"";?>'/>
@@ -349,7 +348,7 @@ if(count($_POST)>0){
 					 value='<?php echo (isset($_POST['dob'])) ?$_POST['dob']:"";?>'/>
  
 	          <label for='dob'>Birth Date</label>
-	         </span>  
+	        </span>  
 	     </div>	 
 	    </li>
 		 
@@ -453,7 +452,7 @@ if(count($_POST)>0){
 		
 	    <li id="foli112" class="complex notranslate"> 
 	    <div>
-		      <span class="radio field">
+		    <span class="radio field">
                  <label>Hispanic or Latino</label>
 				 <?php
 	             $hispanicArray = array("Yes","No");
@@ -461,9 +460,9 @@ if(count($_POST)>0){
 		           echo "<input type='radio' name='hispanic'  ". ((isset($_POST['hispanic']) && $_POST['hispanic']==$v)?"checked":"")." value='".$v."' /> ".$v."";
 		        }
 	          ?>
-	         </span>
+	        </span>
 
-             <span style="margin-left:100px" class="radio field">
+            <span style="margin-left:100px" class="radio field">
 	             <label>Native Hawaiian Ancestry</label>
 				 
                     <?php
@@ -471,8 +470,7 @@ if(count($_POST)>0){
 	                 foreach($nativehawArray as $k =>$v){
 		             echo "<input type='radio' name='nativehaw' ". ((isset($_POST['nativehaw']) && $_POST['nativehaw']==$v)?"checked":"")." value='".$v."' /> ".$v."";
 		           }
-	             ?> 
-				 
+	             ?> 				 
 	        </span>
 			 
 	        <span class="radio field"> 
@@ -484,7 +482,7 @@ if(count($_POST)>0){
 		        " value='".$v."' />".$v."</span>"; 
 					}
 				 ?>
-	         </span>
+	        </span>
 	     </div>
 	    </li>
 	</ul>
@@ -495,241 +493,238 @@ if(count($_POST)>0){
 	     <div>
 	        <span class="radio field">  	   
 	         <label>Active or prior member of the Military?</label>
-	            <?php
-	            $militaryArray = array("Yes","No");
-	            foreach($militaryArray as $k =>$v){
-		      echo "<input type='radio' name='military' ". ((isset($_POST['military']) && $_POST['military']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	    	}
-	       ?> 
-	       </span>
+					<?php
+					$militaryArray = array("Yes","No");
+					foreach($militaryArray as $k =>$v){
+				  echo "<input type='radio' name='military' ". ((isset($_POST['military']) && $_POST['military']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+				 }
+				?> 
+	        </span>
 
             <span style="margin-left :25px" class="radio field">	 
 	         <label>Spouse served in U.S. Military?</label>    
-	         <?php
-	         $military_spouseArray = array("Yes","No");
-	         foreach($military_spouseArray as $k =>$v){
-		     echo "<input type='radio' name='military_spouse' ". ((isset($_POST['military_spouse']) && $_POST['military_spouse']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		     }
-	       ?>
-		  </span>
+				 <?php
+				 $military_spouseArray = array("Yes","No");
+				 foreach($military_spouseArray as $k =>$v){
+				 echo "<input type='radio' name='military_spouse' ". ((isset($_POST['military_spouse']) && $_POST['military_spouse']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+				 }
+			   ?>
+		    </span>
 		</div>
 		</li>
 		  
-		 <li id="foli113" class="complex notranslate">
+	    <li id="foli113" class="complex notranslate">
 		 <div>
 
 		   
-		  <span class="radio field">  
+		    <span class="radio field">  
 	        <label>Veteran Status?:</label>
  	             <?php
 	            $va_statusArray = array("Less than 180 days","Eligible Vet","Eligible Spouse","Dependent","Not Eligible");
 	            foreach($va_statusArray as $k =>$v){
 		        echo "<input type='radio' name='va_status' ". ((isset($_POST['va_status']) && $_POST['va_status']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	    	 }
-	        ?>  
-	      </span>
-		   <span class="radio field">
+	    	   }
+	          ?>  
+	        </span>
+		    <span class="radio field">
 	       <label class="radio field">Campaign Veteran</label>
-	       <?php
-	        $vet_campaignArray = array("Yes","No","N/A");
-	        foreach($vet_campaignArray as $k =>$v){
-		     echo "<input type='radio' name='vet_campaign' ". ((isset($_POST['vet_campaign']) && $_POST['vet_campaign']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		   }
-	       ?>  
-	       </span>
+			   <?php
+				$vet_campaignArray = array("Yes","No","N/A");
+				foreach($vet_campaignArray as $k =>$v){
+				 echo "<input type='radio' name='vet_campaign' ". ((isset($_POST['vet_campaign']) && $_POST['vet_campaign']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+			   }
+			   ?>  
+	        </span>
 		 </div>
-		 </li>
+		</li>
 		  
 	   
 		
-		<li id="foli114" class="complex notranslate">
+	    <li id="foli114" class="complex notranslate">
 		 <div>
-         <span class="radio field"> 	 
-	       <label>Recently Separated Veteran</label>
-	        <?php
-	         $vet_separatedArray = array("Yes","No","N/A");
-	         foreach($vet_separatedArray as $k =>$v){
-		     echo "<input type='radio' name='vet_separated' ". ((isset($_POST['vet_separated']) && $_POST['vet_separated']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	       }
-	       ?>
-	     </span>
+            <span class="radio field"> 	 
+			   <label>Recently Separated Veteran</label>
+					<?php
+					 $vet_separatedArray = array("Yes","No","N/A");
+					 foreach($vet_separatedArray as $k =>$v){
+					 echo "<input type='radio' name='vet_separated' ". ((isset($_POST['vet_separated']) && $_POST['vet_separated']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+				   }
+				   ?>
+	        </span>
 
-         <span class="radio field" style="margin-left :55px">
-           <label>Disabled Veteran</label>	             
-	       <?php
-	        $vet_disabledArray = array("Yes","Yes, Special Disabled","N/A");
-	        foreach($vet_disabledArray as $k =>$v){
-		    echo "<input type='radio' name='vet_disabled' ". ((isset($_POST['vet_disabled']) && $_POST['vet_disabled']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		  }
-	      ?>
-	     </span>
+            <span class="radio field" style="margin-left :55px">
+			   <label>Disabled Veteran</label>	             
+				   <?php
+					$vet_disabledArray = array("Yes","Yes, Special Disabled","N/A");
+					foreach($vet_disabledArray as $k =>$v){
+					echo "<input type='radio' name='vet_disabled' ". ((isset($_POST['vet_disabled']) && $_POST['vet_disabled']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+				  }
+				  ?>
+	        </span>
 		 </div>
 		</li>
-		</ul>
+	</ul>
 		
 	<h3>Education</h3>
 	<ul>
-	<li id="foli116" class="complex notranslate">  
-	 <div>
-	  <span class="radio field">
-		<label>What is your current educational Status?</label>
-		<?php
-		$ed_statusArray = array("In school,High School or less","In School, Alternative School","In school,Post-High School","Not attending school, High School Drop-out","Not attending school, High School Graduate");
-		foreach($ed_statusArray as $k =>$v){
-		echo "<br/><input type='radio' name='ed_status' ". ((isset($_POST['ed_status']) && $_POST['ed_status']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	  }
-	  ?>	   
-	 </span>
+	    <li id="foli116" class="complex notranslate">  
+	    <div>
+	        <span class="radio field">
+			<label>What is your current educational Status?</label>
+				<?php
+				$ed_statusArray = array("In school,High School or less","In School, Alternative School","In school,Post-High School","Not attending school, High School Drop-out","Not attending school, High School Graduate");
+				foreach($ed_statusArray as $k =>$v){
+				echo "<br/><input type='radio' name='ed_status' ". ((isset($_POST['ed_status']) && $_POST['ed_status']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+			  }
+			  ?>	   
+	        </span>
 
-	 <span class="radio field">
-	   <label>Highest grade completed:</label>
-	   <?php
-		$highestgradeArray = array("No School Grades Completed","GED or Equivalent","High School Diploma","Certificate of Attendance/Completion","Associate Diploma or Degree","Bachelor's Degree or Equivalent","Other Post-Secondary Degree or Certificate","Education beyond Bachelor's Degree");
-		foreach($highestgradeArray as $k =>$v){
-		echo "<br/><input type='radio' name='highestgrade' ". ((isset($_POST['highestgrade']) && $_POST['highestgrade']==$v)?"checked":"")." value=\"".$v."\" /> ".$v."";
-	   }
-	   ?>	  	   
-	 </span>
+	        <span class="radio field">
+			   <label>Highest grade completed:</label>
+				   <?php
+					$highestgradeArray = array("No School Grades Completed","GED or Equivalent","High School Diploma","Certificate of Attendance/Completion","Associate Diploma or Degree","Bachelor's Degree or Equivalent","Other Post-Secondary Degree or Certificate","Education beyond Bachelor's Degree");
+					foreach($highestgradeArray as $k =>$v){
+					echo "<br/><input type='radio' name='highestgrade' ". ((isset($_POST['highestgrade']) && $_POST['highestgrade']==$v)?"checked":"")." value=\"".$v."\" /> ".$v."";
+				   }
+				   ?>	  	   
+	        </span>
 	 
-	 <span style="margin-left :25px" class="radio field">
-	   <label>Pell Grant Recipient</label>
-	   <?php
-		$pellArray = array("Yes","No");
-		foreach($pellArray as $k =>$v){
-		echo "<br/><input type='radio' name='pell' ". ((isset($_POST['pell']) && $_POST['pell']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	   }
-	  ?>   
-	 </span>
-	 </div>
-	</li>
+	        <span style="margin-left :25px" class="radio field">
+			   <label>Pell Grant Recipient</label>
+				   <?php
+					$pellArray = array("Yes","No");
+					foreach($pellArray as $k =>$v){
+					echo "<br/><input type='radio' name='pell' ". ((isset($_POST['pell']) && $_POST['pell']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+				   }
+				  ?>   
+	        </span>
+	     </div>
+	    </li>
 	</ul>
 	
 	
-   <h3>Economics</h3>	
+    <h3>Economics</h3>	
 	<ul>
-	<li id="foli117" class="complex notranslate">  
-	 <div>
-	  <span class="radio field">
-	   <label>Low Income</label>	   
-		<?php
-		 $lowincomeArray = array("Yes","No");
-		 foreach($lowincomeArray as $k =>$v){
-		 echo "<input type='radio' name='lowincome' ". ((isset($_POST['lowincome']) && $_POST['lowincome']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		}
-	   ?>   	   
-	  </span>
+	    <li id="foli117" class="complex notranslate">  
+	    <div>
+	        <span class="radio field">
+			   <label>Low Income</label>	   
+					<?php
+					 $lowincomeArray = array("Yes","No");
+					 foreach($lowincomeArray as $k =>$v){
+					 echo "<input type='radio' name='lowincome' ". ((isset($_POST['lowincome']) && $_POST['lowincome']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+					}
+				   ?>   	   
+	        </span>
 	 
-	  <span style="margin-left :45px" class="center radio field">
-	   <label>Food Stamp Recipient</label>
-		<?php
-		$foodstampsArray = array("Yes","No");
-		 foreach($foodstampsArray as $k =>$v){
-		 echo "<input type='radio' name='foodstamps' ". ((isset($_POST['foodstamps']) && $_POST['foodstamps']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-		}
-	   ?>	   
-	  </span>
+	        <span style="margin-left :45px" class="center radio field">
+			   <label>Food Stamp Recipient</label>
+					<?php
+					$foodstampsArray = array("Yes","No");
+					 foreach($foodstampsArray as $k =>$v){
+					 echo "<input type='radio' name='foodstamps' ". ((isset($_POST['foodstamps']) && $_POST['foodstamps']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+					}
+				   ?>	   
+	        </span>
 	
-	  <span style="margin-left :125px" class="radio field">
-	   <label>Foster Child</label>
-		<?php
-		$fosterchildArray = array("Yes","No");
-		foreach($fosterchildArray as $k =>$v){
-		echo "<input type='radio' name='fosterchild' ". ((isset($_POST['fosterchild']) && $_POST['fosterchild']==$v)?"checked":"")." value='".$v."' /> ".$v."";
-	   }
-	  ?> 	   	   
-	  </span>		 
+	        <span style="margin-left :125px" class="radio field">
+			   <label>Foster Child</label>
+					<?php
+					$fosterchildArray = array("Yes","No");
+					foreach($fosterchildArray as $k =>$v){
+					echo "<input type='radio' name='fosterchild' ". ((isset($_POST['fosterchild']) && $_POST['fosterchild']==$v)?"checked":"")." value='".$v."' /> ".$v."";
+				   }
+				  ?> 	   	   
+	        </span>		 
 	 </div>
-	</li>
+	    </li>
 	
-	<li id="foli118" class="complex notranslate">  
+	    <li id="foli118" class="complex notranslate">  
 	 <div>
-	   <span class="radio field">
-		 <label for='familysize'>Family Size</label>
-		 <select name='familysize' id='familysize'>
-		  <option <?php echo (isset($_POST['familysize']))?"":"selected"; ?> value="" selected="selected">
-		  </option>
-		  <?php
-		 $familysizeArray = array("1","2","3","4","5","6","7","8","9","10 or More");
-		 foreach($familysizeArray as $k=>$value){
-		 echo '<option '. ((isset($_POST['familysize']) && $_POST['familysize']==$value)?"selected":"") .'>'.$value.'</option>';
-		 }
-		 ?>
-		</select>
-	   </span>
+	        <span class="radio field">
+				 <label for='familysize'>Family Size</label>
+					 <select name='familysize' id='familysize'>
+					 <option value="">Choose a country</option>
+					  <option value="">Family Size</option>
+						  <?php
+						 $familysizeArray = array("1","2","3","4","5","6","7","8","9","10 or More");
+						 foreach($familysizeArray as $k=>$value){
+						 echo '<option '. ((isset($_POST['familysize']) && $_POST['familysize']==$value)?"selected":"") .'>'.$value.'</option>';
+						 }
+						 ?>
+					</select>
+	        </span>
 	  
-	   <span class="right radio field">	 
-		 <label for='income'>Annual Family Income</label>
-		   <select name='income' id='income'>
-		   <option <?php echo (isset($_POST['income']))?"":"selected"; ?> value="" selected="selected">
-		   </option>
-			<?php
-			$incomeArray = array("$0 to $20,000","$21,000 to $35,000","$36,000 to $50,000","$50,000 to $70,000","$71,000 to $150,000");
-			foreach($incomeArray as $k=>$value){
-			echo '<option '. ((isset($_POST['income']) && $_POST['income']==$value)?"selected":"") .'>'.$value.'</option>';
-		   }
-		  ?>	
-		  </select>
-		</span>
+	        <span class="right radio field">	 
+		      <label for='income'>Annual Family Income</label>
+				   <select name='income' id='income'>
+				   <option value="">Income</option>
+						<?php
+						$incomeArray = array("$0 to $20,000","$21,000 to $35,000","$36,000 to $50,000","$50,000 to $70,000","$71,000 to $150,000");
+						foreach($incomeArray as $k=>$value){
+						echo '<option '. ((isset($_POST['income']) && $_POST['income']==$value)?"selected":"") .'>'.$value.'</option>';
+					   }
+					  ?>	
+				  </select>
+		    </span>
 	 </div>
 	 </li>
 	 
-	<li id="foli119" class="complex notranslagte">
+	    <li id="foli119" class="complex notranslagte">
 	<div>
-	  <span class="radio field">	 
-		<label for='laborstatus'>Labor Force Status</label>
-		  <select name='laborstatus' id='laborstatus'>
-		   <option <?php echo (isset($_POST['laborstatus']))?"":"selected"; ?> value="" selected="selected">
-			   </option>
-				<?php
-				 $laborstatusArray = array("Employed","Not Employed","Employed, but Received Notice of Termination or Military Separation");
-				 foreach($laborstatusArray as $k=>$value){
-				 echo '<option '. ((isset($_POST['laborstatus']) && $_POST['laborstatus']==$value)?"selected":"") .'>'.$value.'</option>';
-			   }
-			   ?>
-		  </select>
-	   </span>	
+	        <span class="radio field">	 
+				<label for='laborstatus'>Labor Force Status</label>
+				  <select name='laborstatus' id='laborstatus'>
+				   <option value="">Employment Status</option>
+						<?php
+						 $laborstatusArray = array("Employed","Not Employed","Employed, but Received Notice of Termination or Military Separation");
+						 foreach($laborstatusArray as $k=>$value){
+						 echo '<option '. ((isset($_POST['laborstatus']) && $_POST['laborstatus']==$value)?"selected":"") .'>'.$value.'</option>';
+					   }
+					   ?>
+				  </select>
+	        </span>	
 	   
-	   <span="class="radio field">	 
-		<label for='unemp-comp'>Unemployment Compensation</label>
-		  <select name='unemp-comp' id='unemp-comp'>
-		   <option <?php echo (isset($_POST['unemp_comp']))?"":"selected"; ?> value="" selected="selected">
-		   </option>
-		   <?php
-			$unemp_compArray = array("Claimant","Exhaustee","None");
-			foreach($unemp_compArray as $k=>$value){
-			echo '<option '. ((isset($_POST['unemp_comp']) && $_POST['unemp_comp']==$value)?"selected":"") .'>'.$value.'</option>';
-		  }
-		  ?>
-		 </select>
-		</span>	
+	       <span class="radio field">	 
+				<label for='unemp-comp'>Unemployment Compensation</label>
+				  <select name='unemp-comp' id='unemp-comp'>
+				   <option value="">Receiving Unemployment?</option>
+					   <?php
+						$unemp_compArray = array("Claimant","Exhaustee","None");
+						foreach($unemp_compArray as $k=>$value){
+						echo '<option '. ((isset($_POST['unemp_comp']) && $_POST['unemp_comp']==$value)?"selected":"") .'>'.$value.'</option>';
+					  }
+					  ?>
+				 </select>
+		    </span>	
 	</div>
 	</li> 		
 	</ul>
 	
 	<h3>Barriers to Employment and College</h3> 
 	<ul>			
-         <li id="foli120" class="complex notranslate">  
+        <li id="foli120" class="complex notranslate">  
 	      <div>
            <span class="radio field">	 
 	 	    <label>Select all that apply</label>
-       		 <?php
-	           $barriersArray = array("Limited English","Displaced Home-maker","Single Parent","Offender","Runaway under 18",
-		                       "Pregnant or Parenting","Requires Additional Assistance","Homeless",
-							   "Deficient Basic Literacy Skills","School Drop out","Foster Child",
-							   "Serious Barrier-Board Defined");
-		
-	            foreach($barriersArray as $k=>$v){
-			    echo "<input type='checkbox' name='barriers[]' ".
-				((isset($_POST['barriers']) && in_array($v,$_POST['barriers']))?"checked":"" ).
-				" value='".$v."'/>".$v."<br/>";
-		        }
-	         ?> 
-		  <input type='text' name='barriers_other' id='barriers_other' 
-		    value='<?php echo (isset($_POST['barriers_other']))?$_POST['barriers_other']:""; ?>'/><br/>	   
-	      </span>
+				 <?php
+				   $barriersArray = array("Limited English","Displaced Home-maker","Single Parent","Offender","Runaway under 18",
+								   "Pregnant or Parenting","Requires Additional Assistance","Homeless",
+								   "Deficient Basic Literacy Skills","School Drop out","Foster Child",
+								   "Serious Barrier-Board Defined");
+			
+					foreach($barriersArray as $k=>$v){
+					echo "<input type='checkbox' name='barriers[]' ".
+					((isset($_POST['barriers']) && in_array($v,$_POST['barriers']))?"checked":"" ).
+					" value='".$v."'/>".$v."<br/>";
+					}
+				 ?> 
+			  <input type='text' name='barriers_other' id='barriers_other' 
+				value='<?php echo (isset($_POST['barriers_other']))?$_POST['barriers_other']:""; ?>'/><br/>	   
+	        </span>
 		  </div>
 		  </li>
-		 </ul> 
+	</ul> 
 	
 	
 	
