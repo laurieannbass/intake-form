@@ -28,7 +28,7 @@ arrays 		- this is for the name="foo[]"
 
 	$last_name		= (isset($_POST['last-name'])) ? trim($_POST['last-name']) : "";//$_POST['last-name']
 	$first_name		= (isset($_POST['first-name'])) ? trim($_POST['first-name']) : "";//$_POST['first-name']
-	$birth_date		= (isset($_POST['dob'])) ? trim($_POST['dob']) : "";//$_POST['first-name']
+	$birth_date		= (isset($_POST['dob'])) ? trim($_POST['dob']) : "";//$_POST['dob']
 	$address		= (isset($_POST['address'])) ? trim($_POST['address']) : "";//$_POST['address']
 	$city           = (isset($_POST['city'])) ? trim($_POST['city']) : "";//$_POST['city']
 	$state          = (isset($_POST['state'])) ? trim($_POST['state']) : "";//$_POST['state']
@@ -60,7 +60,15 @@ if(!empty($last_name)
 	<!-- CSS -->
 	<link href="css/structure.css" rel="stylesheet">
 	<link href="css/form.css" rel="stylesheet">
-
+	<style>
+	.block_header{border-bottom:1px solid #494949}
+	.colored_padding{background: yellow;
+		padding: 20px 20px 20px 80px;}
+	</style>
+	
+	window.onload = function(){
+   document.getElementById("uh-id").focus();
+};
 	<!-- JavaScript -->
 	<script src="scripts/wufoo.js"></script>
 
@@ -89,11 +97,12 @@ if(count($_POST)>0){
   <!-- <fieldset><legend><b>Contact Information</b></legend> -->
   
     <header id="header" class="info">
+	<img src="http://hawaii.hawaii.edu/images/bg-logo.gif" style="float:right;"/>
        <h2>INTAKE FORM</h2>
        <div>This is my form. Please fill it out. It's awesome!</div>
 	</header>
 	
-	<h3>Contact Information</h3>
+	<h3 class="block_header">Contact Information</h3>
 	<ul>
 		<li id="foli101" class="notranslate">
 			<label class="desc" id="title116" for="uh-id">UH ID Number</label>
@@ -103,6 +112,7 @@ if(count($_POST)>0){
 				 value = '<?php echo (isset($_POST['uh-id']))?$_POST['uh-id']:""; ?>'/> 
 			</div>
 		</li>
+
 		<li id="foli102" class="notranslate ">
 			<label class="desc" id="title101" for="last-name"> <!--header for the block-->
 				Name
@@ -186,7 +196,7 @@ if(count($_POST)>0){
 				</span>
 				<span class="right country">   
 					
-					<select name='country' id='country' class="field select addr" tabindex="16">
+					<select name='country' id='country' class="field select addr" tabindex="10">
 						<option value="">Choose a country</option>
 						<?php $countryArray = array("Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia",
 							  "Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus",
@@ -301,7 +311,7 @@ if(count($_POST)>0){
          </div>
         </li>	
 <!--new sub section of contact -->
-        <li id="foli106" class="notranslate">	
+        <li id="foli106" class="complex notranslate">	
 		    <label class="desc" id="title110" for="address">
                 Email Address And Preferred Method of contact
             <span id="req_109" class="req">*</span>
@@ -317,8 +327,8 @@ if(count($_POST)>0){
         
 		<!--   THREE CHOICE ARRAY choose one-->
 			
-			<span> 
-				<label>Preferred Method of Notification. choose one<span class="req">*</span></label>
+			<span style="margin-right:100px;" tabindex="17"> 
+				
 
 				<?php $notificationArray = array("E-mail","Postal Mail ","Telephone");
 		            foreach($notificationArray as $k=>$v){
@@ -326,12 +336,14 @@ if(count($_POST)>0){
 						echo "<input type='radio' name='notification'  value='".$v."' /> ".$v."";	
 					}
 				?>
+				<label>Preferred Method of Notification. choose one<span class="req">*</span></label>
 	        </span>
 			
 		</div>	
 		</li>
 	</ul>
-	<h3>Demographics</h3>
+
+	<h3 class="block_header" style="">Demographics</h3>
 	<ul>
         <li id="foli109" class="complex notranslate">  
 		<div>
@@ -342,7 +354,7 @@ if(count($_POST)>0){
 	            <label for='age'>Age</label>   
 	        </span>       
 	   
-	        <span class="radio field">
+	        <span class="radio field" style="margin-right:45px";>
               <input type='text' name='dob' id='dob' class="field text long"
 			         placeholder='MM-DD-YYYY' tabindex="19" onkeyup=""
 					 value='<?php echo (isset($_POST['dob'])) ?$_POST['dob']:"";?>'/>
@@ -354,7 +366,7 @@ if(count($_POST)>0){
 		 
 	    <li id="foli110" class="complex notranslate"> 
 	     <div>		 
-		    <span class="radio field" style="margin-right:25px;">
+		    <span class="radio field" style="margin-right:45px;" tabindex="20">
 			 <label>Gender</label>
 				<!-- this is the by hand that you see the data pattern from -->
 	           <!-- <input type='radio' name='gender' checked value='Male' /> Male -->
@@ -383,7 +395,7 @@ if(count($_POST)>0){
 	         ?>
 	        </span>  
 			 
-	        <span class="radio field"  style="margin-right:25px;">
+	        <span class="radio field"  style="margin-right:25px;" tabindex="21">
 			  <label>Single Parent</label>
 	             <?php
 	              $single_parentArray = array("Yes","No");
@@ -393,7 +405,7 @@ if(count($_POST)>0){
 	           ?> 
             </span>	
 			 
-	        <span class="radio field" style="margin-left:25px;">
+	        <span class="radio field" style="margin-left:25px;" tabindex="22">
 		     <label>Is English your First language?</label>			
 	          <?php
 	           $englishArray = array("Yes","No");
@@ -410,7 +422,7 @@ if(count($_POST)>0){
 	    <li id="foli111" class="complex notranslate"> 
 	     <div>
 		    <!--TWO RADIO BUTTON-->
-			<span class="radio field" style="margin-right:25px"> 
+			<span class="radio field" style="margin-right:25px;" tabindex="23"> 
 				<label>Are you a resident of the state of Hawaii?</label>
 
 				<?php $residentArray = array("Yes","No");
@@ -423,9 +435,9 @@ if(count($_POST)>0){
            <!--    <label for="resident">Are you a resident of the state of Hawaii?</label> -->
 			</span>
 		      <!--short dropdown select -->
-			<span style="margin-left:55px"><!--<label for='island'>Island</label>-->
+			<span style="margin-left:55px;" ><!--<label for='island'>Island</label>-->
 			<label for='island'>Island</label> 
-				<select name='island' id='island' class="field select addr" tabindex="22">
+				<select name='island' id='island' class="field select addr" tabindex="24">
 					<option value="">Choose Island</option>
 					<?php
 					  $islandArray = array("Hawai`i","Maui","O`ahu","Kaua`i","Moloka`i","Lana`i");
@@ -438,7 +450,7 @@ if(count($_POST)>0){
 
           </div>
 		  <div>
-		    <span class= "radio field"> 
+		    <span class="radio field" tabindex="25"> 
 				<label>Are you a U.S. Citizenship? choose one</label>
 				<?php $citizenArray = array("U.S. Citizen","Non-Citizen Allowed to Work ","Non-Citizen NOT Allowed to Work");
 					foreach($citizenArray as $k=>$v){
@@ -452,7 +464,7 @@ if(count($_POST)>0){
 		
 	    <li id="foli112" class="complex notranslate"> 
 	    <div>
-		    <span class="radio field">
+		    <span class="radio field" tabindex="26">
                  <label>Hispanic or Latino</label>
 				 <?php
 	             $hispanicArray = array("Yes","No");
@@ -462,7 +474,7 @@ if(count($_POST)>0){
 	          ?>
 	        </span>
 
-            <span style="margin-left:100px" class="radio field">
+            <span style="margin-left:100px" class="radio field" tabindex="27">
 	             <label>Native Hawaiian Ancestry</label>
 				 
                     <?php
@@ -473,7 +485,7 @@ if(count($_POST)>0){
 	             ?> 				 
 	        </span>
 			 
-	        <span class="radio field"> 
+	        <span class="radio field" tabindex="28"> 
 	           <label>Race Select all that apply</label>
 				<?php $raceArray = array("American Indian","Alaskan Native","Native Hawaiian or Pacific Islander","Asian","Hispanic","African American or Black","Caucasian or White");
 	               foreach($raceArray as $k =>$v){
@@ -487,11 +499,11 @@ if(count($_POST)>0){
 	    </li>
 	</ul>
 
-	<h3>Military and Veteran Status</h3>
+	<h3 class="block_header">Military and Veteran Status</h3>
 	<ul>
         <li id="foli115" class="complex notranslate">  
 	     <div>
-	        <span class="radio field">  	   
+	        <span class="radio field" tabindex="29">  	   
 	         <label>Active or prior member of the Military?</label>
 					<?php
 					$militaryArray = array("Yes","No");
@@ -501,7 +513,7 @@ if(count($_POST)>0){
 				?> 
 	        </span>
 
-            <span style="margin-left :25px" class="radio field">	 
+            <span style="margin-left :25px" class="radio field" tabindex="30">	 
 	         <label>Spouse served in U.S. Military?</label>    
 				 <?php
 				 $military_spouseArray = array("Yes","No");
@@ -517,7 +529,7 @@ if(count($_POST)>0){
 		 <div>
 
 		   
-		    <span class="radio field">  
+		    <span class="radio field" tabindex="31">  
 	        <label>Veteran Status?:</label>
  	             <?php
 	            $va_statusArray = array("Less than 180 days","Eligible Vet","Eligible Spouse","Dependent","Not Eligible");
@@ -526,7 +538,7 @@ if(count($_POST)>0){
 	    	   }
 	          ?>  
 	        </span>
-		    <span class="radio field">
+		    <span class="radio field" tabindex="32">
 	       <label class="radio field">Campaign Veteran</label>
 			   <?php
 				$vet_campaignArray = array("Yes","No","N/A");
@@ -542,7 +554,7 @@ if(count($_POST)>0){
 		
 	    <li id="foli114" class="complex notranslate">
 		 <div>
-            <span class="radio field"> 	 
+            <span class="radio field" tabindex="33"> 	 
 			   <label>Recently Separated Veteran</label>
 					<?php
 					 $vet_separatedArray = array("Yes","No","N/A");
@@ -552,7 +564,7 @@ if(count($_POST)>0){
 				   ?>
 	        </span>
 
-            <span class="radio field" style="margin-left :55px">
+            <span class="radio field" style="margin-left :55px;" tabindex="34">
 			   <label>Disabled Veteran</label>	             
 				   <?php
 					$vet_disabledArray = array("Yes","Yes, Special Disabled","N/A");
@@ -565,11 +577,11 @@ if(count($_POST)>0){
 		</li>
 	</ul>
 		
-	<h3>Education</h3>
+	<h3 class="block_header">Education</h3>
 	<ul>
 	    <li id="foli116" class="complex notranslate">  
 	    <div>
-	        <span class="radio field">
+	        <span class="radio field" tabindex="35">
 			<label>What is your current educational Status?</label>
 				<?php
 				$ed_statusArray = array("In school,High School or less","In School, Alternative School","In school,Post-High School","Not attending school, High School Drop-out","Not attending school, High School Graduate");
@@ -579,7 +591,7 @@ if(count($_POST)>0){
 			  ?>	   
 	        </span>
 
-	        <span class="radio field">
+	        <span class="radio field" tabindex="36">
 			   <label>Highest grade completed:</label>
 				   <?php
 					$highestgradeArray = array("No School Grades Completed","GED or Equivalent","High School Diploma","Certificate of Attendance/Completion","Associate Diploma or Degree","Bachelor's Degree or Equivalent","Other Post-Secondary Degree or Certificate","Education beyond Bachelor's Degree");
@@ -589,7 +601,7 @@ if(count($_POST)>0){
 				   ?>	  	   
 	        </span>
 	 
-	        <span style="margin-left :25px" class="radio field">
+	        <span style="margin-left :25px" class="radio field" tabindex="37">
 			   <label>Pell Grant Recipient</label>
 				   <?php
 					$pellArray = array("Yes","No");
@@ -603,11 +615,11 @@ if(count($_POST)>0){
 	</ul>
 	
 	
-    <h3>Economics</h3>	
+    <h3 class="block_header">Economics</h3>	
 	<ul>
 	    <li id="foli117" class="complex notranslate">  
 	    <div>
-	        <span class="radio field">
+	        <span class="radio field" tabindex="38">
 			   <label>Low Income</label>	   
 					<?php
 					 $lowincomeArray = array("Yes","No");
@@ -617,7 +629,7 @@ if(count($_POST)>0){
 				   ?>   	   
 	        </span>
 	 
-	        <span style="margin-left :45px" class="center radio field">
+	        <span style="margin-left :45px" class="center radio field" tabindex="39">
 			   <label>Food Stamp Recipient</label>
 					<?php
 					$foodstampsArray = array("Yes","No");
@@ -627,7 +639,7 @@ if(count($_POST)>0){
 				   ?>	   
 	        </span>
 	
-	        <span style="margin-left :125px" class="radio field">
+	        <span style="margin-left :125px" class="radio field" tabindex="40">
 			   <label>Foster Child</label>
 					<?php
 					$fosterchildArray = array("Yes","No");
@@ -641,7 +653,7 @@ if(count($_POST)>0){
 	
 	    <li id="foli118" class="complex notranslate">  
 	 <div>
-	        <span class="radio field">
+	        <span class="radio field" tabindex="41">
 				 <label for='familysize'>Family Size</label>
 					 <select name='familysize' id='familysize'>
 					 <option value="">Choose a country</option>
@@ -655,7 +667,7 @@ if(count($_POST)>0){
 					</select>
 	        </span>
 	  
-	        <span class="right radio field">	 
+	        <span class="right radio field" tabindex="42">	 
 		      <label for='income'>Annual Family Income</label>
 				   <select name='income' id='income'>
 				   <option value="">Income</option>
@@ -672,7 +684,7 @@ if(count($_POST)>0){
 	 
 	    <li id="foli119" class="complex notranslagte">
 	<div>
-	        <span class="radio field">	 
+	        <span class="radio field" tabindex="43">	 
 				<label for='laborstatus'>Labor Force Status</label>
 				  <select name='laborstatus' id='laborstatus'>
 				   <option value="">Employment Status</option>
@@ -685,7 +697,7 @@ if(count($_POST)>0){
 				  </select>
 	        </span>	
 	   
-	       <span class="radio field">	 
+	       <span class="radio field" tabindex="44">	 
 				<label for='unemp-comp'>Unemployment Compensation</label>
 				  <select name='unemp-comp' id='unemp-comp'>
 				   <option value="">Receiving Unemployment?</option>
@@ -701,11 +713,11 @@ if(count($_POST)>0){
 	</li> 		
 	</ul>
 	
-	<h3>Barriers to Employment and College</h3> 
+	<h3 class="block_header">Barriers to Employment and College</h3> 
 	<ul>			
         <li id="foli120" class="complex notranslate">  
 	      <div>
-           <span class="radio field">	 
+           <span class="radio field" tabindex="45">	 
 	 	    <label>Select all that apply</label>
 				 <?php
 				   $barriersArray = array("Limited English","Displaced Home-maker","Single Parent","Offender","Runaway under 18",

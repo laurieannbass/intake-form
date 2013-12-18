@@ -4,7 +4,7 @@
 
 	$last_name		= (isset($_POST['last-name'])) ? trim($_POST['last-name']) : "";//$_POST['last-name']
 	$first_name		= (isset($_POST['first-name'])) ? trim($_POST['first-name']) : "";//$_POST['first-name']
-	$birth_date		= (isset($_POST['dob'])) ? trim($_POST['dob']) : "";//$_POST['first-name']
+	$birth_date		= (isset($_POST['dob'])) ? trim($_POST['dob']) : "";//$_POST['dob']
 	$address		= (isset($_POST['address'])) ? trim($_POST['address']) : "";//$_POST['address']
 	$city           = (isset($_POST['city'])) ? trim($_POST['city']) : "";//$_POST['city']
 	$state          = (isset($_POST['state'])) ? trim($_POST['state']) : "";//$_POST['state']
@@ -43,6 +43,10 @@ if(count($_POST)>0){
 			
 			<h3>Contact Information</h3>
 			<ul>
+				<li>
+					<input type='submit' value='Run for All' name="all">
+					<hr/>
+				</li>
 				<li id="foli101" class="notranslate">
 					<label class="desc" id="title116" for="uh-id">UH ID Number</label>
 					<div>
