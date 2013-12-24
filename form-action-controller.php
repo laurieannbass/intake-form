@@ -45,6 +45,8 @@
 		$sql="CREATE DATABASE ".$dbname;
 		if (mysqli_query($connection,$sql)){
 		  echo "Database ".$dbname." created successfully<br/>";
+		  mysqli_close($connection);//close it cause why not
+		  $connection = mysqli_connect('localhost', 'root', 'blank',$dbname);
 		} else {
 		  echo "Error creating database: " ;
 		  die();
@@ -55,11 +57,11 @@
     
     $table = 'formdata';
 	$sql = "SHOW TABLES LIKE '".$table."'";
-    if(mysqli_num_rows(mysqli_query($connection,$sql))==1) {
+    if(@mysqli_num_rows(mysqli_query($connection,$sql))==1) {
           echo "Table exists";
 	} else { 
 		//if table not exists create
-		echo "Table does not exist-- going to create table";
+		echo "Table does not exist-- going to create table<br/>";
 		echo "".""."";
 		$sql = "CREATE TABLE ".$table." (
 				`id` int NOT NULL AUTO_INCREMENT,
