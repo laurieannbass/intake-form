@@ -35,7 +35,9 @@ if(count($_POST)>0){
 </head>
 <body id="public">
 	<div id="container" class="ltr">
-		<form name='input' action='http://local.general.dev/intake-form/Searchform.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>	  
+		<form name='input' action='http://local.general.dev/intake-form/Searchform.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
+			<?php include_once('menu.php'); ?>
+		
 			<header id="header" class="info">
 			   <h2>INTAKE Search FORM</h2>
 
