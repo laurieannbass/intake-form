@@ -263,7 +263,7 @@
                
                     <span class="radio field" style="margin-right:45px";>
                         <label for='dob'>Birth Date</label>      
-                         <input type='text' name='dob' id='dob' class="field select addr"
+                         <input type='date' name='dob' id='dob' class="field select addr"
                                  placeholder='MM-DD-YYYY' onkeyup=""
                                  value='<?php echo (isset($_POST['dob'])) ?$_POST['dob']:"";?>'/>
          
