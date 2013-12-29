@@ -31,4 +31,17 @@ function make_maskes(){
 
 $(document).ready(function() {
 	make_maskes();
+	
+		if($('.datagrid').length){
+			$.each($('.datagrid'),function(){
+				var datatable = $(this)
+				var table = datatable.dataTable( {
+					"bJQueryUI": true,
+					"sPaginationType": "full_numbers"
+				});
+			});
+		}
+	
+	
+	
 });

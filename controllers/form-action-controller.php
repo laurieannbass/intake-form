@@ -120,7 +120,8 @@ if( $postValid ){
 	// which then produces $dob="the row value";
 	if(isset($_GET['id'])){
         $entry= generalform::getEntry($_GET['id']);
-        foreach($entry as $key=>$value){
+		$formData = json_decode ($entry['form_object']);
+        foreach($formData as $key=>$value){
                $$key=$value;
         }
     }

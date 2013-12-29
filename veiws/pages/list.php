@@ -43,7 +43,7 @@
            <h2>Past entries</h2>
            <div>If the user is already been entered then you will find them here ready to edit.</div>
         </header>
-        <table>
+        <table class="datagrid">
             <thead>
                 <tr>
                     <td>id</td>

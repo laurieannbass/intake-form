@@ -68,8 +68,21 @@ class generalform {
 
 
     public static function getEntry($id){
-        
-        return array();
+		$dbname = 'Intake';
+		$db = generalform::getDb($dbname);
+		$table = 'formdata';
+		if(!isset($_POST['searchOn'])){
+			$query = "SELECT * FROM `".$table."` WHERE ".sprintf(" `id`='%s' ",$id);
+		}
+		$result = $db->query($query) or die($db->error.__LINE__);
+	
+		$query_results = array ();
+		if($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$query_results=$row;
+			}
+		}
+        return $query_results;
     }
 
 
