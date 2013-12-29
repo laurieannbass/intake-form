@@ -10,6 +10,10 @@
            <h2>Dashboard</h2>
            <div></div>
         </header>
+        
+        <a href="form.php">Add new Entry</a><br/>
+        <a href="list.php">Look up</a><br/>
+
     </div>
 </body>
 

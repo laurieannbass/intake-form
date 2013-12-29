@@ -39,7 +39,7 @@ class generalform {
     }
     public static function getMessage(){
         if(isset($_SESSION['errors']))echo '<h3 class="error">'.$_SESSION['errors']."</h3>";
-        if(isset($_SESSION['warnings']))echo '<h3 class="warnings">'.$_SESSION['warnings']."</h3>";
+        if(isset($_SESSION['warnings']))echo '<h3 class="warning">'.$_SESSION['warnings']."</h3>";
         if(isset($_SESSION['success']))echo '<h3 class="success">'.$_SESSION['success']."</h3>";
         if(isset($_SESSION['errors']))unset($_SESSION['errors']);
         if(isset($_SESSION['warnings']))unset($_SESSION['warnings']);
@@ -49,7 +49,7 @@ class generalform {
 
 
     public static function makeDbConnection($db=null){
-        self::$connection = mysqli_connect('localhost', 'root', 'blank',$db);
+        self::$connection = mysqli_connect('localhost', 'root', 'blank', $db);
         if (!self::$connection) {
            die('Could not connect: ' . mysqli_connect_error());
         }
