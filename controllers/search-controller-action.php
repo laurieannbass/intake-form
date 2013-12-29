@@ -1,5 +1,5 @@
 <?php
-
+    require_once('controllers/general-controller.php');
 	//make your db connection then
 	// Create connection
 	$dbname = 'Intake';

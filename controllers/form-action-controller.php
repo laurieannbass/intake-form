@@ -1,28 +1,8 @@
 <?php
-//string json_encode ( mixed $value [, int $options = 0 [, int $depth = 512 ]] )
+    require_once('controllers/general-controller.php');
+    //string json_encode ( mixed $value [, int $options = 0 [, int $depth = 512 ]] )
 	echo 'form was filled out<br/>';
 
-	
-	
-	/* this is the basics not ideals
-	-----------------------------
-	|         table:formdata    |
-	-----------------------------
-	| id int(11) Primary key not null auto increment
-	| uh_id var(8)		     	|
-	| last_name  var(255)		|
-	| first_name var(255)		|
-	| birth_date var(255) 		|
-	| address var(255)          |
-	| city var(255) 
-	| State var(255)
-	| zip var(10)               |
-	| form_object text not null	|
-	| creation_date timestamp	|	
-	-----------------------------
-	
-	
-	*/
 	$jsonObj = json_encode ($_POST); // this is all of the form POST data serialized
 	// we are matching now for example
 	// also setting up the vars

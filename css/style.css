@@ -1,0 +1,17 @@
+/* Menu */
+.menu{margin:0;padding:0;}
+.menu li{display:inline-block}
+.menu li a{}
+
+
+/* other */
+.block_header{border-bottom:1px solid #494949}
+.colored_padding{background: yellow;
+    padding: 20px 20px 20px 80px;}
+.verticalLine {
+   border-left: thin solid #494949;
+  }	
+
+
+.errors{color:red;}
+.warnings{color:orange;}
