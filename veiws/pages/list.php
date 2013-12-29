@@ -7,12 +7,37 @@
     <div id="container" class="ltr">
         <?php include_once('veiws/structure/header.php'); ?>
         <?php
-            echo "<h2>Past entries</h2>";
-            
-            $fake_query_results=array(
-                array("id"=>1, "name"=>"mr foo"),
-                array("id"=>2, "name"=>"mrs foo")
-            );
+
+			$dbname = 'Intake';
+			$db = generalform::getDb($dbname);
+			$table = 'formdata';
+			if(!isset($_POST['searchOn'])){
+				$query = "SELECT * FROM `".$table."`";
+			}/*
+			do this later
+			else{
+				$query = "SELECT * FROM `".$table."` WHERE ";
+				$where_query="";
+				if(isset($_POST['uh-id'])&&!empty($_POST['uh_id'])){
+					$uh_id = mysqli_real_escape_string($db, $_POST['uh_id']);
+					$where_query .= (($where_query!="")?" AND ":"" ).sprintf(" `uh_id`='%s' ",$uh_id);
+				}
+		
+				$query = $query.$where_query;
+			}*/
+			//echo $query;
+			$result = $db->query($query) or die($db->error.__LINE__);
+		
+			$query_results = array ();
+			if($result->num_rows > 0) {
+				$i=0;
+				while($row = $result->fetch_assoc()) {
+					$query_results[]=array(
+						'id'=>$row['id'],
+						'name'=>"{$row['last_name']}, {$row['first_name']}"
+					);
+				}
+			}
         ?>
         <header id="header" class="info">
            <h2>Past entries</h2>
@@ -35,7 +60,7 @@
             </tfoot>
             <tbody>
                 <?php
-                foreach($fake_query_results as $row){
+                foreach($query_results as $row){
                 ?>
                     <tr>
                         <td><?php echo $row['id']?></td>
