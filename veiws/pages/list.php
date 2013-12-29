@@ -1,7 +1,3 @@
-<?php
-    require_once('controllers/general-controller.php');
-?>
-
 <!DOCTYPE html>
 <html>
 <head>

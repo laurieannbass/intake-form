@@ -1,11 +1,3 @@
-<?php
-require_once('controllers/general-controller.php');
-
-if(count($_POST)>0){
-		require_once('controllers/search-controller-action.php');
-}else{
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,9 +82,4 @@ if(count($_POST)>0){
 		</form>
 	</div>
 </body>
-</html> 
-<?php 
-}//end of validation if statement 
-
-
-?>
+</html>

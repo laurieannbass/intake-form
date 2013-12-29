@@ -25,7 +25,7 @@ if( $postValid ){
     if(count($_POST)>0){
        setMessage("There were missing required fields","err");
     }
-    include_once('veiws/pages/intake-form.php');
+    include_once('veiws/pages/form.php');
 
 }//end of validation if statement 
 
