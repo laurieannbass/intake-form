@@ -1,32 +1,33 @@
 <?php
-    require_once('controllers/general-controller.php');
-    //string json_encode ( mixed $value [, int $options = 0 [, int $depth = 512 ]] )
+function proccessPost(){
+    foreach($_POST as $key=>$value){
+           $$key=$value;
+    }
 	echo 'form was filled out<br/>';
-
-	$jsonObj = json_encode ($_POST); // this is all of the form POST data serialized
-	// we are matching now for example
-	// also setting up the vars
-	$uh_id			= (isset($_POST['uh-id'])) ? $_POST['uh-id'] : "";//$_POST['uh-id']
-
 	$creation_date 	= strtotime("now");
+    $jsonObj = json_encode ($_POST); // this is all of the form POST data serialized
 	$form_object	= $jsonObj;
 	//make your db connection then
 	// Create connection
 
-	$connection = mysqli_connect('localhost', 'root', 'blank');
-	if (!$connection) {
+	/*$db = mysqli_connect('localhost', 'root', 'blank');
+	if (!$db) {
 	   die('Could not connect: ' . mysqli_connect_error());
-	}
+	}*/
+    $db = generalform::getDb();
+    
+    
+    
 	echo 'Connected successfully<br/>';
 	$dbname = 'Intake';
      
 	//is type a boolane? and is equal to false is the same as === false
-	if ($connection->select_db($dbname) === false) {
+	if ($db->select_db($dbname) === false) {
 		$sql="CREATE DATABASE ".$dbname;
-		if (mysqli_query($connection,$sql)){
+		if (mysqli_query($db,$sql)){
 		  echo "Database ".$dbname." created successfully<br/>";
-		  mysqli_close($connection);//close it cause why not
-		  $connection = mysqli_connect('localhost', 'root', 'blank',$dbname);
+		  mysqli_close($db);//close it cause why not
+		  $db = mysqli_connect('localhost', 'root', 'blank',$dbname);
 		} else {
 		  echo "Error creating database: " ;
 		  die();
@@ -37,7 +38,7 @@
     
     $table = 'formdata';
 	$sql = "SHOW TABLES LIKE '".$table."'";
-    if(@mysqli_num_rows(mysqli_query($connection,$sql))==1) {
+    if(@mysqli_num_rows(mysqli_query($db,$sql))==1) {
           echo "Table exists";
 	} else { 
 		//if table not exists create
@@ -48,7 +49,7 @@
 				`uh_id` varchar(8),		     	
 				`last_name`  varchar(255)	NOT NULL,
 				`first_name` varchar(255)	NOT NULL,
-				`birth_date` varchar(255) NOT NULL,
+				`dob` varchar(255) NOT NULL,
 				`address` varchar(255) NOT NULL,
 				`city` varchar(255)     NOT NULL,
 				`state` varchar(255) NOT NULL,
@@ -58,11 +59,11 @@
 			  PRIMARY KEY (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=latin1
 		";
-		if (mysqli_query($connection,$sql)) {
+		if (mysqli_query($db,$sql)) {
 		  echo "table ".$table." created successfully<br/>";
 		} else {
 		  echo "Error creating table: run it again<br/>" ;
-		  echo $connection->error;
+		  echo $db->error;
 		}
 	}
 	//,$creation_date,,,$first_name,$birth_date,$address,$city,$zip
@@ -71,29 +72,70 @@
 	//if not there then 
 	$sql = sprintf(
         "INSERT INTO ".$table." 
-		(uh_id,first_name,last_name,birth_date,address,city,state,zip,form_object)
+		(uh_id,first_name,last_name,dob,address,city,state,zip,form_object)
 		VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
-        $connection->real_escape_string($uh_id),
-		$connection->real_escape_string($first_name),
-		$connection->real_escape_string($last_name),
-		$connection->real_escape_string($birth_date),
-		$connection->real_escape_string($address),	
-		$connection->real_escape_string($city),
-		$connection->real_escape_string($state),
-		$connection->real_escape_string($zip),
-		$connection->real_escape_string($form_object)
-		
+        $db->real_escape_string($uh_id),
+		$db->real_escape_string($first_name),
+		$db->real_escape_string($last_name),
+		$db->real_escape_string($dob),
+		$db->real_escape_string($address),	
+		$db->real_escape_string($city),
+		$db->real_escape_string($state),
+		$db->real_escape_string($zip),
+		$db->real_escape_string($form_object)
 	);
 
-
-	if (mysqli_query($connection,$sql)){
-	  echo "inserted row successfully  for ".$first_name." ".$last_name." ".$birth_date." ".$form_object."<br/>";
+	if (mysqli_query($db,$sql)){
+	  $mess="Inserted row successfully for ".$first_name." ".$last_name."<br/>";
+	  generalform::setMessage($mess,"success");
 	} else {
-	  echo "Error inserting rows: run it again<br/>" ;
-	  echo $connection->error;
+	  $mess="Error inserting rows: run it again<br/>" ;
+	  $mess.=$db->error;
+	  generalform::setMessage($mess,"err");
 	}
+
+	generalform::closeDbConnection();
+	generalform::redirect('dashboard');
 	
+}
+
+
+$postValid = generalform::validatePOST( array("last_name",'first_name','dob','address','city','state','zip') );
+if( $postValid ){
+    proccessPost();
+}else{
+	// we will have a conflict of the new post and the old data
+	// to get around this we need to first have the queried data
+	//in the array, then loop over the post and merge it with the record
+	// when we do this we can overwrite old data from the query with the
+	// post .
 	
+	//do query if $_GET['id'] exist
 	
+	// if id exists then loop over post
+	// while looping over post assign to the 
+	// row IE: if( isset($_POST['dob']) )$row['dob'] = $_POST['dob'];
+	// while looping over the data and reassigning it, then create vars on
+	// the fly IE: $$key= $row['dob'];
+	// which then produces $dob="the row value";
+	if(isset($_GET['id'])){
+        $entry= generalform::getEntry($_GET['id']);
+        foreach($entry as $key=>$value){
+               $$key=$value;
+        }
+    }
 	
-	mysqli_close($connection);
+    
+
+    
+    
+    if(count($_POST)>0){
+        foreach($_POST as $key=>$value){
+               $$key=$value;
+        }
+        generalform::setMessage("There were missing required fields","err");
+    }
+    include_once('veiws/pages/form.php');
+}//end of validation if statement 
+
+

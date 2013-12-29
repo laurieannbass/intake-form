@@ -6,7 +6,7 @@
 <body id="public">
 	<div id="container" class="ltr">
         <?php include_once('veiws/structure/header.php'); ?>
-		<form name='input' action='http://local.general.dev/intake-form/Searchform.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
+		<form name='input' action='http://local.general.dev/intake-form/search.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
 			<header id="header" class="info">
 			   <h2>INTAKE Search FORM</h2>
                 

@@ -1,5 +1,5 @@
 <?php
     require_once('controllers/general-controller.php');
-    require_once('controllers/form-action-controller.php');
+    include_once('veiws/pages/dashboard.php');
 ?>
 

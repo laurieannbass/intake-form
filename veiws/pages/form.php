@@ -14,29 +14,29 @@
             <h3 class="block_header">Contact Information</h3>
             <ul>
                 <li id="foli101" class="notranslate">
-                    <label class="desc" id="title116" for="uh-id">UH ID Number</label>
+                    <label class="desc" id="title116" for="uh_id">UH ID Number</label>
                     <div>
-                    <input type='text' name='uh-id' id='uh-id' class="field text medium" 
+                    <input type='text' name='uh_id' id='uh_id' class="field text medium" 
                          maxlength="255"  onkeyup=""
-                         value = '<?php echo (isset($_POST['uh-id']))?$_POST['uh-id']:""; ?>'/> 
+                         value = '<?php echo (isset($_POST['uh_id']))?$_POST['uh_id']:""; ?>'/> 
                          <span>Note: You can get this from <a href="#" target="_blank">foo</a></span>
                     </div>
                 </li>
         
                 <li id="foli102" class="notranslate ">
-                    <label class="desc" id="title101" for="last-name"> <!--header for the block-->
+                    <label class="desc" id="title101" for="last_name"> <!--header for the block-->
                         Name
                     </label>
         
                     <span>
-                        <input type='text' name='first-name' id='first-name' class="field text long"  maxlength="255"  onkeyup="" value='<?php echo (isset($_POST['first-name']))?$_POST['first-name']:""; ?>' required/> 
-                       <label for="last-name">First<span class="req">*</span></label>
+                        <input type='text' name='first_name' id='first_name' class="field text long"  maxlength="255"  onkeyup="" value='<?php echo (isset($_POST['first_name']))?$_POST['first_name']:""; ?>' required/> 
+                       <label for="last_name">First<span class="req">*</span></label>
                     </span>
                     <span>
-                        <input type='text' name='last-name' id='last-name' class="field text long" 
+                        <input type='text' name='last_name' id='last_name' class="field text long" 
                            maxlength="255"  onkeyup=""
-                           value = '<?php echo (isset($_POST['last-name']))?$_POST['last-name']:""; ?>' required/> 
-                       <label for="last-name">Last<span class="req">*</span></label>
+                           value = '<?php echo (isset($_POST['last_name']))?$_POST['last_name']:""; ?>' required/> 
+                       <label for="last_name">Last<span class="req">*</span></label>
                     </span>
         
                 </li>
@@ -227,10 +227,10 @@
                  <div>
                        <!--text field-->
                     <span class="radio field" style="margin-right:125px;">
-                        <input type='email' name='email-address' id='email-address' placeholder='name@domain.com' 
+                        <input type='email' name='email_address' id='email_address' placeholder='name@domain.com' 
                            class="field select addr" maxlength="255"  onkeyup=""
-                            value ='<?php echo (isset($_POST['email-address'])) ?$_POST['email-address']:"";?>' />
-                     <label for='email-address'>E-mail address<span class="req">*</span></label>
+                            value ='<?php echo (isset($_POST['email_address'])) ?$_POST['email_address']:"";?>' />
+                     <label for='email_address'>E-mail address<span class="req">*</span></label>
                     </span>
                 
                 <!--   THREE CHOICE ARRAY choose one-->
