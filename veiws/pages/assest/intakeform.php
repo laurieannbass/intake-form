@@ -224,7 +224,7 @@
             <?php $notificationArray = array("E-mail","Postal Mail ","Telephone");
                 foreach($notificationArray as $k=>$v){
                     $is_checked =((isset($notification) && $notification==$v)?"checked":"");
-                    echo "<input type='radio' name='notification'  value='".$v."' /> ".$v."";	
+                    echo "<span><input type='radio' name='notification'  value='".$v."' /> ".$v."</span>";	
                 }
             ?>
             <label>Preferred Method of Notification. choose one<span class="req">*</span></label>
@@ -347,8 +347,8 @@
             <label>Are you a U.S. Citizenship? choose one</label>
             <?php $citizenArray = array("U.S. Citizen","Non-Citizen Allowed to Work ","Non-Citizen NOT Allowed to Work");
                 foreach($citizenArray as $k=>$v){
-                   echo "<input type='radio' name='citizen' ". 
-                 ((isset($citizen) && $citizen==$v)?"checked":"")."value='".$v."' /> ".$v."";
+                   echo "<span><input type='radio' name='citizen' ". 
+                 ((isset($citizen) && $citizen==$v)?"checked":"")."value='".$v."' /> ".$v."</span>";
                 }
              ?>	   
         </span>	
@@ -427,7 +427,7 @@
              <?php
             $va_statusArray = array("Less than 180 days","Eligible Vet","Eligible Spouse","Dependent","Not Eligible");
             foreach($va_statusArray as $k =>$v){
-            echo "<input type='radio' name='va_status' ". ((isset($va_status) && $va_status==$v)?"checked":"")." value='".$v."' /> ".$v."";
+            echo "<span><input type='radio' name='va_status' ". ((isset($va_status) && $va_status==$v)?"checked":"")." value='".$v."' /> ".$v."</span>";
            }
           ?>  
         </span>
