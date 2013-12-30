@@ -11,11 +11,21 @@ class generalform {
         return $valid;
     }
 
-	public static function redirect($location){
+	public static function redirect($location,$arg){
 		$host  = $_SERVER['HTTP_HOST'];
 		$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 		$location= trim($location,'/');
-		$url = "http://$host$uri/$location.php";
+		
+		$params=""; $i=0;
+		if(count($arg)>0){
+			foreach($arg as $key=>$val){
+				$params.=($i>0?"&":"?")."{$key}={$val}";	
+				$i++;
+			}
+		}
+		
+		
+		$url = "http://$host$uri/$location.php$params";
 		header("Location: $url");
 		exit();
 	}
@@ -23,8 +33,7 @@ class generalform {
 
     /* messaging */
     public static function setMessage($message,$level="warn"){
-        session_start();
-        
+		session_start();
         switch($level) {
             case "warn":
                 $_SESSION['warnings']=$message;
@@ -38,6 +47,7 @@ class generalform {
         }
     }
     public static function getMessage(){
+		session_start();
         if(isset($_SESSION['errors']))echo '<h3 class="error">'.$_SESSION['errors']."</h3>";
         if(isset($_SESSION['warnings']))echo '<h3 class="warning">'.$_SESSION['warnings']."</h3>";
         if(isset($_SESSION['success']))echo '<h3 class="success">'.$_SESSION['success']."</h3>";

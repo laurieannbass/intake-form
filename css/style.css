@@ -19,3 +19,10 @@
 .error{color:red;}
 .warning{color:orange;}
 .success{color:green;}
+
+
+
+/* UI stuff */
+h3.removing {color:#5E1011 !important;text-decoration:line-through !important;}
+.deleteRecord{}
+/*.deleteRecord:before{content:"X",text-indent:0;}*/

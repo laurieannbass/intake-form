@@ -1,12 +1,42 @@
 <?php
 function proccessPost(){
+	
+	$params=array();
+	$entryid=$_POST['id'];
     foreach($_POST as $key=>$value){
            $$key=$value;
+		   $params[$key]=$value;
     }
 	echo 'form was filled out<br/>';
 	$creation_date 	= strtotime("now");
-    $jsonObj = json_encode ($_POST); // this is all of the form POST data serialized
+	
+	//filter internship interactions
+	//should be a model for this
+	
+	//var_dump($_POST['internship']);
+	
+	
+	
+	$internship=$params['internship'];
+	$internships=array();
+	foreach($internship as $id=>$entry){
+		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
+			$internships[]=array(
+				'date'=>"".$entry['date'],
+				'placed'=>"1",
+			);
+		}
+	}
+	$params['internship']=$internships;
+	
+	//var_dump($params);
+	
+    $jsonObj = json_encode ($params); // this is all of the form POST data serialized
 	$form_object	= $jsonObj;
+	
+	//var_dump($form_object);die();
+	
+	
 	//make your db connection then
 	// Create connection
 
@@ -70,11 +100,19 @@ function proccessPost(){
 	//now insert row :D yes it will
 	//do a select of the data, if it exist then do nothing
 	//if not there then 
+	
+	$update = isset($_POST['id'])&&$_POST['id']>0;
+	if($update){
+		$sql = "UPDATE ".$table." SET 
+		uh_id='%s',first_name='%s',last_name='%s',dob='%s',address='%s',city='%s',state='%s',zip='%s',form_object='%s'";
+	}else{
+		$sql = "INSERT INTO ".$table." 
+			(uh_id,first_name,last_name,dob,address,city,state,zip,form_object)
+			VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')";
+	}
 	$sql = sprintf(
-        "INSERT INTO ".$table." 
-		(uh_id,first_name,last_name,dob,address,city,state,zip,form_object)
-		VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
-        $db->real_escape_string($uh_id),
+		$sql,
+		$db->real_escape_string($uh_id),
 		$db->real_escape_string($first_name),
 		$db->real_escape_string($last_name),
 		$db->real_escape_string($dob),
@@ -84,9 +122,11 @@ function proccessPost(){
 		$db->real_escape_string($zip),
 		$db->real_escape_string($form_object)
 	);
+	isset($_POST['id'])&&$_POST['id']>0?$sql.=sprintf(" WHERE `id`=%s",$entryid):"";
+
 
 	if (mysqli_query($db,$sql)){
-	  $mess="Inserted row successfully for ".$first_name." ".$last_name."<br/>";
+	  $mess="Inserted row successfully for ".$first_name." ".$last_name."<br/>";//.$sql;
 	  generalform::setMessage($mess,"success");
 	} else {
 	  $mess="Error inserting rows: run it again<br/>" ;
@@ -95,7 +135,7 @@ function proccessPost(){
 	}
 
 	generalform::closeDbConnection();
-	generalform::redirect('dashboard');
+	generalform::redirect('form', isset($_POST['id'])&&$_POST['id']>0?array('id'=>($_POST['id']) ):"" );
 	
 }
 
@@ -121,9 +161,11 @@ if( $postValid ){
 	if(isset($_GET['id'])){
         $entry= generalform::getEntry($_GET['id']);
 		$formData = json_decode ($entry['form_object']);
+		$id=$_GET['id'];
         foreach($formData as $key=>$value){
                $$key=$value;
         }
+		$entry=$formData;
     }
 	
     
