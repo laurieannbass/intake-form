@@ -38,39 +38,33 @@
 		
 		$formvalue=array();
 		foreach($form_object as $k=>$v){
-			if(is_array($v)){
-				$v='"'.implode(',',$v).'"';
+			//var_dump($v);
+			$value="";
+			if(gettype($v)=="array"){
+				$value='"';
+				$i=0;
+				foreach($v as $k=>$val){
+					if(gettype($val)!="object"){
+						$value.=($i>0?",":"").$val;
+						$i++;
+					}
+				}
+				$value.='"';
+			}else{
+				if(gettype($v)!="object"){$value=$v;}
 			}
-			$formvalue[]=$v;
+			$formvalue[]=$value;
 		}
 		$formvalue[]=$row['creation_date'];
 		$list[]=$formvalue;
 		
 		
 		$creation_date = $row['creation_date'];
-		/*
-			echo "uh_id::".$row['uh_id']."</br>";	
-			echo "Last Name::".$row['last_name']."</br>";
-            echo "First Name::".$row['first_name']."</br>";		
-			echo "Birth Date::".$row['birth_date']."</br>";
-			echo "Address::".$row['address']."</br>";	
-			echo "City::".$row['city']."</br>";	
-			echo "State::".$row['state']."</br>";	
-			echo "Zip::".$row['zip']."</br>";	
-			
-			echo "form-object::</br>";	
-			var_dump();
-			echo "</br>";	
-			echo "creation_date::".."</br>";
-		*/
+
 		$i++;
 		}
-	}
-
-	else {
-
+	} else {
 		echo 'NO RESULTS';	
-
 	}
 
 $fp = fopen($file, 'w');

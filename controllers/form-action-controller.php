@@ -29,6 +29,37 @@ function proccessPost(){
 	}
 	$params['internship']=$internships;
 	
+	
+	
+	$counseling=$params['counseling'];
+	$counselings=array();
+	foreach($counseling as $id=>$entry){
+		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
+			$counselings[]=array(
+				'date'=>"".$entry['date'],
+				'mock_interviews'=>"".isset($entry['mock_interviews'])?$entry['mock_interviews']:"",
+				'career_counseling'=>"".isset($entry['career_counseling'])?$entry['career_counseling']:"",
+			);
+		}
+	}
+	$params['counseling']=$counselings;	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//var_dump($params);
 	
     $jsonObj = json_encode ($params); // this is all of the form POST data serialized
