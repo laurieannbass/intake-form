@@ -10,10 +10,12 @@
            <h2>Dashboard</h2>
            <div></div>
         </header>
-        
-        <a href="form.php">Add new Entry</a><br/>
-        <a href="list.php">Look up</a><br/>
-
+        <div style="padding:5px 15px;">
+            <a href="form.php" class="buttons">Add new Entry</a>
+            <a href="list.php" class="buttons">Look up</a>
+            <a href="search.php" class="buttons">Get Output</a>
+            <br/>
+		</div>
     </div>
 </body>
 
