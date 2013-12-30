@@ -29,7 +29,26 @@ function make_maskes(){
 		if( typeof(tar.data('end')) == "undefind" ){
 			tar.data('end',"-10Y");
 		}
-		$( '[type="date"]' ).datepicker({ changeMonth: true,changeYear: true, minDate:"-80Y", maxDate: tar.data('end') });
+
+		var dateRange={minDate:"-80Y", maxDate: tar.data('end')};
+		
+		if(tar.is($('input#dob'))){
+			dateRange={
+				yearRange: '1920:'+((new Date().getFullYear())-15),
+				onSelect: function(value, ui) {
+					var today = new Date(),
+						dob = new Date(value),
+						age = new Date(today - dob).getFullYear() - 1970;
+			
+					$('input#age').val(age);
+				},
+				maxDate: tar.data('end')
+			};
+		}
+		
+		var options = $.extend({ changeMonth: true,changeYear: true }, dateRange);
+		
+		$( '[type="date"]' ).datepicker(options);
 	});
 	
 }

@@ -2,7 +2,7 @@
 function proccessPost(){
 	
 	$params=array();
-	$entryid=$_POST['id'];
+	$entryid=isset($_POST['id'])&&$_POST['id']>0?$_POST['id']:0;
     foreach($_POST as $key=>$value){
            $$key=$value;
 		   $params[$key]=$value;
@@ -153,7 +153,9 @@ function proccessPost(){
 		$db->real_escape_string($zip),
 		$db->real_escape_string($form_object)
 	);
-	isset($_POST['id'])&&$_POST['id']>0?$sql.=sprintf(" WHERE `id`=%s",$entryid):"";
+	if($entryid>0){
+		$sql.=sprintf(" WHERE `id`=%s",$entryid);
+	}
 
 
 	if (mysqli_query($db,$sql)){
@@ -164,9 +166,13 @@ function proccessPost(){
 	  $mess.=$db->error;
 	  generalform::setMessage($mess,"err");
 	}
-
+	if($entryid>0){
+		
+	}else{
+		$entryid=mysqli_insert_id($db);
+	}
 	generalform::closeDbConnection();
-	generalform::redirect('form', isset($_POST['id'])&&$_POST['id']>0?array('id'=>($_POST['id']) ):"" );
+	generalform::redirect('form', array('id'=>$entryid ) );
 	
 }
 

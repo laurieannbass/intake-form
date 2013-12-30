@@ -9,9 +9,10 @@
         <form name='input' action='http://local.general.dev/intake-form/form.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
        
 			<?php 
+				echo '<input type="hidden" value="'.(isset($_GET['id'])?$_GET['id']:"").'" name="id"/>';
                if( isset($_GET['id']) && isset($first_name) ){
                     echo "<h4>Entry for $last_name, $first_name</h4>"; 
-                    echo '<input type="hidden" value="'.$id.'" name="id"/>';
+                    
                }else{
                    echo "<h4>Adding a new entry</h4>";
                }
