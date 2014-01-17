@@ -11,11 +11,12 @@
 	}else{
 		$query = "SELECT * FROM `".$table."` WHERE ";
 		$where_query="";
-		if(isset($_POST['uh-id'])&&!empty($_POST['uh-id'])){
-			$uh_id = mysqli_real_escape_string($db, $_POST['uh-id']);
-			$where_query .= (($where_query!="")?" AND ":"" ).sprintf(" `uh_id`='%s' ",$uh_id);
+		if(isset($_POST['fromdate'])&&!empty($_POST['fromdate']) && isset($_POST['todate'])&&!empty($_POST['todate'])){
+			$fromdate = mysqli_real_escape_string($db, $_POST['fromdate']);
+			$todate = mysqli_real_escape_string($db, $_POST['todate']);
+			$where_query .= (($where_query!="")?" AND ":"" ).sprintf(" `creation_date`>'%s' ",$fromdate);
+			$where_query .= (($where_query!="")?" AND ":"" ).sprintf(" `creation_date`<'%s' ",$todate);
 		}
-
 		$query = $query.$where_query;
 	}
 	//echo $query;
