@@ -34,6 +34,10 @@ function proccessPost(){
 			$counselings[]=array(
 				'date'=>"".$entry['date'],
 				'mock_interviews'=>"".isset($entry['mock_interviews'])?$entry['mock_interviews']:"",
+				'resume_training'=>"".isset($entry['resume_training'])?$entry['resume_training']:"",
+				'got_employed'=>"".isset($entry['got_employed'])?$entry['got_employed']:"",
+				'got_referred'=>"".isset($entry['got_referred'])?$entry['got_referred']:"",
+				'got_counseling'=>"".isset($entry['got_counseling'])?$entry['got_counseling']:"",
 				'career_counseling'=>"".isset($entry['career_counseling'])?$entry['career_counseling']:"",
 			);
 		}
