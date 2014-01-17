@@ -23,6 +23,7 @@
                     <li><a href="#counseling">Counseling</a></li>
                     <li><a href="#transcript-evaluation">Transcript Evaluation/ PLA </a></li>
                     <li><a href="#internship">Internship</a></li>
+                    <li><a href="#notes">Notes</a></li>
                 </ul>
                 <div id="intake">      
                     
@@ -52,6 +53,12 @@
                     <h2>Internship information</h2>
                     <hr/>
                     <?php include_once('veiws/pages/assest/internshipform.php') ?>
+                    <input type='submit' value='Submit'>
+                </div>
+                <div id="notes">
+                    <h2>Notes</h2>
+                    <hr/>
+                    <?php include_once('veiws/pages/assest/notesform.php') ?>
                     <input type='submit' value='Submit'>
                 </div>
             </div>

@@ -9,14 +9,10 @@ function proccessPost(){
     }
 	echo 'form was filled out<br/>';
 	$creation_date 	= strtotime("now");
-	
-	//filter internship interactions
-	//should be a model for this
-	
-	//var_dump($_POST['internship']);
-	
-	
-	
+
+
+
+	//Start by filtering the expando fields
 	$internship=$params['internship'];
 	$internships=array();
 	foreach($internship as $id=>$entry){
@@ -45,7 +41,17 @@ function proccessPost(){
 	$params['counseling']=$counselings;	
 	
 	
-	
+	$note=$params['note'];
+	$notes=array();
+	foreach($note as $id=>$entry){
+		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
+			$notes[]=array(
+				'date'=>"".$entry['date'],
+				'comment'=>"".isset($entry['comment'])?$entry['comment']:""
+			);
+		}
+	}
+	$params['note']=$notes;		
 	
 	
 	
