@@ -16,8 +16,8 @@
 		foreach($entry->note as $id=>$event){
 			echo "<h3><a href='#' class='deleteRecord buttons'>[x]</a>{$event->date}</h3><div>";
 			echo "<input type='hidden' name='note[{$id}][remove]' class='remove' value=''/>";	
-			echo "<lable>Date of note:</label><br/><input type='date' data-end='+1d' name='note[{$id}][date]' value='{$event->date}' /></br>";	
-			echo "<lable>Note:</label> <p>{$event->comment}</p></br>";	
+			echo "<lable>Date of note: </label><input type='hidden' name='note[{$id}][date]' class='remove' value='{$event->comment}'/>{$event->date}</br>";	
+			echo "<lable>Note:</label><input type='hidden' name='note[{$id}][comment]' class='remove' value='{$event->comment}'/><p>{$event->comment}</p></br>";	
 			echo "</div>";
 		}
 		?>

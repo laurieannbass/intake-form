@@ -40,25 +40,25 @@
                 <div id="counseling">
                     <h2>Counseling information</h2>
                     <hr/>
-                    <?php include_once('veiws/pages/assest/counselingform.php') ?>
+                    <?php include_once('veiws/pages/assest/counselingform.php') ?><br/>
                     <input type='submit' value='Submit'>
                 </div>  
                 <div id="transcript-evaluation">
                     <h2>Transcript Evaluation/ PLA information</h2>
                     <hr/>
-                    <?php include_once('veiws/pages/assest/transcriptform.php') ?>
+                    <?php include_once('veiws/pages/assest/transcriptform.php') ?><br/>
                     <input type='submit' value='Submit'>
                 </div>        
                 <div id="internship">
                     <h2>Internship information</h2>
                     <hr/>
-                    <?php include_once('veiws/pages/assest/internshipform.php') ?>
+                    <?php include_once('veiws/pages/assest/internshipform.php') ?><br/>
                     <input type='submit' value='Submit'>
                 </div>
                 <div id="notes">
                     <h2>Notes</h2>
                     <hr/>
-                    <?php include_once('veiws/pages/assest/notesform.php') ?>
+                    <?php include_once('veiws/pages/assest/notesform.php') ?><br/>
                     <input type='submit' value='Submit'>
                 </div>
             </div>
