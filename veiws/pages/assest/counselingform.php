@@ -1,7 +1,7 @@
 <div class="formTemplate">
 <h3>Add a new counseling session</h3>
 <?php
-	echo "<lable>Date of interaction:</label><input type='date' name='counseling[9999][date]' data-end='+1d' /></br>";	
+	echo "<lable>Date of interaction:</label><input type='date' name='counseling[9999][date]' data-end='+1d' /><input type='hidden' name='counseling[9999][remove]' class='remove' value=''/></br>";	
 
 
                        

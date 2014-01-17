@@ -59,12 +59,31 @@ function proccessPost(){
 	}
 	$params['note']=$notes;		
 	
-	
-	
-	
-	
-	
-	
+
+
+	$transcript=$params['transcript'];
+	$transcripts=array();
+	foreach($transcript as $id=>$entry){
+		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
+			$transcripts[]=array(
+				'date'=>"".$entry['date'],
+				'pla_interviewed'=>"".isset($entry['pla_interviewed'])?$entry['pla_interviewed']:"",
+				'pla_counseling'=>"".isset($entry['pla_counseling'])?$entry['pla_counseling']:"",
+				'clep_exam'=>"".isset($entry['clep_exam'])?$entry['clep_exam']:"",
+				'uexcel_exam'=>"".isset($entry['uexcel_exam'])?$entry['uexcel_exam']:"",
+				'dsst_exam'=>"".isset($entry['dsst_exam'])?$entry['dsst_exam']:"",
+				'credit_through_articulation'=>"".isset($entry['credit_through_articulation'])?$entry['credit_through_articulation']:"",
+				'portfolio_assessment'=>"".isset($entry['portfolio_assessment'])?$entry['portfolio_assessment']:"",
+				'credit_by_intuitional_exam'=>"".isset($entry['credit_by_intuitional_exam'])?$entry['credit_by_intuitional_exam']:"",
+				'pla_workshop'=>"".isset($entry['pla_workshop'])?$entry['pla_workshop']:"",
+				'earned_transfer_credits'=>"".isset($entry['earned_transfer_credits'])?$entry['earned_transfer_credits']:"",
+				'earned_military_transfer_credits'=>"".isset($entry['earned_military_transfer_credits'])?$entry['earned_military_transfer_credits']:"",
+			);
+		}
+	}
+	$params['transcript']=$transcripts;	
+
+
 	
 	
 	
