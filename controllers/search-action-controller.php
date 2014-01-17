@@ -79,14 +79,19 @@ foreach ($list as $fields) {
 fclose($fp);
 
 
-// rewrind the "file" with the csv lines
-fseek($fp, 0);
-// tell the browser it's going to be a csv file
+header('Pragma: public');  // required
+header('Expires: 0');  // no cache
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+
+header('Cache-Control: private', false);
 header('Content-Type: application/csv');
-// tell the browser we want to save it instead of displaying it
-header('Content-Disposition: attachement; filename="'.$file.'"');
-// make php send the generated csv lines to the browser
-fpassthru($fp);
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($file)) . ' GMT');
+header('Content-disposition: attachment; filename=' . $file . '');
+header("Content-Transfer-Encoding:  binary");
+header('Content-Length: ' . filesize($file)); // provide file size
+header('Connection: close');
+readfile($file);
+exit();
 
 /*
 
