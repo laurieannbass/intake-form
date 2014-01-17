@@ -13,7 +13,7 @@
         <div style="padding:5px 15px;">
             <a href="form.php" class="buttons">Add new Entry</a>
             <a href="list.php" class="buttons">Look up</a>
-            <a href="search.php" class="buttons">Get Output</a>
+            <a href="search.php" class="buttons">Run reports</a>
             <br/>
 		</div>
     </div>

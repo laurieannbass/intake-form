@@ -240,17 +240,13 @@
     <div>
         <span class="radio field"> <!-- fields with in the block-->
             <label for='age'>Age</label> 
-            <input type='text' name='age' id='age'  class="field select addr"
-                maxlength="255"  onkeyup=""
-                  value='<?php echo (isset($age)) ?$age:"";?>'/>
+            <input type='text' name='age' id='age'  class="field select addr" maxlength="3" value='<?php echo (isset($age)) ?$age:"";?>'/>
               
         </span>       
    
         <span class="radio field" style="margin-right:45px";>
             <label for='dob'>Birth Date</label>      
-             <input type='date' name='dob' id='dob' class="field select addr"
-                     placeholder='MM-DD-YYYY' onkeyup=""
-                     value='<?php echo (isset($dob)) ?$dob:"";?>'/>
+             <input type='date' name='dob' id='dob' class="field select addr" placeholder='MM-DD-YYYY'  value='<?php echo (isset($dob)) ?$dob:"";?>'/>
 
          
         </span>  
@@ -261,27 +257,11 @@
      <div>		 
         <span class="radio field" style="margin-right:45px;" >
          <label>Gender</label>
-            <!-- this is the by hand that you see the data pattern from -->
-           <!-- <input type='radio' name='gender' checked value='Male' /> Male -->
-           <!-- <input type='radio' name='gender'  value='Female' /> Female -->
-
-           
-           <!-- what they share in common and what is devoid of data 
-           <input type='radio' name='gender' {$is_checked} value='{$somevalue}' /> {$somevalue_lable}
-           -->
-           
-           
-           <!-- this is the logic that iterates of the data -->
             <?php $genderArray = array("Male","1"=>"Female");
                foreach($genderArray as $v){
-               //we are now appliing value to vars from data (but note we have wasted memory doing this 
-               //in this way were we visually make the vars) but we have var with data
-               $somevalue=$v;
-               $somevalue_lable=$v;
                $is_checked=((isset($gender) && $gender==$v)?"checked":"");
                //we now replace the template with the vars holding the data
-               $thePattern_aka_template =
-                "<input type='radio' name='gender' {$is_checked} value='{$somevalue}' /> {$somevalue_lable}";
+               $thePattern_aka_template = "<input type='radio' name='gender' {$is_checked} value='{$v}' /> {$v}";
                 echo $thePattern_aka_template;
 
             }

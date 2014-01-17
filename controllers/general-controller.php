@@ -47,7 +47,7 @@ class generalform {
         }
     }
     public static function getMessage(){
-		session_start();
+		@session_start();
         if(isset($_SESSION['errors']))echo '<h3 class="error">'.$_SESSION['errors']."</h3>";
         if(isset($_SESSION['warnings']))echo '<h3 class="warning">'.$_SESSION['warnings']."</h3>";
         if(isset($_SESSION['success']))echo '<h3 class="success">'.$_SESSION['success']."</h3>";

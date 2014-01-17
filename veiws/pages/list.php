@@ -34,6 +34,7 @@
 				while($row = $result->fetch_assoc()) {
 					$query_results[]=array(
 						'id'=>$row['id'],
+						'uh_id'=>$row['uh_id'],
 						'name'=>"{$row['last_name']}, {$row['first_name']}"
 					);
 				}
@@ -43,33 +44,42 @@
            <h2>Past entries</h2>
            <div>If the user is already been entered then you will find them here ready to edit.</div>
         </header>
+        <div style="padding:0px 15px 15px 15px;">
         <table class="datagrid">
             <thead>
                 <tr>
-                    <td>id</td>
-                    <td>name</td>
-                    <td>action</td>
+                    <th width="75px" align="center">id</th>
+                    <th width="175px" align="center">UH id</th>
+                    <th>Name</th>
+                    <th width="175px">Actions</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <td>id</td>
-                    <td>name</td>
-                    <td>action</td>
-                </tr>
-            </tfoot>
+
             <tbody>
                 <?php
                 foreach($query_results as $row){
                 ?>
                     <tr>
                         <td><?php echo $row['id']?></td>
+                        <td><?php echo $row['uh_id']?></td>
                         <td><?php echo $row['name']?></td>
-                        <td><a href="form.php?id=<?php echo $row['id']?>">Edit</a></td>
+                        <td>
+                        	<a href="form.php?id=<?php echo $row['id']?>" class="button">Edit</a> | 
+                            <a href="print_case_notes.php?id=<?php echo $row['id']?>" class="button">Print Case Notes</a>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th>id</th>
+                    <th>UH id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </tfoot>
         </table>
+        </div>
     </div>
 </body>
 

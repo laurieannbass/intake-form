@@ -9,21 +9,19 @@ function proccessPost(){
     }
 	echo 'form was filled out<br/>';
 	$creation_date 	= strtotime("now");
-	
-	//filter internship interactions
-	//should be a model for this
-	
-	//var_dump($_POST['internship']);
-	
-	
-	
+
+
+
+	//Start by filtering the expando fields
 	$internship=$params['internship'];
 	$internships=array();
 	foreach($internship as $id=>$entry){
 		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
 			$internships[]=array(
 				'date'=>"".$entry['date'],
-				'placed'=>"1",
+				'placed'=>"".isset($entry['placed'])?$entry['placed']:"",
+				'attended_workshop'=>"".isset($entry['attended_workshop'])?$entry['attended_workshop']:"",
+				'applied_internship'=>"".isset($entry['applied_internship'])?$entry['applied_internship']:""
 			);
 		}
 	}
@@ -38,6 +36,10 @@ function proccessPost(){
 			$counselings[]=array(
 				'date'=>"".$entry['date'],
 				'mock_interviews'=>"".isset($entry['mock_interviews'])?$entry['mock_interviews']:"",
+				'resume_training'=>"".isset($entry['resume_training'])?$entry['resume_training']:"",
+				'got_employed'=>"".isset($entry['got_employed'])?$entry['got_employed']:"",
+				'got_referred'=>"".isset($entry['got_referred'])?$entry['got_referred']:"",
+				'got_counseling'=>"".isset($entry['got_counseling'])?$entry['got_counseling']:"",
 				'career_counseling'=>"".isset($entry['career_counseling'])?$entry['career_counseling']:"",
 			);
 		}
@@ -45,14 +47,43 @@ function proccessPost(){
 	$params['counseling']=$counselings;	
 	
 	
+	$note=$params['note'];
+	$notes=array();
+	foreach($note as $id=>$entry){
+		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
+			$notes[]=array(
+				'date'=>"".$entry['date'],
+				'comment'=>"".isset($entry['comment'])?$entry['comment']:""
+			);
+		}
+	}
+	$params['note']=$notes;		
 	
-	
-	
-	
-	
-	
-	
-	
+
+
+	$transcript=$params['transcript'];
+	$transcripts=array();
+	foreach($transcript as $id=>$entry){
+		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
+			$transcripts[]=array(
+				'date'=>"".$entry['date'],
+				'pla_interviewed'=>"".isset($entry['pla_interviewed'])?$entry['pla_interviewed']:"",
+				'pla_counseling'=>"".isset($entry['pla_counseling'])?$entry['pla_counseling']:"",
+				'clep_exam'=>"".isset($entry['clep_exam'])?$entry['clep_exam']:"",
+				'uexcel_exam'=>"".isset($entry['uexcel_exam'])?$entry['uexcel_exam']:"",
+				'dsst_exam'=>"".isset($entry['dsst_exam'])?$entry['dsst_exam']:"",
+				'credit_through_articulation'=>"".isset($entry['credit_through_articulation'])?$entry['credit_through_articulation']:"",
+				'portfolio_assessment'=>"".isset($entry['portfolio_assessment'])?$entry['portfolio_assessment']:"",
+				'credit_by_intuitional_exam'=>"".isset($entry['credit_by_intuitional_exam'])?$entry['credit_by_intuitional_exam']:"",
+				'pla_workshop'=>"".isset($entry['pla_workshop'])?$entry['pla_workshop']:"",
+				'earned_transfer_credits'=>"".isset($entry['earned_transfer_credits'])?$entry['earned_transfer_credits']:"",
+				'earned_military_transfer_credits'=>"".isset($entry['earned_military_transfer_credits'])?$entry['earned_military_transfer_credits']:"",
+			);
+		}
+	}
+	$params['transcript']=$transcripts;	
+
+
 	
 	
 	
