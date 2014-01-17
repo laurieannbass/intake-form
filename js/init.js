@@ -47,8 +47,9 @@ function make_maskes(){
 		}
 		
 		var options = $.extend({ changeMonth: true,changeYear: true }, dateRange);
-		
+		var orgage=$('input#age').val();
 		$( '[type="date"]' ).datepicker(options);
+		$('input#age').val(orgage);
 	});
 	
 }

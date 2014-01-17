@@ -73,9 +73,24 @@ foreach ($list as $fields) {
     fputcsv($fp, $fields);
 }
 
+
+
 fclose($fp);
+
+
+// rewrind the "file" with the csv lines
+fseek($fp, 0);
+// tell the browser it's going to be a csv file
+header('Content-Type: application/csv');
+// tell the browser we want to save it instead of displaying it
+header('Content-Disposition: attachement; filename="'.$file.'"');
+// make php send the generated csv lines to the browser
+fpassthru($fp);
+
+/*
+
 	echo "<h2>The CSV</h2>".file_get_contents($file);
-	
+	*/
 	//echo $results;
 	/*while ($row=mysqli_fetch_arry($result)){
 		echo $row['id']."". $row['last_name']."".$row['first_name'] ."|". $row['birth_date']."|".$row['address'] ."|". $row['city']."|".$row['state'] ."|". $row['zip']."|".$row['form_object'] ."|". $row['creation_date'];
