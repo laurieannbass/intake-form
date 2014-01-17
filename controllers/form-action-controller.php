@@ -19,7 +19,9 @@ function proccessPost(){
 		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
 			$internships[]=array(
 				'date'=>"".$entry['date'],
-				'placed'=>"1",
+				'placed'=>"".isset($entry['placed'])?$entry['placed']:"",
+				'attended_workshop'=>"".isset($entry['attended_workshop'])?$entry['attended_workshop']:"",
+				'applied_internship'=>"".isset($entry['applied_internship'])?$entry['applied_internship']:""
 			);
 		}
 	}
