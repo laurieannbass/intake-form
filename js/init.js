@@ -74,7 +74,7 @@ $(document).ready(function() {
 	
 	$('.deleteRecord').on('click',function(e){
 		e.preventDefault();
-		e.stopPropagation() 
+		e.stopPropagation();
 		var trig=$(this);
 		var tar=$(this).closest('h3');
 		if(tar.next('div').find('.remove').val()>0){
@@ -89,4 +89,20 @@ $(document).ready(function() {
 			tar.next('div').css('opacity','.15').find('.remove').val('1');
 		}
 	});
+	
+	$('[name="action_type"]').on('click',function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		var trig=$(this);
+		var value=trig.val();
+		trig.closest('#action_choice').hide();
+		$('#'+value+'.fieldset').show().removeClass('notused');
+		
+		
+		
+	});
+	
+	
+	
+	
 });

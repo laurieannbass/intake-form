@@ -95,6 +95,41 @@ class generalform {
         return $query_results;
     }
 
+	public static function createFormField($key,$field,$entry){
+		$name=$key.'_'.$field['id'];
+		$value=isset($entry->$name)?$entry->$name:'';
+		$html="";
+		switch ($field['type']) {
+			case 'date':
+				$html .= "<label>".$field['title'].": <br/>";
+				$html .= "<input type='date' name='".$name."' value='".$value."' /></lable>";
+				break;
+			case 'text':
+				$html .= "<label>".$field['title'].": <br/>";
+				$html .= "<input type='text' name='".$name."' value='".$value."' /></lable>";
+				break;
+			case 'radio':
+				$html .= "<label>".$field['title'].": <br/>";
+				foreach($field['option'] as $k =>$v){
+					$html .= "<input type='radio' name='".$name."' ". ($value==$k ?"checked":"")." value='".$k."' /> ".$v."</lable>";
+				}
+				break;
+			case 'select':
+				$html .= "<label>".$field['title'].": <br/>";
+				$html .= "<select name='".$name."'>";
+				foreach($field['option'] as $k =>$v){
+					$html .= "<option ". ($value==$k ?"selected":"")." value='".$k."' > ".$v."</option>";
+				}
+				$html .= "</select></lable>";
+				break;
+			case 'textarea':
+				$html .= "<label>".$field['title'].": <br/>";
+				$html .= "<textarea name='".$name."'>".$value."</textarea></lable>";
+				break;
+				break;
+		}
+		return $html;
+	}
 
 }
 

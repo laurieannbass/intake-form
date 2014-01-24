@@ -20,7 +20,9 @@
 .warning{color:orange;}
 .success{color:green;}
 
-
+.sudohidden{ position:absolute; top:-999em; left:-999em;}
+.notused{ position:absolute; top:-999em; left:-999em;}
+.fieldset textarea{ width:350px; height:300px;}
 
 /* UI stuff */
 h3.removing {color:#5E1011 !important;text-decoration:line-through !important;}
