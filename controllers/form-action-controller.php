@@ -207,8 +207,8 @@ function proccessPost(){
 	
 }
 
-
-$postValid = generalform::validatePOST( array("last_name",'first_name','dob','address','city','state','zip') );
+$requiredFeilds = array("last_name",'first_name','dob','address','city','state','zip');
+$postValid = generalform::validatePOST( $requiredFeilds );
 if( $postValid ){
     proccessPost();
 }else{
@@ -244,7 +244,7 @@ if( $postValid ){
         foreach($_POST as $key=>$value){
                $$key=$value;
         }
-        generalform::setMessage("There were missing required fields","err");
+        generalform::setMessage("First, Last Name, Resident Address, birthday and Phone number are required fields and must be filled in.","err");
     }
     include_once('veiws/pages/form.php');
 }//end of validation if statement 
