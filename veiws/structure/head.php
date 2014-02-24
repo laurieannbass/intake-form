@@ -22,23 +22,23 @@
 
 
 <style type="text/css" title="currentStyle">
-	@import "http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css";
-	@import "http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.1/themes/cupertino/jquery-ui.css";
+	@import "https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables_themeroller.css";
+	@import "https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.1/themes/cupertino/jquery-ui.css";
 </style>
 
-<link type='text/css' href='http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' rel='stylesheet' media='screen' />
-<link type='text/css' href='http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.1/themes/cupertino/jquery-ui.css' rel='stylesheet' media='screen' />
+<link type='text/css' href='https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css' rel='stylesheet' media='screen' />
+<link type='text/css' href='https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.1/themes/cupertino/jquery-ui.css' rel='stylesheet' media='screen' />
 
 
 
 <!-- Javascript - jQuery -->
-<script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery-1.7.2.min.js"><\/script>')</script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
 
 
-<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript" src="js/jquery.maskedinput.js"></script>
 
