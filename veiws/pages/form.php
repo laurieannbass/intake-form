@@ -6,7 +6,7 @@
 <body id="public">
     <div id="container" class="ltr">
         <?php include_once('veiws/structure/header.php'); ?>
-        <form name='input' action='http://local.general.dev/intake-form/form.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
+        <form name='input' action='form.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
        
 			<?php 
 				echo '<input type="hidden" value="'.(isset($_GET['id'])?$_GET['id']:"").'" name="id"/>';
