@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //maybe i should move this, ask jeremy how
   $actions = array(
   	"contacted"=>array( 'title'=>'New Employer’s contacted',
@@ -117,7 +117,7 @@
 <body id="public">
     <div id="container" class="ltr">
         <?php include_once('veiws/structure/header.php'); ?>
-        <form name='input' action='http://local.general.dev/intake-form/outreach.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
+        <form name='input' action='outreach.php' class="wufoo topLabel page" autocomplete="off" enctype="multipart/form-data" method="post" novalidate>
 
         <h2>Outreach Actions</h2>       
         <?php 
