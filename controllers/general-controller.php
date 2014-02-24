@@ -79,10 +79,10 @@ class generalform {
 
 
     public static function getEntry($id){
-		$dbname = 'Intake';
-		$db = generalform::getDb($dbname);
+	
+		$db = generalform::getDb(DB_NAME);
 		$table = 'formdata';
-		if(!isset($_POST['searchOn'])){
+		if(!isset($_POST['searchOn']) && $id>0){
 			$query = "SELECT * FROM `".$table."` WHERE ".sprintf(" `id`='%s' ",$id);
 		}
 		$result = $db->query($query) or die($db->error.__LINE__);
