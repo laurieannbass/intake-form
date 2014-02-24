@@ -7,9 +7,7 @@
     <div id="container" class="ltr">
         <?php include_once('veiws/structure/header.php'); ?>
         <?php
-
-			$dbname = 'Intake';
-			$db = generalform::getDb($dbname);
+			$db = generalform::getDb(DB_NAME);
 			$table = 'formdata';
 			if(!isset($_POST['searchOn'])){
 				$query = "SELECT * FROM `".$table."`";
