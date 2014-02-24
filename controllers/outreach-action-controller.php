@@ -44,12 +44,9 @@ function proccessPost(){
 	
 	$update = isset($_POST['id'])&&$_POST['id']>0;
 	if($update){
-		$sql = "UPDATE ".$table." SET 
-		form_object='%s'";
+		$sql = "UPDATE ".$table." SET form_object='%s'";
 	}else{
-		$sql = "INSERT INTO ".$table." 
-			(form_object)
-			VALUES ('%s')";
+		$sql = "INSERT INTO ".$table." (form_object) VALUES ('%s')";
 	}
 	$sql = sprintf(
 		$sql,

@@ -83,14 +83,6 @@ function proccessPost(){
 	}
 	$params['transcript']=$transcripts;	
 
-
-	
-	
-	
-	
-	
-	
-	
 	//var_dump($params);
 	
     $jsonObj = json_encode ($params); // this is all of the form POST data serialized
@@ -101,29 +93,12 @@ function proccessPost(){
 	
 	//make your db connection then
 	// Create connection
-
-	/*$db = mysqli_connect('localhost', 'root', 'blank');
-	if (!$db) {
-	   die('Could not connect: ' . mysqli_connect_error());
-	}*/
     $db = generalform::getDb();
-    
-    
-    
-	echo 'Connected successfully<br/>';
-	$dbname = 'Intake';
-     
+
 	//is type a boolane? and is equal to false is the same as === false
-	if ($db->select_db($dbname) === false) {
-		$sql="CREATE DATABASE ".$dbname;
-		if (mysqli_query($db,$sql)){
-		  echo "Database ".$dbname." created successfully<br/>";
-		  mysqli_close($db);//close it cause why not
-		  $db = mysqli_connect('localhost', 'root', 'blank',$dbname);
-		} else {
-		  echo "Error creating database: " ;
-		  die();
-		}
+	if ($db->select_db(($db==null?DB_NAME:$db)) === false) {
+        echo "Error connecting too database: " ;
+        die();
 	}
 	//check for table
 	// Select 1 from table_name will return false if the table does not exist.   
@@ -214,7 +189,7 @@ if( $postValid ){
 }else{
 	// we will have a conflict of the new post and the old data
 	// to get around this we need to first have the queried data
-	//in the array, then loop over the post and merge it with the record
+	// in the array, then loop over the post and merge it with the record
 	// when we do this we can overwrite old data from the query with the
 	// post .
 	

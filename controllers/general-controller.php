@@ -1,4 +1,5 @@
 <?php
+require_once('config.php');
 class generalform {
     public static $connection = null;
     public static function validatePOST($required=array()){
@@ -59,7 +60,7 @@ class generalform {
 
 
     public static function makeDbConnection($db=null){
-        self::$connection = mysqli_connect('localhost', 'root', 'blank', $db);
+        self::$connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, ($db==null?DB_NAME:$db));
         if (!self::$connection) {
            die('Could not connect: ' . mysqli_connect_error());
         }
@@ -71,7 +72,7 @@ class generalform {
 
     public static function getDb($db=null){
         if(self::$connection==null){
-           self::$connection = self::makeDbConnection($db);
+           self::$connection = self::makeDbConnection($db==null?DB_NAME:$db);
         }
         return self::$connection;
     }
