@@ -2,8 +2,7 @@
     require_once('controllers/general-controller.php');
 	//make your db connection then
 	// Create connection
-	$dbname = 'Intake';
-	$db = generalform::getDb($dbname);
+	$db = generalform::getDb(DB_NAME);
 
     $table = 'formdata';
 	if(isset($_POST['all'])){
