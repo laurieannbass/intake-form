@@ -8,10 +8,9 @@
         <?php include_once('veiws/structure/header.php'); ?>
         <?php
 			$id = $_REQUEST['id'];
-			$dbname = 'Intake';
-			$db = generalform::getDb($dbname);
+			$db = generalform::getDb(DB_NAME);
 			$table = 'formdata';
-			if(!isset($_POST['searchOn'])){
+			if(!isset($_POST['searchOn']) && $id>0){
 				$query = "SELECT * FROM `".$table."`  WHERE ".sprintf(" `id`='%d' ",$id);
 			}
 			$result = $db->query($query) or die($db->error.__LINE__);
