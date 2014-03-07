@@ -9,7 +9,7 @@
 	echo "<input type='checkbox' name='counseling[9999][got_referred]' value='1' /><lable>Did the student get referred for employment:</label></br>";	
 	echo "<input type='checkbox' name='counseling[9999][got_employed]' value='1' /><lable>Did the student get employed:</label></br>";	
 	echo "<input type='checkbox' name='counseling[9999][resume_training]' value='1' /><lable>Did the student received resume/cover letter training:</label></br>";	
-	echo "<input type='checkbox'  name='counseling[9999][career_counseling]' value='1' /><lable>Received career counseling:</label></br>";
+	
 	echo "<input type='checkbox' name='counseling[9999][mock_interviews]' value='1' /><lable>Did the student complete mock interview:</label></br>";
 		
 ?>
@@ -31,7 +31,7 @@
 			echo "<input type='checkbox' ".($event->got_referred=='1'?"checked='checked'":"")." name='counseling[{$id}][got_referred]' value='1' /><lable>Did the student get referred for employment:</label></br>";
 			echo "<input type='checkbox' ".($event->got_employed=='1'?"checked='checked'":"")." name='counseling[{$id}][got_employed]' value='1' /><lable>Did the student get employed:</label></br>";
 			echo "<input type='checkbox' ".($event->resume_training=='1'?"checked='checked'":"")." name='counseling[{$id}][resume_training]' value='1' /><lable>Did the student received resume/cover letter training:</label></br>";
-			echo "<input type='checkbox' ".($event->career_counseling=='1'?"checked='checked'":"")." name='counseling[{$id}][career_counseling]' value='1' /><lable>Received career counseling:</label></br>";
+			
 			echo "<input type='checkbox' ".($event->mock_interviews=='1'?"checked='checked'":"")." name='counseling[{$id}][mock_interviews]' value='1' /><lable>Received Mock Interviews:</label></br>";
 			
 			echo "</div>";
