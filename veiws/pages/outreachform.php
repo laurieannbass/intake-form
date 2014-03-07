@@ -138,7 +138,7 @@
 			<?php
 			$i=0;
                 foreach($actions as $key =>$v){
-					$usage = isset($entry->action_type) && $entry->action_type == $key ? '' : 'notused';
+		$usage = isset($entry->action_type) && $entry->action_type == $key ? '' : 'notused';
 				?>
         			<ul id="<?php echo $key; ?>" class="fieldset <?php echo $usage; ?>">
                     <li><hr/><h3><?php echo $v['title']; ?></h3><hr/></li>
@@ -156,7 +156,7 @@
 					$i++;
 					}
         			?>
-                    <li><input type="submit" value="submit" /></li>
+                    <li><input type="submit" value="submit" /><input type="submit" value="cancel" name="endit" /></li>
                     </ul><?php
                 }
             ?>

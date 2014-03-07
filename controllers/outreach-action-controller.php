@@ -71,13 +71,20 @@ function proccessPost(){
 		$entryid=mysqli_insert_id($db);
 	}
 	generalform::closeDbConnection();
-	generalform::redirect('form', array('id'=>$entryid ) );
+	generalform::redirect('outreach', array('id'=>$entryid ) );
 	
 }
 
 
-$postValid = generalform::validatePOST( array('zip') );
-if( $postValid ){
+if( count($_POST)>0 ){
+	if(isset($_POST['endit'])){
+		generalform::redirect('outreach', array() );	
+	}
+}
+
+$requiredFeilds = array();
+$postValid = generalform::validatePOST( $requiredFeilds );
+if(count($_POST)>0){
     proccessPost();
 }else{
 	if(isset($_GET['id'])){

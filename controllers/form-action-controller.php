@@ -182,9 +182,16 @@ function proccessPost(){
 	
 }
 
+
+if( count($_POST)>0 ){
+	if(isset($_POST['endit'])){
+		generalform::redirect('dashboard', array() );	
+	}
+}
+
 $requiredFeilds = array("last_name",'first_name','dob','address','city','state','zip');
 $postValid = generalform::validatePOST( $requiredFeilds );
-if( $postValid ){
+if($postValid){
     proccessPost();
 }else{
 	// we will have a conflict of the new post and the old data
