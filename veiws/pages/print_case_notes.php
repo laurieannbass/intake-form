@@ -28,24 +28,31 @@
 				}
 				$entry = json_decode($query_results[0]['form_object']);
 			}
-			
         ?>
 			<header id="header" class="info">
 			   <h2>Case Notes for: <?php echo $query_results[0]['name']; ?></h2>
 			</header>
             <div style="padding:15px;">
-        <?php
-			//var_dump($entry);
-			if(isset($entry) && isset($entry->note) && count($entry->note)>0){
-				foreach($entry->note as $id=>$event){
-					echo "<div>";	
-					echo "<lable>Date: {$event->date}</label><br/>";	
-					echo "<lable>Note:</label><br/><p>{$event->comment}</p><hr/>";	
-					echo "</div>";
+			<?php
+				//var_dump($entry);
+				if(isset($entry) && isset($entry->note) && count($entry->note)>0){
+					foreach($entry->note as $id=>$event){
+						echo "<div>";	
+						echo "<lable>Date: {$event->date}</label><br/>";	
+						echo "<lable>Note:</label><br/><p>{$event->comment}</p><hr/>";	
+						echo "</div>";
+					}
 				}
-			}
-		?>
-			</div>
+			?>
+
+			<a href="javascript:window.print()" class="buttons">Print</a> 
+		</div>
 	</div>
+	
+	<script type="text/javascript">
+		window.print();
+	</script>
+	
+	
 </body>
 </html>

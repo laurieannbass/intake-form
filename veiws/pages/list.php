@@ -63,7 +63,7 @@
                         <td><?php echo $row['name']?></td>
                         <td>
                         	<a href="form.php?id=<?php echo $row['id']?>" class="button">Edit</a> | 
-                            <a href="print_case_notes.php?id=<?php echo $row['id']?>" class="button">Print Case Notes</a>
+                            <a href="print_case_notes.php?id=<?php echo $row['id']?>" class="button" target="_blank">Print Case Notes</a>
                         </td>
                     </tr>
                 <?php } ?>
