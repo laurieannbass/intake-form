@@ -271,7 +271,7 @@ exit();
 				}
 			?>
 			<hr/>
-			<a href="search.php" class="buttons">Restart Search</a> 
+			<a href="search.php" class="buttons">Restart Search</a> | <a href="javascript:window.print()" class="buttons">Print</a> 
 			</div>
 		</div>
 
