@@ -190,10 +190,11 @@ exit();
 				}
 
 				if($_POST['by_area']=="transcript"){
-					$totals=array('Interview for PLA'=>0,'PLA Counseling'=>0,'CLEP Exam'=>0,'UExcel Exam'=>0,'DSST Exam'=>0,
-										'Credit through Articulation'=>0,'Portfolio Assessment'=>0,
-										'Credit by Intuitional Exam'=>0,'Participated in a PLA workshop'=>0,
-										'Transfer Credits Earned'=>0,'Transfer Credits Earned from Military'=>0);
+					$TRANSCRIPT_EVALUATIONS = generalform::get_TRANSCRIPT_EVALUATIONS();				
+					foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
+						//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+						$totals[$key]=0;
+					}
 				}
 
 
@@ -237,23 +238,28 @@ exit();
 					}
 	
 					if($_POST['by_area']=="transcript"){
-						$totals_sub=array('Interview for PLA'=>0,'PLA Counseling'=>0,'CLEP Exam'=>0,'UExcel Exam'=>0,'DSST Exam'=>0,
-										'Credit through Articulation'=>0,'Portfolio Assessment'=>0,
-										'Credit by Intuitional Exam'=>0,'Participated in a PLA workshop'=>0,
-										'Transfer Credits Earned'=>0,'Transfer Credits Earned from Military'=>0);
+						$TRANSCRIPT_EVALUATIONS = generalform::get_TRANSCRIPT_EVALUATIONS();				
+						$totals_sub=array();
+						foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
+							//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+							$totals_sub[$key]=0;
+						}
 						foreach($item->transcript as $citem){
 							if(testdate($citem->date,$from,$to)){
-								if( $citem->pla_interviewed>0 && ( !$unique || $totals_sub['Interview for PLA']<1) )$totals_sub['Interview for PLA']++;
-								if( $citem->pla_counseling>0 && ( !$unique || $totals_sub['PLA Counseling']<1) )$totals_sub['PLA Counseling']++;
-								if( $citem->clep_exam>0 && ( !$unique || $totals_sub['CLEP Exam']<1) )$totals_sub['CLEP Exam']++;
-								if( $citem->uexcel_exam>0 && ( !$unique || $totals_sub['UExcel Exam']<1) )$totals_sub['UExcel Exam']++;
-								if( $citem->dsst_exam>0 && ( !$unique || $totals_sub['DSST Exam']<1) )$totals_sub['DSST Exam']++;
-								if( $citem->credit_through_articulation>0 && ( !$unique || $totals_sub['Credit through Articulation']<1) )$totals_sub['Credit through Articulation']++;
-								if( $citem->portfolio_assessment>0 && ( !$unique || $totals_sub['Portfolio Assessment']<1) )$totals_sub['Portfolio Assessment']++;
-								if( $citem->credit_by_intuitional_exam>0 && ( !$unique || $totals_sub['Credit by Intuitional Exam']<1) )$totals_sub['Credit by Intuitional Exam']++;
-								if( $citem->pla_workshop>0 && ( !$unique || $totals_sub['Participated in a PLA workshop']<1) )$totals_sub['Participated in a PLA workshop']++;
-								if( $citem->earned_transfer_credits>0 && ( !$unique || $totals_sub['Transfer Credits Earned']<1) )$totals_sub['Transfer Credits Earned']++;
-								if( $citem->earned_military_transfer_credits>0 && ( !$unique || $totals_sub['Transfer Credits Earned from Military']<1) )$totals_sub['Transfer Credits Earned from Military']++;
+								foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
+									$lable = $key;
+									$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+									$objProp = '$key';
+									
+									$value = isset($citem->$key)?$citem->$key:0;
+									
+									if($type == 'checkbox'){
+										$value = ($value=='YES'?1:0);
+										if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
+									}elseif($type == 'number'){
+										if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
+									}
+								}
 							}
 						}
 					}
@@ -271,7 +277,7 @@ exit();
 				}
 			?>
 			<hr/>
-			<a href="search.php" class="buttons">Restart Search</a> | <a href="javascript:window.print()" class="buttons">Print</a> 
+			<a href="search.php" class="buttons">Restart Search</a> 
 			</div>
 		</div>
 

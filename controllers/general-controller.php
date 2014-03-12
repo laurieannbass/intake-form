@@ -12,6 +12,31 @@ class generalform {
         return $valid;
     }
 
+	public static function get_TRANSCRIPT_EVALUATIONS(){
+		
+		$TRANSCRIPT_EVALUATIONS = array(
+			"Foreign institution Transcript Evaluation Completed" => 'checkbox',
+			"Military Transcript Evaluation Completed" => 'checkbox',
+			"Non-UH Institution Transcript Evaluation Completed" => 'checkbox',
+			"UH Institution Transcript Evaluation Completed" => 'checkbox',
+			"Earned Transfer Credit from Foreign institution Transcript" => 'checkbox',
+			"Earned Transfer Credit from Military Transcript" => 'checkbox',
+			"Earned Transfer Credit from Non-UH Institution Transcript" => 'checkbox',
+			"Earned Transfer Credit from UH Institution Transcript" => 'checkbox',
+			
+			"Number of Credits Earned from Foreign institution Transcript" => 'number',
+			"Number of Credits Earned from Military Transcript" => 'number',
+			"Number of Credits Earned from Non-UH Institution Transcript" => 'number',
+			"Number of Credits Earned from UH Institution Transcript" => 'number'
+		);	
+		return $TRANSCRIPT_EVALUATIONS;
+		
+	}
+
+
+
+
+
 	public static function redirect($location,$arg){
 		$host  = $_SERVER['HTTP_HOST'];
 		$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
