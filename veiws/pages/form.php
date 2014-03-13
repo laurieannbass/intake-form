@@ -21,7 +21,9 @@
                 <ul>
                     <li><a href="#intake">Intake</a></li>
                     <li><a href="#counseling">Counseling</a></li>
-                    <li><a href="#transcript-evaluation">Transcript Evaluation/ PLA </a></li>
+                    <li><a href="#transcript-evaluation">Transcript Evaluation</a></li>
+					<li><a href="#pla">PLA </a></li>
+					
                     <li><a href="#internship">Internship</a></li>
                     <li><a href="#notes">Notes</a></li>
                 </ul>
@@ -44,11 +46,17 @@
                     <input type='submit' value='Submit'><input type="submit" value="cancel" name="endit" />
                 </div>  
                 <div id="transcript-evaluation">
-                    <h2>Transcript Evaluation/ PLA information</h2>
+                    <h2>Transcript Evaluation</h2>
                     <hr/>
                     <?php include_once('veiws/pages/assest/transcriptform.php') ?><br/>
                     <input type='submit' value='Submit'><input type="submit" value="cancel" name="endit" />
-                </div>        
+                </div> 
+                <div id="pla">
+                    <h2>Prior Learning Assessment</h2>
+                    <hr/>
+                    <?php include_once('veiws/pages/assest/plaform.php') ?><br/>
+                    <input type='submit' value='Submit'><input type="submit" value="cancel" name="endit" />
+                </div>
                 <div id="internship">
                     <h2>Internship information</h2>
                     <hr/>

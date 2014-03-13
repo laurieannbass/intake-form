@@ -19,7 +19,8 @@
                     	<option value='' selected>Any</option>
                     	<option value='counseling'>Counseling</option>
                         <option value='internship'>Internship</option>
-                        <option value='transcript'>Transcript Evaluation /PLA</option>
+                        <option value='transcript'>Transcript Evaluation</option>
+						<option value='pla'>PLA</option>
                     </select>
 					<hr/>
 				</li>

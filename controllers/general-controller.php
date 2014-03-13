@@ -30,6 +30,35 @@ class generalform {
 			"Number of Credits Earned from UH Institution Transcript" => 'number'
 		);	
 		return $TRANSCRIPT_EVALUATIONS;
+    }
+
+	public static function get_PRIOR_LEARNING_ASSESSMENT(){		
+		$PRIOR_LEARNING_ASSESSMENT = array(
+			"Expressed Interest in PLA" => 'checkbox',
+			"Participated in PLA Information Session" => 'checkbox',
+			"Participated in PLA Workshop" => 'checkbox',
+			"Received PLA Counseling" => 'checkbox',
+			"Participated in Portfolio Development Workshop" => 'checkbox',
+			"Took Credit by Institutional Exam" => 'checkbox',
+			"Took CLEP Exam" => 'checkbox',
+			"Took UExcel Exam" => 'checkbox',
+			"Took DSST Exam" => 'checkbox',
+			"Earned Credit through Articulation Agreement" => 'checkbox',
+			"Earned Credit through Portfolio Assessment" => 'checkbox',
+			"Earned Credit through Credit by Institutional Exam" => 'checkbox',
+			"Earned Credit through CLEP Exam" => 'checkbox',
+			"Earned Credit through UExcel Exam" => 'checkbox',
+			"Earned Credit through DSST Exam" => 'checkbox',
+			
+			"Number of Credits Earned from Articulation Agreement" => 'number',
+			"Number of Credits Earned from Portfolio Assessment" => 'number',
+			"Number of Credits Earned from Credit by Institutional Exam" => 'number',
+			"Number of Credits Earned from CLEP Exam" => 'number',
+			"Number of Credits Earned from UExcel Exam" => 'number',
+			"Number of Credits Earned from DSST Exam" => 'number'
+		);	
+		return $PRIOR_LEARNING_ASSESSMENT;
+		
 		
 	}
 

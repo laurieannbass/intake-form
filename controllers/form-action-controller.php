@@ -61,6 +61,7 @@ function proccessPost(){
 
 
 	$TRANSCRIPT_EVALUATIONS = generalform::get_TRANSCRIPT_EVALUATIONS();
+	
 	$transcript=$params['transcript'];
 	$transcripts=array();
 	foreach($transcript as $id=>$entry){
@@ -76,6 +77,23 @@ function proccessPost(){
 		}
 	}
 	$params['transcript']=$transcripts;	
+
+	$PRIOR_LEARNING_ASSESSMENT = generalform::get_PRIOR_LEARNING_ASSESSMENT();
+	$pla=$params['pla'];
+	$plas=array();
+	foreach($pla as $id=>$entry){
+		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
+			$tmp=array(
+				'date'=>"".$entry['date']
+				);			
+			foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){	
+				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));		
+				$tmp[$key] = "".isset($entry[$key])?$entry[$key]:"";
+			}
+			$plas[]=$tmp;
+		}
+	}
+	$params['pla']=$plas;	
 
 	//var_dump($params);
 	

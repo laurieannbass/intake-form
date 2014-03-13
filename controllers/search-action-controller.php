@@ -32,6 +32,7 @@
 			if($_POST['by_area']=="counseling")$where_query .=  (($where_query!="")?" AND ":"" )." `form_object` NOT LIKE '%\"counseling\":[]%' ";
 			if($_POST['by_area']=="internship")$where_query .=  (($where_query!="")?" AND ":"" )." `form_object` NOT LIKE '%\"internship\":[]%' ";
 			if($_POST['by_area']=="transcript")$where_query .=  (($where_query!="")?" AND ":"" )." `form_object` NOT LIKE '%\"transcript\":[]%' ";
+			if($_POST['by_area']=="pla")$where_query .=  (($where_query!="")?" AND ":"" )." `form_object` NOT LIKE '%\"pla\":[]%' ";
 		}
 		$veteran=false;
 		if(isset($_POST['veterans']) && $_POST['veterans']==1){
@@ -171,7 +172,8 @@ exit();
 				if(isset($_POST['unique_students']))$unique=true;
 				if($_POST['by_area']=="counseling")$Type = 'COUNSELING';
 				if($_POST['by_area']=="internship")$Type = 'INTERNSHIP';
-				if($_POST['by_area']=="transcript")$Type = 'TRANSCRIPT EVALUATION/PLA';	
+				if($_POST['by_area']=="transcript")$Type = 'TRANSCRIPT EVALUATION';	
+				if($_POST['by_area']=="pla")$Type = 'PLA';	
 			?>
 			<h3>Totals for <?=$Type?><?php echo $unique?" unique students":"";?><?php echo $veteran?" as a veteran":"";?></h3>
 			
@@ -196,7 +198,13 @@ exit();
 						$totals[$key]=0;
 					}
 				}
-
+				if($_POST['by_area']=="pla"){
+					$PRIOR_LEARNING_ASSESSMENT = generalform::get_PRIOR_LEARNING_ASSESSMENT();			
+					foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){	
+						//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+						$totals[$key]=0;
+					}
+				}
 
 				function testdate($date,$from,$to){
 					$result=true;
@@ -244,25 +252,60 @@ exit();
 							//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
 							$totals_sub[$key]=0;
 						}
-						foreach($item->transcript as $citem){
-							if(testdate($citem->date,$from,$to)){
-								foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
-									$lable = $key;
-									$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-									$objProp = '$key';
-									
-									$value = isset($citem->$key)?$citem->$key:0;
-									
-									if($type == 'checkbox'){
-										$value = ($value=='YES'?1:0);
-										if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
-									}elseif($type == 'number'){
-										if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
+						if(isset($item->transcript)){
+							foreach($item->transcript as $citem){
+								if(testdate($citem->date,$from,$to)){
+									foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
+										$lable = $key;
+										$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+										$objProp = '$key';
+										
+										$value = isset($citem->$key)?$citem->$key:0;
+										
+										if($type == 'checkbox'){
+											$value = ($value=='YES'?1:0);
+											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
+										}elseif($type == 'number'){
+											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
+										}
 									}
 								}
 							}
 						}
 					}
+					
+					if($_POST['by_area']=="pla"){
+						$PRIOR_LEARNING_ASSESSMENT = generalform::get_PRIOR_LEARNING_ASSESSMENT();		
+						$totals_sub=array();
+						foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){	
+							//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+							$totals_sub[$key]=0;
+						}
+						if(isset($item->pla)){
+							foreach($item->pla as $citem){
+								if(testdate($citem->date,$from,$to)){
+									foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){	
+										$lable = $key;
+										$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+										$objProp = '$key';
+										
+										$value = isset($citem->$key)?$citem->$key:0;
+										
+										if($type == 'checkbox'){
+											$value = ($value=='YES'?1:0);
+											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
+										}elseif($type == 'number'){
+											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
+										}
+									}
+								}
+							}
+						}
+					}					
+					
+					
+					
+					
 					
 					//put the totals back together
 					foreach($totals as $key=>$Titem){
