@@ -6,15 +6,15 @@
 	$where_query="";
 	$from="1/1/1900";
 	$to="1/1/2100"; 
-	if(isset($_POST['all'])){
+	if(!isset($_POST['by_area']) || $_POST['by_area']=="select"){
 		generalform::setMessage("Sorry, you must select area to run the reports on.","err");
 		generalform::redirect('search', array() );
 	}
 	
 	if(		!isset($_POST['fromdate'])
-			|| !empty($_POST['fromdate'])
-			|| !isset($_POST['todate'])
-			|| !empty($_POST['todate'])
+		||	empty($_POST['fromdate'])
+		||	!isset($_POST['todate'])
+		||	empty($_POST['todate'])
 		){
 		generalform::setMessage("Sorry, you must select a valid date range.","err");
 		generalform::redirect('search', array() );

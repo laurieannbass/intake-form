@@ -16,7 +16,7 @@
 				<li>
                 	<label>Choose an area (required):</label>
 					<select name="by_area">
-                    	<option value='' selected>Select</option>
+                    	<option value='select' selected>Select</option>
                     	<option value='counseling'>Counseling</option>
                         <option value='internship'>Internship</option>
                         <option value='transcript'>Transcript Evaluation</option>
