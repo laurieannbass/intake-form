@@ -14,9 +14,9 @@
 			<ul>
             
 				<li>
-                	<label>Choose an area (optional):</label>
+                	<label>Choose an area (required):</label>
 					<select name="by_area">
-                    	<option value='' selected>Any</option>
+                    	<option value='' selected>Select</option>
                     	<option value='counseling'>Counseling</option>
                         <option value='internship'>Internship</option>
                         <option value='transcript'>Transcript Evaluation</option>
