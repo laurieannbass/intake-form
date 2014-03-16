@@ -13,52 +13,39 @@ function proccessPost(){
 	
 
 	//Start by filtering the expando fields
+	$INTERNSHIP = generalform::get_INTERNSHIP();
+	
 	$internship=$params['internship'];
 	$internships=array();
 	foreach($internship as $id=>$entry){
 		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
-			$internships[]=array(
-				'date'=>"".$entry['date'],
-				'placed'=>"".isset($entry['placed'])?$entry['placed']:"",
-				'attended_workshop'=>"".isset($entry['attended_workshop'])?$entry['attended_workshop']:"",
-				'applied_internship'=>"".isset($entry['applied_internship'])?$entry['applied_internship']:""
-			);
+			$tmp=array( 'date'=>"".$entry['date'] );			
+			foreach($INTERNSHIP as $key=>$type){	
+				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));		
+				$tmp[$key] = "".isset($entry[$key])?$entry[$key]:"";
+			}
+			$internships[]=$tmp;
 		}
 	}
 	$params['internship']=$internships;
-	
-	
+
+
+
+	$COUNSELING = generalform::get_COUNSELING();
 	
 	$counseling=$params['counseling'];
 	$counselings=array();
 	foreach($counseling as $id=>$entry){
 		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
-			$counselings[]=array(
-				'date'=>"".$entry['date'],
-				'mock_interviews'=>"".isset($entry['mock_interviews'])?$entry['mock_interviews']:"",
-				'resume_training'=>"".isset($entry['resume_training'])?$entry['resume_training']:"",
-				'got_employed'=>"".isset($entry['got_employed'])?$entry['got_employed']:"",
-				'got_referred'=>"".isset($entry['got_referred'])?$entry['got_referred']:"",
-				'got_counseling'=>"".isset($entry['got_counseling'])?$entry['got_counseling']:"",
-				'career_counseling'=>"".isset($entry['career_counseling'])?$entry['career_counseling']:"",
-			);
+			$tmp=array( 'date'=>"".$entry['date'] );			
+			foreach($COUNSELING as $key=>$type){	
+				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));		
+				$tmp[$key] = "".isset($entry[$key])?$entry[$key]:"";
+			}
+			$counselings[]=$tmp;
 		}
 	}
 	$params['counseling']=$counselings;	
-	
-	
-	$note=$params['note'];
-	$notes=array();
-	foreach($note as $id=>$entry){
-		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
-			$notes[]=array(
-				'date'=>"".$entry['date'],
-				'comment'=>"".isset($entry['comment'])?$entry['comment']:""
-			);
-		}
-	}
-	$params['note']=$notes;		
-
 
 	$TRANSCRIPT_EVALUATIONS = generalform::get_TRANSCRIPT_EVALUATIONS();
 	
@@ -66,9 +53,7 @@ function proccessPost(){
 	$transcripts=array();
 	foreach($transcript as $id=>$entry){
 		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
-			$tmp=array(
-				'date'=>"".$entry['date']
-				);			
+			$tmp=array( 'date'=>"".$entry['date'] );			
 			foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
 				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));		
 				$tmp[$key] = "".isset($entry[$key])?$entry[$key]:"";
@@ -83,9 +68,7 @@ function proccessPost(){
 	$plas=array();
 	foreach($pla as $id=>$entry){
 		if(isset($entry['date']) && $entry['date']!="" && $entry['remove']!=1){
-			$tmp=array(
-				'date'=>"".$entry['date']
-				);			
+			$tmp=array( 'date'=>"".$entry['date'] );			
 			foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){	
 				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));		
 				$tmp[$key] = "".isset($entry[$key])?$entry[$key]:"";

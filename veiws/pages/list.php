@@ -1,4 +1,89 @@
-<!DOCTYPE html>
+<?php
+
+	$db = generalform::getDb(DB_NAME);
+	$table = 'formdata';
+	if(!isset($_POST['searchOn'])){
+		$query = "SELECT * FROM `".$table."`";
+	}
+	$result = $db->query($query) or die($db->error.__LINE__);
+
+	if(!isset($_POST['download'])){
+		$query_results = array ();
+		if($result->num_rows > 0) {
+			$i=0;
+			while($row = $result->fetch_assoc()) {
+				$query_results[]=array(
+					'id'=>$row['id'],
+					'uh_id'=>$row['uh_id'],
+					'name'=>"{$row['last_name']}, {$row['first_name']}"
+				);
+			}
+		}
+	}else{
+		$file= date ('D-d-M-Y--H-i-s',strtotime("now")  ).'.csv';
+		$list = array ();
+		if($result->num_rows > 0) {
+			$i=0;
+			$forms = array();
+			while($row = $result->fetch_assoc()) {
+				$form = json_decode($row['form_object']);
+				$form->creation_date=$row['creation_date'];
+				
+				unset($form->counseling);
+				unset($form->internship);
+				unset($form->transcript);
+				unset($form->pla);
+				unset($form->note);
+				
+				$forms[] = $form;
+			}
+			$headers=array();
+			$default=array();			
+			foreach($forms as $form_object) {
+				foreach($form_object as $k=>$v){
+					if( !in_array($k,$default) ){
+						$default[$k] = "";
+						$headers[$k] = ucwords( str_replace("_"," ", str_replace("-"," ",$k) ) );
+					}
+				}
+			}
+			$list[]=$headers;
+			foreach($forms as $form) {
+				$form_object = (object)array_merge((array)$default,(array)$form);
+				$formvalue=array();
+				foreach($form_object as $k=>$v){
+					//var_dump($v);
+					$value="";
+					if(gettype($v)=="array"){
+						$value='"';
+						$i=0;
+						foreach($v as $k=>$val){
+							if(gettype($val)!="object"){
+								$value.=($i>0?",":"").$val;
+								$i++;
+							}
+						}
+						$value.='"';
+					}else{
+						if(gettype($v)!="object"){$value=$v;}
+					}
+					$formvalue[]=$value;
+				}
+				$list[]=$formvalue;
+			}
+		}
+		
+		//$result = $db->query($query) or die($db->error.__LINE__);
+	
+		generalform::createCSV($file,$list);
+	}
+
+
+
+
+
+
+?><!DOCTYPE html>
 <html>
 <head>
     <?php include_once('veiws/structure/head.php'); ?>
@@ -6,38 +91,6 @@
 <body id="public">
     <div id="container" class="ltr">
         <?php include_once('veiws/structure/header.php'); ?>
-        <?php
-			$db = generalform::getDb(DB_NAME);
-			$table = 'formdata';
-			if(!isset($_POST['searchOn'])){
-				$query = "SELECT * FROM `".$table."`";
-			}/*
-			do this later
-			else{
-				$query = "SELECT * FROM `".$table."` WHERE ";
-				$where_query="";
-				if(isset($_POST['uh-id'])&&!empty($_POST['uh_id'])){
-					$uh_id = mysqli_real_escape_string($db, $_POST['uh_id']);
-					$where_query .= (($where_query!="")?" AND ":"" ).sprintf(" `uh_id`='%s' ",$uh_id);
-				}
-		
-				$query = $query.$where_query;
-			}*/
-			//echo $query;
-			$result = $db->query($query) or die($db->error.__LINE__);
-		
-			$query_results = array ();
-			if($result->num_rows > 0) {
-				$i=0;
-				while($row = $result->fetch_assoc()) {
-					$query_results[]=array(
-						'id'=>$row['id'],
-						'uh_id'=>$row['uh_id'],
-						'name'=>"{$row['last_name']}, {$row['first_name']}"
-					);
-				}
-			}
-        ?>
         <header id="header" class="info">
            <h2>Past entries</h2>
            <div>If the user is already been entered then you will find them here ready to edit.</div>
@@ -77,6 +130,11 @@
                 </tr>
             </tfoot>
         </table>
+		<br/>
+		<form action="" enctype="multipart/form-data" method="post" novalidate>
+			<input type="submit" name="download" value="Download List" class="buttons"/>
+			<b>Note:</b> The absentace of a field is the absentace of any of the values
+		</form>
         </div>
     </div>
 </body>

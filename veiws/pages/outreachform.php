@@ -1,4 +1,5 @@
-﻿<?php
+﻿<?php	
+
 //maybe i should move this, ask jeremy how
   $actions = array(
   	"contacted"=>array( 'title'=>'New Employer’s contacted',
@@ -133,6 +134,11 @@
                             }
                         ?>
                     </ul>
+					<br/>
+					
+						<input type="submit" name="download" value="Download List" class="buttons"/>
+						<b>Note:</b> The absentace of a field is the absentace of any of the values
+					
                 </div>
 
 			<?php

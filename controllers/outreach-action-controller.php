@@ -1,6 +1,62 @@
 <?php
 function proccessPost(){
+	if(isset($_POST['download'])){
+		
+		$db = generalform::getDb(DB_NAME);
+		$table = 'outreach';
+		$query = "SELECT * FROM `".$table."`";
+		$result = $db->query($query) or die($db->error.__LINE__);
+		$file= date ('D-d-M-Y--H-i-s',strtotime("now")  ).'.csv';
+		$list = array ();
+		if($result->num_rows > 0) {
+			$i=0;
+			$forms = array();
+			while($row = $result->fetch_assoc()) {
+				$form = json_decode($row['form_object']);
+				$form->creation_date=$row['creation_date'];
+
+				$forms[] = $form;
+			}
+			$headers=array();
+			$default=array();			
+			foreach($forms as $form_object) {
+				foreach($form_object as $k=>$v){
+					if( !in_array($k,$default) ){
+						$default[$k] = "";
+						$headers[$k] = ucwords( str_replace("_"," ", str_replace("-"," ",$k) ) );
+					}
+				}
+			}
+			$list[]=$headers;
+			foreach($forms as $form) {
+				$form_object = (object)array_merge((array)$default,(array)$form);
+				$formvalue=array();
+				foreach($form_object as $k=>$v){
+					//var_dump($v);
+					$value="";
+					if(gettype($v)=="array"){
+						$value='"';
+						$i=0;
+						foreach($v as $k=>$val){
+							if(gettype($val)!="object"){
+								$value.=($i>0?",":"").$val;
+								$i++;
+							}
+						}
+						$value.='"';
+					}else{
+						if(gettype($v)!="object"){$value=$v;}
+					}
+					$formvalue[]=$value;
+				}
+				$list[]=$formvalue;
+			}
+		}
+		
+		//$result = $db->query($query) or die($db->error.__LINE__);
 	
+		generalform::createCSV($file,$list);
+	}	
 	$params=array();
 	$entryid=isset($_POST['id'])&&$_POST['id']>0?$_POST['id']:0;
     foreach($_POST as $key=>$value){

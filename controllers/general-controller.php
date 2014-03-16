@@ -12,8 +12,33 @@ class generalform {
         return $valid;
     }
 
+
+	/* NOTE: at this point it may be worth really creating a model in this suco MVC*/
+	public static function get_INTERNSHIP(){
+		$INTERNSHIP = array(
+			"Did student applied for internship program" => 'checkbox',
+			"Is student placed in internship" => 'checkbox',
+			"Did student attend workshop" => 'checkbox',
+		);	
+		return $INTERNSHIP;
+    }
+
+
+	/* NOTE: at this point it may be worth really creating a model in this suco MVC*/
+	public static function get_COUNSELING(){
+		$COUNSELING = array(
+			"Foreign institution Transcript Evaluation Completed" => 'checkbox',
+			"Did the student get career counseling" => 'checkbox',
+			"Did the student get referred for employment" => 'checkbox',
+			"Did the student get employed" => 'checkbox',
+			"Did the student received resume or cover letter training" => 'checkbox',	
+			"Did the student complete mock interview" => 'checkbox',
+		);	
+		return $COUNSELING;
+    }
+
+	/* NOTE: at this point it may be worth really creating a model in this suco MVC*/
 	public static function get_TRANSCRIPT_EVALUATIONS(){
-		
 		$TRANSCRIPT_EVALUATIONS = array(
 			"Foreign institution Transcript Evaluation Completed" => 'checkbox',
 			"Military Transcript Evaluation Completed" => 'checkbox',
@@ -31,7 +56,7 @@ class generalform {
 		);	
 		return $TRANSCRIPT_EVALUATIONS;
     }
-
+	/* NOTE: at this point it may be worth really creating a model in this suco MVC*/
 	public static function get_PRIOR_LEARNING_ASSESSMENT(){		
 		$PRIOR_LEARNING_ASSESSMENT = array(
 			"Expressed Interest in PLA" => 'checkbox',
@@ -58,8 +83,6 @@ class generalform {
 			"Number of Credits Earned from DSST Exam" => 'number'
 		);	
 		return $PRIOR_LEARNING_ASSESSMENT;
-		
-		
 	}
 
 
@@ -78,8 +101,6 @@ class generalform {
 				$i++;
 			}
 		}
-		
-		
 		$url = "http://$host$uri/$location.php$params";
 		header("Location: $url");
 		exit();
@@ -150,6 +171,34 @@ class generalform {
         return $query_results;
     }
 
+
+	public static function createCSV($file,$dataObj,$saveFile=false){
+		$fp = fopen($file, 'w');
+		foreach ($dataObj as $fields) {
+			fputcsv($fp, $fields);
+		}
+
+		fclose($fp);
+		header('Pragma: public');  // required
+		header('Expires: 0');  // no cache
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		
+		header('Cache-Control: private', false);
+		header('Content-Type: application/csv');
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($file)) . ' GMT');
+		header('Content-disposition: attachment; filename=' . $file . '');
+		header("Content-Transfer-Encoding:  binary");
+		header('Content-Length: ' . filesize($file)); // provide file size
+		header('Connection: close');
+		readfile($file);
+		if(!$saveFile){
+			unlink($file);
+		}
+		exit();
+	}
+
+
+	/* HTML generation */
 	public static function createFormField($key,$field,$entry){
 		$name=$key.'_'.$field['id'];
 		$value=isset($entry->$name)?$entry->$name:'';

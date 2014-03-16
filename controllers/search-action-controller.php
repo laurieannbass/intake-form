@@ -1,5 +1,9 @@
 <?php
     require_once('controllers/general-controller.php');
+	
+	/* the models can be used to build alot of this logic.  
+	If this is going to be long term then it should be abstracted! */
+
 	//make your db connection then
 	// Create connection
 	$db = generalform::getDb(DB_NAME);
@@ -22,13 +26,8 @@
 	
 	
     $table = 'formdata';
-	if(isset($_POST['all'])){
-		$query = "SELECT * FROM `".$table."`";
-	}else{}
-		$query = "SELECT * FROM `".$table."` WHERE ";
+		$query = "SELECT * FROM `".$table."` ";
 
-
-		
 		if(		isset($_POST['fromdate'])
 			&& !empty($_POST['fromdate'])
 			&& isset($_POST['todate'])
@@ -57,114 +56,28 @@
 			$where_query .= ")" ;
 		}
 	
-	$query = $query.$where_query;
-	//var_dump($query);//die();
-	//echo $query;
-	$result = $db->query($query) or die($db->error.__LINE__);
-	/*$file= date ('D-d-M-Y--H-i-s',strtotime("now")  ).'.csv';
-
-	$list = array ();
-	if($result->num_rows > 0) {
-		$i=0;
-		while($row = $result->fetch_assoc()) {
-		$form_object = json_decode($row['form_object']);
-		if($i==0){
-			$headers=array();
-			foreach($form_object as $k=>$v){
-				$headers[] = ucwords( str_replace("_"," ", str_replace("-"," ",$k) ) );
+		$query = $query.($where_query!=""?" WHERE ":"").$where_query;
+		//var_dump($query);//die();
+		//echo $query;
+		$result = $db->query($query) or die($db->error.__LINE__);
+	
+		$query_results = array ();
+		$fullquery_results = array ();
+		if($result->num_rows > 0) {
+			$i=0;
+			while($row = $result->fetch_assoc()) {
+	
+				$fullquery_results[] = json_decode($row['form_object']);
+				
+				$query_results[]=array(
+					'id'=>$row['id'],
+					'uh_id'=>$row['uh_id'],
+					'name'=>"{$row['last_name']}, {$row['first_name']}"
+				);
 			}
-			$headers[]="creation_date";
-			$list[]=$headers;
 		}
-		
-		$formvalue=array();
-		foreach($form_object as $k=>$v){
-			//var_dump($v);
-			$value="";
-			if(gettype($v)=="array"){
-				$value='"';
-				$i=0;
-				foreach($v as $k=>$val){
-					if(gettype($val)!="object"){
-						$value.=($i>0?",":"").$val;
-						$i++;
-					}
-				}
-				$value.='"';
-			}else{
-				if(gettype($v)!="object"){$value=$v;}
-			}
-			$formvalue[]=$value;
-		}
-		$formvalue[]=$row['creation_date'];
-		$list[]=$formvalue;
-		
-		
-		$creation_date = $row['creation_date'];
-
-		$i++;
-		}
-	}*/
 	
-	//$result = $db->query($query) or die($db->error.__LINE__);
-
-	$query_results = array ();
-	$fullquery_results = array ();
-	if($result->num_rows > 0) {
-		$i=0;
-		while($row = $result->fetch_assoc()) {
-
-			$fullquery_results[] = json_decode($row['form_object']);
-			
-			$query_results[]=array(
-				'id'=>$row['id'],
-				'uh_id'=>$row['uh_id'],
-				'name'=>"{$row['last_name']}, {$row['first_name']}"
-			);
-		}
-	}
-	
-	
-	/* else {
-		echo 'NO RESULTS';	
-	}
-
-$fp = fopen($file, 'w');
-
-foreach ($list as $fields) {
-    fputcsv($fp, $fields);
-}
-
-
-
-fclose($fp);
-
-
-header('Pragma: public');  // required
-header('Expires: 0');  // no cache
-header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-
-header('Cache-Control: private', false);
-header('Content-Type: application/csv');
-header('Last-Modified: ' . gmdate('D, d M Y H:i:s', filemtime($file)) . ' GMT');
-header('Content-disposition: attachment; filename=' . $file . '');
-header("Content-Transfer-Encoding:  binary");
-header('Content-Length: ' . filesize($file)); // provide file size
-header('Connection: close');
-readfile($file);
-exit();
-*/
-/*
-
-	echo "<h2>The CSV</h2>".file_get_contents($file);
-	*/
-	//echo $results;
-	/*while ($row=mysqli_fetch_arry($result)){
-		echo $row['id']."". $row['last_name']."".$row['first_name'] ."|". $row['birth_date']."|".$row['address'] ."|". $row['city']."|".$row['state'] ."|". $row['zip']."|".$row['form_object'] ."|". $row['creation_date'];
-		echo "<br/>";
-   }*/
-	
-	mysqli_close($db);
+		mysqli_close($db);
 	
 	
 ?><!DOCTYPE html>
@@ -194,28 +107,29 @@ exit();
 			<?php	
 				$totals=array();
 				$totals_sub=array();
-				
-				
-				if($_POST['by_area']=="counseling"){
-					$totals=array('Received career counseling'=>0,'Employment Referrals'=>0,'Students Employed'=>0,
-									'Students received Resume building & Cover Letter'=>0,'Received Mock Interviews'=>0);
-				}
 
+				/* note: this can be abstracted.  Should be worked on at some point */
 				if($_POST['by_area']=="internship"){
-					$totals=array('Applied for Internship'=>0,'Placed in Internship'=>0,'Attended Workshop'=>0);
+					$INTERNSHIP = generalform::get_INTERNSHIP();					
+					foreach($INTERNSHIP as $key=>$type){
+						$totals[$key]=0;
+					}
 				}
-
+				if($_POST['by_area']=="counseling"){
+					$COUNSELING = generalform::get_COUNSELING();				
+					foreach($COUNSELING as $key=>$type){
+						$totals[$key]=0;
+					}
+				}
 				if($_POST['by_area']=="transcript"){
 					$TRANSCRIPT_EVALUATIONS = generalform::get_TRANSCRIPT_EVALUATIONS();				
-					foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
-						//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+					foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){
 						$totals[$key]=0;
 					}
 				}
 				if($_POST['by_area']=="pla"){
 					$PRIOR_LEARNING_ASSESSMENT = generalform::get_PRIOR_LEARNING_ASSESSMENT();			
-					foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){	
-						//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+					foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){
 						$totals[$key]=0;
 					}
 				}
@@ -233,31 +147,70 @@ exit();
 
 				foreach($fullquery_results as $item){
 					
-					//section out the user entry totals
+
+
 					if($_POST['by_area']=="counseling"){
-						$totals_sub=array('Received career counseling'=>0,'Employment Referrals'=>0,'Students Employed'=>0,
-									'Students received Resume building & Cover Letter'=>0,'Received Mock Interviews'=>0);
-						foreach($item->counseling as $citem){
-							if(testdate($citem->date,$from,$to)){
-								if( $citem->got_counseling>0 && ( !$unique || $totals_sub['Received career counseling']<1) )$totals_sub['Received career counseling']++;
-								if( $citem->got_referred>0 && ( !$unique || $totals_sub['Employment Referrals']<1) )$totals_sub['Employment Referrals']++;
-								if( $citem->got_employed>0 && ( !$unique || $totals_sub['Students Employed']<1) )$totals_sub['Students Employed']++;
-								if( $citem->resume_training>0 && ( !$unique || $totals_sub['Students received Resume building & Cover Letter']<1) )$totals_sub['Students received Resume building & Cover Letter']++;
-								if( $citem->mock_interviews>0 && ( !$unique || $totals_sub['Received Mock Interviews']<1) )$totals_sub['Received Mock Interviews']++;
+						$COUNSELING = generalform::get_COUNSELING();				
+						$totals_sub=array();
+						foreach($COUNSELING as $key=>$type){	
+							//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+							$totals_sub[$key]=0;
+						}
+						if(isset($item->counseling)){
+							foreach($item->counseling as $citem){
+								if(testdate($citem->date,$from,$to)){
+									foreach($COUNSELING as $key=>$type){	
+										$lable = $key;
+										$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+										$objProp = '$key';
+										
+										$value = isset($citem->$key)?$citem->$key:0;
+										
+										if($type == 'checkbox'){
+											$value = ($value=='YES'?1:0);
+											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
+										}elseif($type == 'number'){
+											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
+										}
+									}
+								}
 							}
 						}
 					}
 
+
 					if($_POST['by_area']=="internship"){
-						$totals_sub=array('Applied for Internship'=>0,'Placed in Internship'=>0,'Attended Workshop'=>0);
-						foreach($item->internship as $citem){
-							if(testdate($citem->date,$from,$to)){
-								if( $citem->applied_internship>0 && ( !$unique || $totals_sub['Applied for Internship']<1) )$totals_sub['Applied for Internship']++;
-								if( $citem->placed>0 && ( !$unique || $totals_sub['Placed in Internship']<1) )$totals_sub['Placed in Internship']++;
-								if( $citem->attended_workshop>0 && ( !$unique || $totals_sub['Attended Workshop']<1) )$totals_sub['Attended Workshop']++;
+						$INTERNSHIP = generalform::get_INTERNSHIP();				
+						$totals_sub=array();
+						foreach($INTERNSHIP as $key=>$type){	
+							$totals_sub[$key]=0;
+						}
+						if(isset($item->transcript)){
+							foreach($item->internship as $citem){
+								if(testdate($citem->date,$from,$to)){
+									foreach($INTERNSHIP as $key=>$type){	
+										$lable = $key;
+										$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+										$objProp = '$key';
+										
+										$value = isset($citem->$key)?$citem->$key:0;
+										
+										if($type == 'checkbox'){
+											$value = ($value=='YES'?1:0);
+											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
+										}elseif($type == 'number'){
+											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
+										}
+									}
+								}
 							}
 						}
 					}
+
+
+
+
+
 	
 					if($_POST['by_area']=="transcript"){
 						$TRANSCRIPT_EVALUATIONS = generalform::get_TRANSCRIPT_EVALUATIONS();				

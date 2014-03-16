@@ -1,17 +1,20 @@
+<?php
+$COUNSELING = generalform::get_COUNSELING();
+?>
 <div class="formTemplate">
 <h3>Add a new counseling session</h3>
 <?php
 	echo "<lable>Date of interaction:</label><input type='date' name='counseling[9999][date]' data-end='+1d' /><input type='hidden' name='counseling[9999][remove]' class='remove' value=''/></br>";	
 
-
-                       
-	echo "<input type='checkbox' name='counseling[9999][got_counseling]' value='1' /><lable>Did the student get career counseling:</label></br>";   
-	echo "<input type='checkbox' name='counseling[9999][got_referred]' value='1' /><lable>Did the student get referred for employment:</label></br>";	
-	echo "<input type='checkbox' name='counseling[9999][got_employed]' value='1' /><lable>Did the student get employed:</label></br>";	
-	echo "<input type='checkbox' name='counseling[9999][resume_training]' value='1' /><lable>Did the student received resume/cover letter training:</label></br>";	
-	
-	echo "<input type='checkbox' name='counseling[9999][mock_interviews]' value='1' /><lable>Did the student complete mock interview:</label></br>";
-		
+foreach($COUNSELING as $key=>$type){
+	$lable = $key;
+	$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+	if($type == 'checkbox'){
+		echo "<input type='checkbox' name='counseling[9999][${key}]' value='YES' /><lable>${lable}</label></br>";
+	}elseif($type == 'number'){
+		echo "<input type='text' name='counseling[9999][${key}]' style='width:35px;' placeholder='0' /><lable>${lable}</label></br>";
+	}
+}	
 ?>
 </div>
 <h3>Past counseling sessions</h3>
@@ -26,14 +29,19 @@
 			echo "<h3><a href='#' class='deleteRecord buttons'>[x]</a>{$event->date}</h3><div>";
 			echo "<input type='hidden' name='counseling[{$id}][remove]' class='remove' value=''/>";	
 			echo "<lable>Date of interaction:</label><input type='date' data-end='+1d' name='counseling[{$id}][date]' value='{$event->date}' /></br>";	
-			
-			echo "<input type='checkbox' ".($event->got_counseling=='1'?"checked='checked'":"")." name='counseling[{$id}][got_counseling]' value='1' /><lable>Did the student get career counseling:</label></br>";
-			echo "<input type='checkbox' ".($event->got_referred=='1'?"checked='checked'":"")." name='counseling[{$id}][got_referred]' value='1' /><lable>Did the student get referred for employment:</label></br>";
-			echo "<input type='checkbox' ".($event->got_employed=='1'?"checked='checked'":"")." name='counseling[{$id}][got_employed]' value='1' /><lable>Did the student get employed:</label></br>";
-			echo "<input type='checkbox' ".($event->resume_training=='1'?"checked='checked'":"")." name='counseling[{$id}][resume_training]' value='1' /><lable>Did the student received resume/cover letter training:</label></br>";
-			
-			echo "<input type='checkbox' ".($event->mock_interviews=='1'?"checked='checked'":"")." name='counseling[{$id}][mock_interviews]' value='1' /><lable>Received Mock Interviews:</label></br>";
-			
+
+			foreach($COUNSELING as $key=>$type){
+				$lable = $key;
+				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+				$objProp = '$key';
+				$value = isset($event->$key)?$event->$key:"";
+				
+				if($type == 'checkbox'){
+					echo "<input type='checkbox' name='counseling[{$id}][${key}]' value='YES' ".($value=='YES'?"checked='checked'":"")." /><lable>${lable}</label></br>";
+				}elseif($type == 'number'){
+					echo "<input type='text' name='counseling[{$id}][${key}]' style='width:35px;' placeholder='0' value='".($value>0?$value:"")."' /><lable>${lable}</label></br>";
+				}
+			}
 			echo "</div>";
 		}
 		?>
