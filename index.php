@@ -1,4 +1,7 @@
 <?php
-    require_once('controllers/general-controller.php');
-    include_once('veiws/pages/dashboard.php');
+	//start the app
+	define('BASEDIR', dirname( __FILE__ ));
+
+    require_once(BASEDIR.'/controllers/general-controller.php');
+	return new generalform();
 ?>

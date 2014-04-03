@@ -1,6 +1,12 @@
 <header id="header" class="info">
-    <img src="http://hawaii.hawaii.edu/images/bg-logo.gif" style="float:right;"/>
-    <h1>HAW CC Intake</h1>
-    <?php include_once('veiws/structure/menu.php'); ?>
+    <div class="row">
+		<div class="push_eight  four columns">
+			<img src="http://hawaii.hawaii.edu/images/bg-logo.gif" style="width:100%; max-width:250px;"/>
+		</div>
+		<div class="pull_four eight columns">
+			<h1>HAW CC Intake</h1>
+		</div>
+	</div>
+	<?=generalform::getStructure('menu'); ?>
 </header>
-<?php include_once('veiws/structure/messages.php'); ?>
+<?=generalform::getStructure('messages'); ?>

@@ -2,6 +2,10 @@
 /**
  * The base configurations
  */
+// ** MySQL settings - You can get this info from your web host ** //
+define('BASE_FOLDER', '');
+
+define('BASEURL', 'http://local.general.dev/');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database */

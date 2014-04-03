@@ -114,7 +114,7 @@ function proccessPost(){
 
 
 	if (mysqli_query($db,$sql)){
-	  $mess="Inserted row successfully for ".$first_name." ".$last_name."<br/>";//.$sql;
+	  $mess="Inserted row successfully<br/>";//.$sql;
 	  generalform::setMessage($mess,"success");
 	} else {
 	  $mess="Error inserting rows: run it again<br/>" ;
@@ -127,8 +127,13 @@ function proccessPost(){
 		$entryid=mysqli_insert_id($db);
 	}
 	generalform::closeDbConnection();
-	generalform::redirect('outreach', array('id'=>$entryid ) );
 	
+	if(isset($_POST['submit'])){
+		generalform::redirect('dashborad');
+	}
+	if(isset($_POST['save'])){
+		generalform::redirect('outreach', array('id'=>$entryid ) );
+	}	
 }
 
 
@@ -144,13 +149,18 @@ if(count($_POST)>0){
     proccessPost();
 }else{
 	if(isset($_GET['id'])){
-        $entry= generalform::getEntry($_GET['id']);
-		$formData = json_decode ($entry['form_object']);
-		$id=$_GET['id'];
-        foreach($formData as $key=>$value){
-               $$key=$value;
-        }
-		$entry=$formData;
+		
+        $entry = generalform::getEntry($_GET['id']);
+		if(!empty($entry)){
+			$formData = json_decode ($entry['form_object']);
+			$id=$_GET['id'];
+			foreach($formData as $key=>$value){
+				   $$key=$value;
+			}
+			$entry=$formData;
+		}else{
+			$entry = array();	
+		}
     }
 
     if(count($_POST)>0){
@@ -159,7 +169,8 @@ if(count($_POST)>0){
         }
         generalform::setMessage("There were missing required fields","err");
     }
-    include_once('veiws/pages/outreachform.php');
+	return generalform::getPage("outreach");
+    //include_once('veiws/pages/outreachform.php');
 }//end of validation if statement 
 
 

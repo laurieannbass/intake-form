@@ -1,6 +1,7 @@
 <?php
-    require_once('controllers/general-controller.php');
-	
+
+if(count($_POST)>0){
+	$params=array();
 	/* the models can be used to build alot of this logic.  
 	If this is going to be long term then it should be abstracted! */
 
@@ -41,15 +42,18 @@
 			}
 		}
 		
+
+		$countable_objects = array('internship','counseling','transcript','pla');//note this would be from model
+		
+		
 		if(isset($_POST['by_area']) && $_POST['by_area']!=""){
-			if($_POST['by_area']=="counseling")$where_query .=  (($where_query!="")?" AND ":"" )." `form_object` NOT LIKE '%\"counseling\":[]%' ";
-			if($_POST['by_area']=="internship")$where_query .=  (($where_query!="")?" AND ":"" )." `form_object` NOT LIKE '%\"internship\":[]%' ";
-			if($_POST['by_area']=="transcript")$where_query .=  (($where_query!="")?" AND ":"" )." `form_object` NOT LIKE '%\"transcript\":[]%' ";
-			if($_POST['by_area']=="pla")$where_query .=  (($where_query!="")?" AND ":"" )." `form_object` NOT LIKE '%\"pla\":[]%' ";
+			foreach($countable_objects as $code){
+				if($_POST['by_area']==$code)$where_query .=  (($where_query!="")?" AND ":"" )." `${code}_object` IS NOT NULL AND `${code}_object`<>'{}'  ";
+			}
 		}
-		$veteran=false;
+		$params['veteran']=false;
 		if(isset($_POST['veterans']) && $_POST['veterans']==1){
-			$veteran=true;
+			$params['veteran']=true;
 			$where_query .= (($where_query!="")?" AND  (":"(" );
 			$where_query .=  " `form_object` LIKE '%\"military\":\"Yes\"%' ";
 			$where_query .=  " OR (`form_object` LIKE '%\"military_spouse\":\"Yes\"%' AND `form_object` LIKE '%\"va_status\":\"Eligible Spouse\"%') ";
@@ -66,8 +70,22 @@
 		if($result->num_rows > 0) {
 			$i=0;
 			while($row = $result->fetch_assoc()) {
-	
-				$fullquery_results[] = json_decode($row['form_object']);
+				
+				$objects = array('form','internship','counseling','transcript','pla','note');//note this would be from model
+				foreach($objects as $object){
+					$formData = json_decode ($row["${object}_object"]);
+					//$id=$params['id'];
+					if(count($formData)>0){
+						foreach($formData as $key=>$value){
+							$$key=$value;
+							$params[$key]=$value;
+						}
+					}
+					$tmp["${object}_object"]=$formData;
+				}
+				$params["entry"]=$tmp;
+				$params["entry"]['form_object']->id=$row['id'];
+				$fullquery_results[] = $params["entry"];
 				
 				$query_results[]=array(
 					'id'=>$row['id'],
@@ -78,264 +96,81 @@
 		}
 	
 		mysqli_close($db);
-	
-	
-?><!DOCTYPE html>
-<html>
-<head>
-    <?php include_once('veiws/structure/head.php'); ?>
-</head>
-<body id="public">
-    <div id="container" class="ltr">
-        <?php include_once('veiws/structure/header.php'); ?>
-        <header id="header" class="info">
-           <h2>Search result</h2>
-        </header>
+
+		$unique=$params['unique']=false;
+		if(isset($_POST['unique_students']))$unique=true;
+		if($_POST['by_area']=="counseling")$params['Type'] = 'COUNSELING';
+		if($_POST['by_area']=="internship")$params['Type'] = 'INTERNSHIP';
+		if($_POST['by_area']=="transcript")$params['Type'] = 'TRANSCRIPT EVALUATION';	
+		if($_POST['by_area']=="pla")$params['Type'] = 'PLA';
 		
-		
-		<div  style="padding:0px 15px 15px 15px;">
-			<?php
-				$unique=false;
-				if(isset($_POST['unique_students']))$unique=true;
-				if($_POST['by_area']=="counseling")$Type = 'COUNSELING';
-				if($_POST['by_area']=="internship")$Type = 'INTERNSHIP';
-				if($_POST['by_area']=="transcript")$Type = 'TRANSCRIPT EVALUATION';	
-				if($_POST['by_area']=="pla")$Type = 'PLA';	
-			?>
-			<h3>Totals for <?=$Type?><?php echo $unique?" unique students":"";?><?php echo $veteran?" as a veteran":"";?></h3>
-			
-			<?php	
-				$totals=array();
-				$totals_sub=array();
+		$totals=array();
+		$totals_sub=array();
 
-				/* note: this can be abstracted.  Should be worked on at some point */
-				if($_POST['by_area']=="internship"){
-					$INTERNSHIP = generalform::get_INTERNSHIP();					
-					foreach($INTERNSHIP as $key=>$type){
-						$totals[$key]=0;
+		$objects = array(
+			'internship'=>generalform::get_model('internship'),
+			'counseling'=>generalform::get_model('counseling'),
+			'transcript'=>generalform::get_model('transcript'),
+			'pla'=>generalform::get_model('pla'),
+		);
+
+		foreach($objects as $code=>$model){
+			if($_POST['by_area']==$code){				
+				foreach($model as $key=>$item){	
+					$totals[$item['lable']]=0;
+				}
+			}
+		}
+		$items=array();
+
+		foreach($fullquery_results as $item){
+			//var_dump($item);die();
+			$id=$item['form_object']->id;
+			$items[$id]=array();
+			foreach($objects as $code=>$model){
+				if($_POST['by_area']==$code){		
+					$totals_sub=array();
+					foreach($model as $key=>$modelitem){	
+						//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+						$totals_sub[$modelitem['lable']]=0;
 					}
-				}
-				if($_POST['by_area']=="counseling"){
-					$COUNSELING = generalform::get_COUNSELING();				
-					foreach($COUNSELING as $key=>$type){
-						$totals[$key]=0;
-					}
-				}
-				if($_POST['by_area']=="transcript"){
-					$TRANSCRIPT_EVALUATIONS = generalform::get_TRANSCRIPT_EVALUATIONS();				
-					foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){
-						$totals[$key]=0;
-					}
-				}
-				if($_POST['by_area']=="pla"){
-					$PRIOR_LEARNING_ASSESSMENT = generalform::get_PRIOR_LEARNING_ASSESSMENT();			
-					foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){
-						$totals[$key]=0;
-					}
-				}
-
-				function testdate($date,$from,$to){
-					$result=true;
-					$TestDate = date( 'Y-m-d', strtotime($date) );
-					$Begin = date( 'Y-m-d', strtotime($from) );
-					$End = date( 'Y-m-d', strtotime($to) );
-					$result = ($TestDate >= $Begin && $TestDate <= $End);
-					return $result;	
-				}
-
-
-
-				foreach($fullquery_results as $item){
-					
-
-
-					if($_POST['by_area']=="counseling"){
-						$COUNSELING = generalform::get_COUNSELING();				
-						$totals_sub=array();
-						foreach($COUNSELING as $key=>$type){	
-							//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-							$totals_sub[$key]=0;
-						}
-						if(isset($item->counseling)){
-							foreach($item->counseling as $citem){
-								if(testdate($citem->date,$from,$to)){
-									foreach($COUNSELING as $key=>$type){	
-										$lable = $key;
-										$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-										$objProp = '$key';
-										
-										$value = isset($citem->$key)?$citem->$key:0;
-										
-										if($type == 'checkbox'){
-											$value = ($value=='YES'?1:0);
-											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
-										}elseif($type == 'number'){
-											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
-										}
+					if(isset($item["${code}_object"])){
+						foreach($item["${code}_object"] as $citem){
+							if(generalform::testdate($citem->date,$from,$to)){
+								foreach($model as $key=>$modelitem){	
+									$objProp = '$key';
+									$value = isset($citem->$key)?$citem->$key:0;
+									if($modelitem['type'] == 'checkbox'){
+										$value = ($value=='YES'?1:0);
+										if( $value >0 && ( !$unique || $totals_sub[$modelitem['lable']]<1) )$totals_sub[$modelitem['lable']]++;
+									}elseif($modelitem['type'] == 'number'){
+										if( $value >0 && ( !$unique || $totals_sub[$item['lable']]<1) ) $totals_sub[$modelitem['lable']]+=$value;
 									}
 								}
 							}
 						}
 					}
-
-
-					if($_POST['by_area']=="internship"){
-						$INTERNSHIP = generalform::get_INTERNSHIP();				
-						$totals_sub=array();
-						foreach($INTERNSHIP as $key=>$type){	
-							$totals_sub[$key]=0;
-						}
-						if(isset($item->transcript)){
-							foreach($item->internship as $citem){
-								if(testdate($citem->date,$from,$to)){
-									foreach($INTERNSHIP as $key=>$type){	
-										$lable = $key;
-										$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-										$objProp = '$key';
-										
-										$value = isset($citem->$key)?$citem->$key:0;
-										
-										if($type == 'checkbox'){
-											$value = ($value=='YES'?1:0);
-											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
-										}elseif($type == 'number'){
-											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
-										}
-									}
-								}
-							}
-						}
-					}
-
-
-
-
-
-	
-					if($_POST['by_area']=="transcript"){
-						$TRANSCRIPT_EVALUATIONS = generalform::get_TRANSCRIPT_EVALUATIONS();				
-						$totals_sub=array();
-						foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
-							//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-							$totals_sub[$key]=0;
-						}
-						if(isset($item->transcript)){
-							foreach($item->transcript as $citem){
-								if(testdate($citem->date,$from,$to)){
-									foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){	
-										$lable = $key;
-										$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-										$objProp = '$key';
-										
-										$value = isset($citem->$key)?$citem->$key:0;
-										
-										if($type == 'checkbox'){
-											$value = ($value=='YES'?1:0);
-											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
-										}elseif($type == 'number'){
-											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
-										}
-									}
-								}
-							}
-						}
-					}
-					
-					if($_POST['by_area']=="pla"){
-						$PRIOR_LEARNING_ASSESSMENT = generalform::get_PRIOR_LEARNING_ASSESSMENT();		
-						$totals_sub=array();
-						foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){	
-							//$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-							$totals_sub[$key]=0;
-						}
-						if(isset($item->pla)){
-							foreach($item->pla as $citem){
-								if(testdate($citem->date,$from,$to)){
-									foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){	
-										$lable = $key;
-										$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-										$objProp = '$key';
-										
-										$value = isset($citem->$key)?$citem->$key:0;
-										
-										if($type == 'checkbox'){
-											$value = ($value=='YES'?1:0);
-											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) )$totals_sub[$lable]++;
-										}elseif($type == 'number'){
-											if( $value>0 && ( !$unique || $totals_sub[$lable]<1) ) $totals_sub[$lable]+=$value;
-										}
-									}
-								}
-							}
-						}
-					}					
-					
-					
-					
-					
-					
-					//put the totals back together
-					foreach($totals as $key=>$Titem){
-						$totals[$key]=$totals[$key]+$totals_sub[$key];
-					}
 				}
-			?>
-			<div style="padding:0px 15px 15px 15px;">
-			<?php
-				foreach($totals as $title=>$item){
-					echo "<strong>".$title."</strong>: ".$item.' <br/>';
-				}
-			?>
-			<hr/>
-			<a href="search.php" class="buttons">Restart Search</a> 
-			</div>
-		</div>
+			}
+			//put the totals back together
+			foreach($totals as $key=>$Titem){
+				$totals[$key]=$totals[$key]+$totals_sub[$key];
+			}
+			$items[$id]=$totals_sub;
+		}
 
-        <div style="padding:0px 15px 15px 15px;">
-		<h3>Entries making up results</h3>
-        <table class="datagrid">
-            <thead>
-                <tr>
-                    <th width="75px" align="center">id</th>
-                    <th width="175px" align="center">UH id</th>
-                    <th>Name</th>
-                    <th width="175px">Actions</th>
-                </tr>
-            </thead>
 
-            <tbody>
-                <?php
-                foreach($query_results as $row){
-                ?>
-                    <tr>
-                        <td><?php echo $row['id']?></td>
-                        <td><?php echo $row['uh_id']?></td>
-                        <td><?php echo $row['name']?></td>
-                        <td>
-                        	<a href="form.php?id=<?php echo $row['id']?>" class="button">Edit</a> | 
-                            <a href="print_case_notes.php?id=<?php echo $row['id']?>" class="button" target="_blank">Print Case Notes</a>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>id</th>
-                    <th>UH id</th>
-                    <th>Name</th>
-                    <th>Actions</th>
-                </tr>
-            </tfoot>
-        </table>
-        </div>
-        <header id="header" class="info">
-           <h2>Queried entries</h2>
-           <div>
-		   <p>Ran query: <strong><?=$query;?></strong></p>
-		   
-		   </div>
-        </header>
-    </div>
-</body>
+		$params['from'] = $from;
+		$params['to'] = $to;			
+		//$params['results']=$fullquery_results;
+		$params['query_results']=$query_results;
+		$params['query']=$query;
+		$params['totals']=$totals;
+		$params['items']=$items;
 
-</html>
+	return generalform::getPage("search_result",$params);
+}else{
+	return generalform::getPage("search");
+    //include_once('veiws/pages/outreachform.php');
+}//end of validation if statement 	
+?>

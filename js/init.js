@@ -102,6 +102,47 @@ $(document).ready(function() {
 		
 	});
 	
+	$('select').on('change',function(){
+		var value= $(this).val();
+		var possibleOther = $(this).closest('label').next('.other');
+		if(possibleOther.length){
+			if(value.toLowerCase()=="other"){
+				possibleOther.show();
+			}else{
+				possibleOther.find('input').val('');
+				possibleOther.hide();
+			}
+		}
+	});
+	
+	$('input[type="checkbox"],input[type="radio"]').on('change',function(){
+		var value= $(this).val();
+		var possibleOther = $(this).closest('label').next('.other');
+		if(possibleOther.length){
+			if(value.toLowerCase()=="other" && $(this).is(':checked')){
+				possibleOther.show();
+			}else{
+				possibleOther.hide();
+				possibleOther.find('input').val('');
+			}
+		}
+	});
+	
+	$('.veiw_record').on('click',function(){
+		var tar = $(this).next('.hidden_inline_record').find('.inline_record');
+		tar.dialog({
+			autoOpen: true,
+			maxWidth: $(window).width() * 0.8,
+			minWidth: 450,
+			draggable: false,
+			modal: true,
+			close:function(){
+				tar.dialog( "destroy" );
+			}
+			
+		});
+	});
+	
 	
 	
 	
