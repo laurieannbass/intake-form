@@ -40,13 +40,20 @@ class html_blocks {
 		$attr .= $params['style']? " style='${params['style']}' ":"";
 
 		$name=$params['name'];
+
 		$value=isset($entry->$name)? $entry->$name : '';
 		$hasOther=false;
+		
+		
+		
+
+		
+		
 		switch ($params['type']) {
 
 			case 'date':
 			case 'text':
-				$html .= "<input type='${params['type']}' name='${name}' value='${value}' ${attr}/>";
+				$html .= "<input type='${params['type']}' rel='${params['type']}' name='${name}' value='${value}' ${attr}/>";
 				break;
 				
 			case 'textarea':
@@ -55,7 +62,7 @@ class html_blocks {
 				
 			case 'select':	
 			case 'multiple_select':
-				$value=isset($entry->$name)? $entry->$name : array();
+				$value=isset($entry->$name)? (array)$entry->$name : array();
 				
 				$name .= $params['type']=='multiple_select'?'[]':'';
 				$attr .= $params['type']=='multiple_select'?' multiple ':'';
@@ -66,7 +73,7 @@ class html_blocks {
 				
 				foreach($params['options'] as $option){
 					$option_label = isset($params['option_labels'][$i]) ? $params['option_labels'][$i] : $option;
-					$selected = (isset($value[$i]) && $value[$i] == $option) ? " selected ":"";
+					$selected = (in_array($option,$value)) ? " selected ":"";
 					$html .= "<option value='${option}' ${selected} >${option_label}</option>";
 					$i++;
 					if(strtolower($option)=="other"){
@@ -78,14 +85,14 @@ class html_blocks {
 					$html .= "</label>";
 					$other_name=trim($name,'[]')."_other";
 					$other_value=isset($entry->$other_name)? $entry->$other_name :'';
-					$html .="<label class='other'><br/>Other:<input type='text' name='${other_name}' value='${other_value}'/><br/></label>";	
+					$html .="<label class='other ".($other_value!=''?"active":"")."'><br/>Other:<input type='text' name='${other_name}' value='${other_value}'/><br/></label>";	
 				}
 				break;
 				
 			case 'radio':
 			case 'checkbox':
 				$newline = $params['options_newline'] ? $params['options_newline'] : "";
-				$value=isset($entry->$name)? $entry->$name : array();
+				$value=isset($entry->$name)? (array)$entry->$name : array();
 				
 				$name .= $params['type']=='checkbox'?'[]':'';
 				
@@ -93,7 +100,7 @@ class html_blocks {
 				$hasOther=false;
 				foreach($params['options'] as $option){
 					$option_label = isset($params['option_labels'][$i]) ? $params['option_labels'][$i] : $option;
-					$checked = (isset($value[$i]) && $value[$i] == $option) ? " checked ":"";
+					$checked = (in_array($option,$value)) ? " checked ":"";
 					$html .= "<label>";
 					$html .= "<input type='${params['type']}'  name='${name}'  value='${option}' ${checked} ${attr} />${option_label} ${newline}";
 					$html .= "</label>";
@@ -105,7 +112,7 @@ class html_blocks {
 				if($hasOther){
 					$other_name=trim($name,'[]')."_other";
 					$other_value=isset($entry->$other_name)? $entry->$other_name :'';
-					$html .="<label class='other'><br/>Other:<input type='text' name='${other_name}' value='${other_value}' /><br/></label>";	
+					$html .="<label class='other ".($other_value!=''?"active":"")."'><br/>Other:<input type='text' name='${other_name}' value='${other_value}' /><br/></label>";	
 				}
 				
 				break;
@@ -116,6 +123,7 @@ class html_blocks {
 			 $html .= "</label>";
 		}
 		$html.=$params['after'];
+
 		return $html;
 	}
 

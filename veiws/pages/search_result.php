@@ -19,11 +19,11 @@ $items=$params['items'];
 <!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-js" lang="en" itemscope itemtype="http://schema.org/Product"> <!--<![endif]-->
 <head>
-    <?=generalform::getStructure('head'); ?>
+    <?=snap::getStructure('head'); ?>
 </head>
 <body>
     <div style="text-align:left;padding:20px">
-        <?=generalform::getStructure('header');?>
+        <?=snap::getStructure('header');?>
         <h2>Search result</h2>
 		
 		<div class="row">
@@ -42,7 +42,7 @@ $items=$params['items'];
 						}
 					?>
 					<hr/>
-					<a href="<?=generalform::url('search');?>" class="buttons">Restart Search</a> 
+					<a href="<?=snap::url('search');?>" class="buttons">Restart Search</a> 
 					</div>
 				</div>
 			</div>
@@ -79,7 +79,7 @@ $items=$params['items'];
 										?>
 										</div>
 									</div>
-									| <a href="<?=generalform::url('intake/edit');?>?id=<?=$row['id']?>" class="veiw_record button">Edit</a>
+									| <a href="<?=snap::url('intake/edit');?>?id=<?=$row['id']?>" class="veiw_record button">Edit</a>
 								</td>
 							</tr>
 						<?php } ?>

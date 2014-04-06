@@ -24,8 +24,7 @@
             <thead>
                 <tr>
                     <th width="75px" align="center">id</th>
-                    <th width="175px" align="center">UH id</th>
-                    <th>Name</th>
+                    <th>Organization Name</th>
                     <th width="175px">Actions</th>
                 </tr>
             </thead>
@@ -36,11 +35,9 @@
                 ?>
                     <tr>
                         <td><?php echo $row['id']?></td>
-                        <td><?php echo $row['uh_id']?></td>
-                        <td><?php echo $row['name']?></td>
+                        <td><?php echo $row['contact__organization_name']?></td>
                         <td>
-                        	<a href="<?=snap::url('intake/edit');?>?id=<?php echo $row['id']?>" class="button">Edit</a> | 
-                            <a href="<?=snap::url('print_case_notes');?>?id=<?php echo $row['id']?>" class="button" target="_blank">Print Case Notes</a>
+                        	<a href="<?=snap::url('crm/edit');?>?id=<?php echo $row['id']?>" class="button">Edit</a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -48,7 +45,6 @@
             <tfoot>
                 <tr>
                     <th>id</th>
-                    <th>UH id</th>
                     <th>Name</th>
                     <th>Actions</th>
                 </tr>

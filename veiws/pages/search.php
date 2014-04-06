@@ -5,11 +5,11 @@
 <!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-js" lang="en" itemscope itemtype="http://schema.org/Product"> <!--<![endif]-->
 <head>
-    <?=generalform::getStructure('head'); ?>
+    <?=snap::getStructure('head'); ?>
 </head>
 <body>
     <div style="text-align:left;padding:20px">
-        <?=generalform::getStructure('header');?>
+        <?=snap::getStructure('header');?>
 		<?=html_blocks::startForm(array(
 			"action" => 'search',
 			"edit_header" => "",

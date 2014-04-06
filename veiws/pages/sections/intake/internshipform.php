@@ -1,5 +1,5 @@
 <?php
-$INTERNSHIP = generalform::get_model('internship');
+$INTERNSHIP = snap::get_model('internship');
 $internship = isset($entry['internship_object'])?$entry['internship_object']:array();
 ?>
 
@@ -14,13 +14,11 @@ $internship = isset($entry['internship_object'])?$entry['internship_object']:arr
 	<input type='hidden' name='internship[9999][remove]' class='remove' value=''/>
 	</br>
 	<?php
-		foreach($INTERNSHIP as $key=>$type){
-			$lable = $key;
-			$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-			if($type == 'checkbox'){
-				echo "<input type='checkbox' name='internship[9999][${key}]' value='YES' /><lable>${lable}</label></br>";
-			}elseif($type == 'number'){
-				echo "<input type='text' name='internship[9999][${key}]' style='width:35px;' placeholder='0' /><lable>${lable}</label></br>";
+		foreach($INTERNSHIP as $key=>$item){
+			if($item['type'] == 'checkbox'){
+				echo "<input type='checkbox' name='internship[9999][${key}]' value='YES' /><lable>${item['lable']}</label></br>";
+			}elseif($item['type'] == 'number'){
+				echo "<input type='text' name='internship[9999][${key}]' style='width:35px;' placeholder='0' /><lable>${item['lable']}</label></br>";
 			}
 		}	
 	?>
@@ -40,16 +38,13 @@ $internship = isset($entry['internship_object'])?$entry['internship_object']:arr
 			echo "<input type='hidden' name='internship[{$id}][remove]' class='remove' value=''/>";	
 			echo "<input type='date' data-end='+1d' name='internship[{$id}][date]' value='{$event->date}' /><lable>Date of interaction</label></br>";	
 			
-			foreach($INTERNSHIP as $key=>$type){
-				$lable = $key;
-				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+			foreach($INTERNSHIP as $key=>$item){
 				$objProp = '$key';
 				$value = isset($event->$key)?$event->$key:"";
-				
-				if($type == 'checkbox'){
-					echo "<input type='checkbox' name='internship[{$id}][${key}]' value='YES' ".($value=='YES'?"checked='checked'":"")." /><lable>${lable}</label></br>";
-				}elseif($type == 'number'){
-					echo "<input type='text' name='internship[{$id}][${key}]' style='width:35px;' placeholder='0' value='".($value>0?$value:"")."' /><lable>${lable}</label></br>";
+				if($item['type'] == 'checkbox'){
+					echo "<input type='checkbox' name='internship[{$id}][${key}]' value='YES' ".($value=='YES'?"checked='checked'":"")." /><lable>${item['lable']}</label></br>";
+				}elseif($item['type'] == 'number'){
+					echo "<input type='text' name='internship[{$id}][${key}]' style='width:35px;' placeholder='0' value='".($value>0?$value:"")."' /><lable>${item['lable']}</label></br>";
 				}
 			}
 			

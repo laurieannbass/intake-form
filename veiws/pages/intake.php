@@ -10,14 +10,14 @@
 <!--[if IE 9]>    <html class="no-js ie9" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-js" lang="en" itemscope itemtype="http://schema.org/Product"> <!--<![endif]-->
 <head>
-    <?=generalform::getStructure('head'); ?>
+    <?=snap::getStructure('head'); ?>
 </head>
 <body>
     <div style="text-align:left;padding:20px">
-        <?=generalform::getStructure('header');?>
+        <?=snap::getStructure('header');?>
 
 		<?=html_blocks::startForm(array(
-			"action" => generalform::url('intake/save'),
+			"action" => snap::url('intake/save'),
 			"edit_header" => "<h4>Entry for ".(isset($last_name)?$last_name:"").", ".(isset($first_name)?$first_name:"")."</h4>",
 			"new_header" => "<h4>Adding a new entry</h4>",
 			"class"=>""
@@ -37,37 +37,37 @@
 					   <div>Enter the information to completion as best you can.</div>
 					</header>
 					<h3 class="block_header">Contact Information</h3>
-					<?=generalform::getPageSection('intake/profileform');?><br/>
+					<?=snap::getPageSection('intake/profileform');?><br/>
 					<?=html_blocks::formSubmitBlock();?>
                 </div>
                 <div id="counseling">
                     <h2>Counseling information</h2>
                     <hr/>
-					<?=generalform::getPageSection('intake/counselingform');?><br/>
+					<?=snap::getPageSection('intake/counselingform');?><br/>
 					<?=html_blocks::formSubmitBlock();?>
                 </div>  
                 <div id="transcript-evaluation">
                     <h2>Transcript Evaluation</h2>
                     <hr/>
-					<?=generalform::getPageSection('intake/transcriptform');?><br/>
+					<?=snap::getPageSection('intake/transcriptform');?><br/>
 					<?=html_blocks::formSubmitBlock();?>
                 </div> 
                 <div id="pla">
                     <h2>Prior Learning Assessment</h2>
                     <hr/>
-					<?=generalform::getPageSection('intake/plaform');?><br/>
+					<?=snap::getPageSection('intake/plaform');?><br/>
 					<?=html_blocks::formSubmitBlock();?>
                 </div>
                 <div id="internship">
                     <h2>Internship information</h2>
                     <hr/>
- 					<?=generalform::getPageSection('intake/internshipform');?><br/>
+ 					<?=snap::getPageSection('intake/internshipform');?><br/>
 					<?=html_blocks::formSubmitBlock();?>
                 </div>
                 <div id="notes">
                     <h2>Notes</h2>
                     <hr/>
- 					<?=generalform::getPageSection('intake/notesform');?><br/>
+ 					<?=snap::getPageSection('intake/notesform');?><br/>
 					<?=html_blocks::formSubmitBlock();?>
                 </div>
             </div>

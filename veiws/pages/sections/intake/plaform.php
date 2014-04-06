@@ -1,5 +1,5 @@
 <?php
-$PRIOR_LEARNING_ASSESSMENT = generalform::get_model('pla');
+$PRIOR_LEARNING_ASSESSMENT = snap::get_model('pla');
 $pla = isset($entry['pla_object'])?$entry['pla_object']:array();
 ?>
 
@@ -13,13 +13,11 @@ $pla = isset($entry['pla_object'])?$entry['pla_object']:array();
 	<input type='hidden' name='pla[9999][remove]' class='remove' value=''/>
 	</br>
 	<?php
-		foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){
-			$lable = $key;
-			$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-			if($type == 'checkbox'){
-				echo "<input type='checkbox' name='pla[9999][${key}]' value='YES' /><lable>${lable}</label></br>";
-			}elseif($type == 'number'){
-				echo "<input type='text' name='pla[9999][${key}]' style='width:35px;' placeholder='0' /><lable>${lable}</label></br>";
+		foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$item){
+			if($item['type'] == 'checkbox'){
+				echo "<input type='checkbox' name='pla[9999][${key}]' value='YES' /><lable>${item['lable']}</label></br>";
+			}elseif($item['type'] == 'number'){
+				echo "<input type='text' name='pla[9999][${key}]' style='width:35px;' placeholder='0' /><lable>${item['lable']}</label></br>";
 			}
 		}	
 	?>
@@ -40,16 +38,13 @@ $pla = isset($entry['pla_object'])?$entry['pla_object']:array();
 			echo "<input type='hidden' name='pla[{$id}][remove]' class='remove' value=''/>";	
 			echo "<lable>Date of interaction:<input type='date' data-end='+1d' name='pla[{$id}][date]' value='{$event->date}' /></label></br>";	
 			
-			foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$type){
-				$lable = $key;
-				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+			foreach($PRIOR_LEARNING_ASSESSMENT as $key=>$item){
 				$objProp = '$key';
 				$value = isset($event->$key)?$event->$key:"";
-				
-				if($type == 'checkbox'){
-					echo "<input type='checkbox' name='pla[{$id}][${key}]' value='YES' ".($value=='YES'?"checked='checked'":"")." /><lable>${lable}</label></br>";
-				}elseif($type == 'number'){
-					echo "<input type='text' name='pla[{$id}][${key}]' style='width:35px;' placeholder='0' value='".($value>0?$value:"")."' /><lable>${lable}</label></br>";
+				if($item['type'] == 'checkbox'){
+					echo "<input type='checkbox' name='pla[{$id}][${key}]' value='YES' ".($value=='YES'?"checked='checked'":"")." /><lable>${item['lable']}</label></br>";
+				}elseif($item['type'] == 'number'){
+					echo "<input type='text' name='pla[{$id}][${key}]' style='width:35px;' placeholder='0' value='".($value>0?$value:"")."' /><lable>${item['lable']}</label></br>";
 				}
 			}
 			

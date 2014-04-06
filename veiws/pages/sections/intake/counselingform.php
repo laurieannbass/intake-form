@@ -1,5 +1,5 @@
 <?php
-$COUNSELING = generalform::get_model('counseling');
+$COUNSELING = snap::get_model('counseling');
 $counseling = isset($entry['counseling_object'])?$entry['counseling_object']:array();
 ?>
 <div class='row'>

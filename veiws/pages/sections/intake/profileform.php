@@ -482,7 +482,6 @@
 	<div class="four columns checkbox">
              <label for='familysize'>Family Size<br/>
                  <select name='familysize' id='familysize'>
-                 <option value="">Choose a country</option>
                   <option value="">Family Size</option>
                       <?php
                      $familysizeArray = array("1","2","3","4","5","6","7","8","9","10 or More");

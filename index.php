@@ -2,6 +2,6 @@
 	//start the app
 	define('BASEDIR', dirname( __FILE__ ));
 
-    require_once(BASEDIR.'/controllers/general-controller.php');
-	return new generalform();
+    require_once(BASEDIR.'/snap.php');
+	return new snap();
 ?>

@@ -1,22 +1,20 @@
 <?php
 
-if (!class_exists('generalform')) {
-	require_once('config.php');
-	require_once('helpers/html_blocks.php');
+if (!class_exists('snap')) {
+	
+	
 
-	class generalform {
+	class snap {
 		
 		
 		public function __construct() {
 			@session_start();
 			$GLOBALS['params']=array_merge($_POST,$_GET);
+			require_once('helpers/html_blocks.php');
+			require_once('config.php');
 			self::router();
 		}
-		
-		
-		
-		
-		
+
 		protected static function router(){
 			global $params;
 			
@@ -71,9 +69,34 @@ if (!class_exists('generalform')) {
 			self::getPage($pagename,$params); 
 		}
 
-
+		public static function redirect($location,$arg=array()){
+			$host  = $_SERVER['HTTP_HOST'];
+			$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+			$location= trim($location,'/');
+			
+			$params=""; $i=0;
+			if(count($arg)>0){
+				foreach($arg as $key=>$val){
+					$params.=($i>0?"&":"?")."{$key}={$val}";	
+					$i++;
+				}
+			}
+			$url = (empty($_SERVER['HTTPS'])?"http":"https")."://$host$uri/$location$params";
+			header("Location: $url");
+			exit();
+		}
 		
+		public static function baseUrl(){
+		  return defined ('BASEURL')? trim(BASEURL,'/') : sprintf(
+			"%s://%s",
+			isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+			$_SERVER['HTTP_HOST']
+		  );
+		}
 		
+		public static function url($path){
+		  return sprintf( "%s/%s", self::baseUrl(), trim($path,'/') );
+		}
 		
 		
 		/* would go to the theme templating later 
@@ -116,22 +139,10 @@ if (!class_exists('generalform')) {
 			return self::includeFile($file,$params);
 		}
 		
-		public static function baseUrl(){
-		  return defined ('BASEURL')? BASEURL : sprintf(
-			"%s://%s",
-			isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-			$_SERVER['HTTP_HOST']
-		  );
-		}
-		
-		public static function url($path){
-		  return sprintf( "%s/%s", self::baseUrl(), trim($path,'/') );
-		}
-		
-		
+
 		
 		/* form part should be moved to a form class */
-		public static $connection = null;
+		
 		public static function validatePOST($required=array()){
 			$valid=true;
 			foreach($required as $watch){
@@ -141,25 +152,19 @@ if (!class_exists('generalform')) {
 			}
 			return $valid;
 		}
-	
 
-	
-		public static function redirect($location,$arg=array()){
-			$host  = $_SERVER['HTTP_HOST'];
-			$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-			$location= trim($location,'/');
-			
-			$params=""; $i=0;
-			if(count($arg)>0){
-				foreach($arg as $key=>$val){
-					$params.=($i>0?"&":"?")."{$key}={$val}";	
-					$i++;
+		public static function get_required($models){
+			$requireds=array();
+			foreach($models as $name=>$model){
+				if(isset($model["required"]) && $model["required"]===true ){
+				   $requireds[] = $name;
 				}
 			}
-			$url = "http://$host$uri/$location$params";
-			header("Location: $url");
-			exit();
-		}
+			return $requireds;
+		}	
+
+
+
 	
 
 		/* messaging */
@@ -198,7 +203,7 @@ if (!class_exists('generalform')) {
 		}
 	
 	
-	
+		public static $connection = null;
 		public static function makeDbConnection($db=null){
 			self::$connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, ($db==null?DB_NAME:$db));
 			if (!self::$connection) {
@@ -216,27 +221,7 @@ if (!class_exists('generalform')) {
 			}
 			return self::$connection;
 		}
-	
-	
-		public static function getEntry($id){
-		
-			$db = generalform::getDb(DB_NAME);
-			$table = 'formdata';
-			if(!isset($_POST['searchOn']) && $id>0){
-				$query = "SELECT * FROM `".$table."` WHERE ".sprintf(" `id`='%s' ",$id);
-			}
-			$result = $db->query($query) or die($db->error.__LINE__);
-		
-			$query_results = array ();
-			if($result->num_rows > 0) {
-				while($row = $result->fetch_assoc()) {
-					$query_results=$row;
-				}
-			}
-			return $query_results;
-		}
-	
-	
+
 		public static function createCSV($file,$dataObj,$saveFile=false){
 			$fp = fopen($file, 'w');
 			foreach ($dataObj as $fields) {
@@ -315,22 +300,18 @@ if (!class_exists('generalform')) {
 
 		/* NOTE: at this point it may be worth really creating a model in this suco MVC*/
 		public static function get_model($model=null){
-			
-			
-			
-			
-			
+
 			$INTERNSHIP = array(
 				"applied" =>array(
-					"lable"=> 'Did student applied for internship program',
+					"lable"=> 'Student applied for internship program.',
 					"type"=>'checkbox'
 				),
 				"placed" =>array(
-					"lable"=> 'Is student placed in internship',
+					"lable"=> 'Applicant attended internship orientation.',
 					"type"=>'checkbox'
 				),
 				"attend_workshop" =>array(
-					"lable"=> 'Did student attend workshop',
+					"lable"=> 'Applicant placed in internship.',
 					"type"=>'checkbox'
 				),
 			);	
@@ -516,7 +497,7 @@ if (!class_exists('generalform')) {
 					$model = $PRIOR_LEARNING_ASSESSMENT;
 					break;
 				case 'note':
-					$model = $PRIOR_LEARNING_ASSESSMENT;
+					$model = array();
 					break;
 			}
 			

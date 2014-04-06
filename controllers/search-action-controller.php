@@ -7,13 +7,13 @@ if(count($_POST)>0){
 
 	//make your db connection then
 	// Create connection
-	$db = generalform::getDb(DB_NAME);
+	$db = snap::getDb(DB_NAME);
 	$where_query="";
 	$from="1/1/1900";
 	$to="1/1/2100"; 
 	if(!isset($_POST['by_area']) || $_POST['by_area']=="select"){
-		generalform::setMessage("Sorry, you must select area to run the reports on.","err");
-		generalform::redirect('search', array() );
+		snap::setMessage("Sorry, you must select area to run the reports on.","err");
+		snap::redirect('search', array() );
 	}
 	
 	if(		!isset($_POST['fromdate'])
@@ -21,8 +21,8 @@ if(count($_POST)>0){
 		||	!isset($_POST['todate'])
 		||	empty($_POST['todate'])
 		){
-		generalform::setMessage("Sorry, you must select a valid date range.","err");
-		generalform::redirect('search', array() );
+		snap::setMessage("Sorry, you must select a valid date range.","err");
+		snap::redirect('search', array() );
 	}
 	
 	
@@ -108,10 +108,10 @@ if(count($_POST)>0){
 		$totals_sub=array();
 
 		$objects = array(
-			'internship'=>generalform::get_model('internship'),
-			'counseling'=>generalform::get_model('counseling'),
-			'transcript'=>generalform::get_model('transcript'),
-			'pla'=>generalform::get_model('pla'),
+			'internship'=>snap::get_model('internship'),
+			'counseling'=>snap::get_model('counseling'),
+			'transcript'=>snap::get_model('transcript'),
+			'pla'=>snap::get_model('pla'),
 		);
 
 		foreach($objects as $code=>$model){
@@ -136,7 +136,7 @@ if(count($_POST)>0){
 					}
 					if(isset($item["${code}_object"])){
 						foreach($item["${code}_object"] as $citem){
-							if(generalform::testdate($citem->date,$from,$to)){
+							if(snap::testdate($citem->date,$from,$to)){
 								foreach($model as $key=>$modelitem){	
 									$objProp = '$key';
 									$value = isset($citem->$key)?$citem->$key:0;
@@ -168,9 +168,9 @@ if(count($_POST)>0){
 		$params['totals']=$totals;
 		$params['items']=$items;
 
-	return generalform::getPage("search_result",$params);
+	return snap::getPage("search_result",$params);
 }else{
-	return generalform::getPage("search");
+	return snap::getPage("search");
     //include_once('veiws/pages/outreachform.php');
 }//end of validation if statement 	
 ?>

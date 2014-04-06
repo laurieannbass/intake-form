@@ -8,7 +8,7 @@
         <?php include_once('veiws/structure/header.php'); ?>
         <?php
 			$id = $_REQUEST['id'];
-			$db = generalform::getDb(DB_NAME);
+			$db = snap::getDb(DB_NAME);
 			$table = 'formdata';
 			if(!isset($_POST['searchOn']) && $id>0){
 				$query = "SELECT * FROM `".$table."`  WHERE ".sprintf(" `id`='%d' ",$id);

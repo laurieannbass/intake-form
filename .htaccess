@@ -1,8 +1,11 @@
- <IfModule mod_rewrite.c>
- RewriteEngine On
- RewriteBase /c3t2/
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /c3t2/
 
- RewriteCond %{REQUEST_FILENAME} !-f
- RewriteCond %{REQUEST_FILENAME} !-d
- RewriteRule . /c3t2/index.php [L]
- </IfModule>
+	RewriteCond %{SERVER_PORT} 80
+	RewriteRule ^(.*)$ https://intradev.hawaii.hawaii.edu/$1 [R,L]
+	
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . /c3t2/index.php [L]
+</IfModule>

@@ -1,5 +1,5 @@
 <?php
-$TRANSCRIPT_EVALUATIONS = generalform::get_model('transcript');
+$TRANSCRIPT_EVALUATIONS = snap::get_model('transcript');
 $transcript = isset($entry['transcript_object'])?$entry['transcript_object']:array();
 ?>
 
@@ -16,13 +16,11 @@ $transcript = isset($entry['transcript_object'])?$entry['transcript_object']:arr
 	<input type='hidden' name='transcript[9999][remove]' class='remove' value=''/>
 	</br>
 	<?php
-		foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){
-			$lable = $key;
-			$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
-			if($type == 'checkbox'){
-				echo "<input type='checkbox' name='transcript[9999][${key}]' value='YES' /><lable>${lable}</label></br>";
-			}elseif($type == 'number'){
-				echo "<input type='text' name='transcript[9999][${key}]' style='width:35px;' placeholder='0' /><lable>${lable}</label></br>";
+		foreach($TRANSCRIPT_EVALUATIONS as $key=>$item){
+			if($item['type'] == 'checkbox'){
+				echo "<input type='checkbox' name='transcript[9999][${key}]' value='YES' /><lable>${item['lable']}</label></br>";
+			}elseif($item['type'] == 'number'){
+				echo "<input type='text' name='transcript[9999][${key}]' style='width:35px;' placeholder='0' /><lable>${item['lable']}</label></br>";
 			}
 		}	
 	?>
@@ -43,16 +41,13 @@ $transcript = isset($entry['transcript_object'])?$entry['transcript_object']:arr
 			echo "<input type='hidden' name='transcript[{$id}][remove]' class='remove' value=''/>";	
 			echo "<lable>Date of interaction:<input type='date' data-end='+1d' name='transcript[{$id}][date]' value='{$event->date}' /></label></br>";	
 			
-			foreach($TRANSCRIPT_EVALUATIONS as $key=>$type){
-				$lable = $key;
-				$key = strtolower(str_replace('-','_',str_replace(' ','_',$key)));
+			foreach($TRANSCRIPT_EVALUATIONS as $key=>$item){
 				$objProp = '$key';
 				$value = isset($event->$key)?$event->$key:"";
-				
-				if($type == 'checkbox'){
-					echo "<input type='checkbox' name='transcript[{$id}][${key}]' value='YES' ".($value=='YES'?"checked='checked'":"")." /><lable>${lable}</label></br>";
-				}elseif($type == 'number'){
-					echo "<input type='text' name='transcript[{$id}][${key}]' style='width:35px;' placeholder='0' value='".($value>0?$value:"")."' /><lable>${lable}</label></br>";
+				if($item['type'] == 'checkbox'){
+					echo "<input type='checkbox' name='transcript[{$id}][${key}]' value='YES' ".($value=='YES'?"checked='checked'":"")." /><lable>${item['lable']}</label></br>";
+				}elseif($item['type'] == 'number'){
+					echo "<input type='text' name='transcript[{$id}][${key}]' style='width:35px;' placeholder='0' value='".($value>0?$value:"")."' /><lable>${item['lable']}</label></br>";
 				}
 			}
 			

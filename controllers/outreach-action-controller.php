@@ -2,7 +2,7 @@
 function proccessPost(){
 	if(isset($_POST['download'])){
 		
-		$db = generalform::getDb(DB_NAME);
+		$db = snap::getDb(DB_NAME);
 		$table = 'outreach';
 		$query = "SELECT * FROM `".$table."`";
 		$result = $db->query($query) or die($db->error.__LINE__);
@@ -55,7 +55,7 @@ function proccessPost(){
 		
 		//$result = $db->query($query) or die($db->error.__LINE__);
 	
-		generalform::createCSV($file,$list);
+		snap::createCSV($file,$list);
 	}	
 	$params=array();
 	$entryid=isset($_POST['id'])&&$_POST['id']>0?$_POST['id']:0;
@@ -71,7 +71,7 @@ function proccessPost(){
     $jsonObj = json_encode ($params); // this is all of the form POST data serialized
 	$form_object	= $jsonObj;
 
-    $db = generalform::getDb();
+    $db = snap::getDb();
 
 	echo 'Connected successfully<br/>';
     $table = 'outreach';
@@ -115,42 +115,42 @@ function proccessPost(){
 
 	if (mysqli_query($db,$sql)){
 	  $mess="Inserted row successfully<br/>";//.$sql;
-	  generalform::setMessage($mess,"success");
+	  snap::setMessage($mess,"success");
 	} else {
 	  $mess="Error inserting rows: run it again<br/>" ;
 	  $mess.=$db->error;
-	  generalform::setMessage($mess,"err");
+	  snap::setMessage($mess,"err");
 	}
 	if($entryid>0){
 		
 	}else{
 		$entryid=mysqli_insert_id($db);
 	}
-	generalform::closeDbConnection();
+	snap::closeDbConnection();
 	
 	if(isset($_POST['submit'])){
-		generalform::redirect('dashborad');
+		snap::redirect('dashborad');
 	}
 	if(isset($_POST['save'])){
-		generalform::redirect('outreach', array('id'=>$entryid ) );
+		snap::redirect('outreach', array('id'=>$entryid ) );
 	}	
 }
 
 
 if( count($_POST)>0 ){
 	if(isset($_POST['endit'])){
-		generalform::redirect('outreach', array() );	
+		snap::redirect('outreach', array() );	
 	}
 }
 
 $requiredFeilds = array();
-$postValid = generalform::validatePOST( $requiredFeilds );
+$postValid = snap::validatePOST( $requiredFeilds );
 if(count($_POST)>0){
     proccessPost();
 }else{
 	if(isset($_GET['id'])){
 		
-        $entry = generalform::getEntry($_GET['id']);
+        $entry = array();//snap::getEntry($_GET['id']);
 		if(!empty($entry)){
 			$formData = json_decode ($entry['form_object']);
 			$id=$_GET['id'];
@@ -167,9 +167,9 @@ if(count($_POST)>0){
         foreach($_POST as $key=>$value){
                $$key=$value;
         }
-        generalform::setMessage("There were missing required fields","err");
+        snap::setMessage("There were missing required fields","err");
     }
-	return generalform::getPage("outreach");
+	return snap::getPage("outreach");
     //include_once('veiws/pages/outreachform.php');
 }//end of validation if statement 
 
